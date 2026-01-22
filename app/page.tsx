@@ -291,13 +291,7 @@ export default function Home() {
           <h2 className="text-4xl md:text-5xl font-light mb-12 tracking-wider fade-in gold-gradient-text">
             お問い合わせ
           </h2>
-          <p className="text-lg mb-12 max-w-2xl mx-auto fade-in text-gray-300 leading-relaxed">
-            12月中ー下旬に発売予定
-            <br />
-            詳細はメールまたは電話にて
-            <br />
-            お問合せください。
-          </p>
+
 
           <Button onClick={handleCTAClick} className="gold-button px-10 py-6 text-lg rounded-none mb-16 fade-in">
             申込ページへ
