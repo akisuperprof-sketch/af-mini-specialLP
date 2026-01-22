@@ -42,7 +42,7 @@ export default function Home() {
 
       <main className={`min-h-screen bg-black transition-opacity duration-1000 ease-in-out ${showIntro ? "opacity-0" : "opacity-100"}`}>
         {/* Hero Section */}
-        <section className="relative h-screen flex items-center justify-center luxury-bg overflow-hidden">
+        <section className="relative h-screen flex flex-col items-center justify-center luxury-bg overflow-hidden pt-20">
           <LuxuryBackground />
 
           {/* Hero Section のコンテンツ */}
@@ -53,7 +53,7 @@ export default function Home() {
             <p className={`single-line-subtitle gold-text transition-all duration-1000 delay-700 ${!showIntro ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
               「空気に、静寂という贅沢を。」
             </p>
-            <div className={`transition-all duration-1000 delay-1000 ${!showIntro ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+            <div className={`transition-all duration-1000 delay-1000 mt-8 ${!showIntro ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
               <Button onClick={handleCTAClick} className="gold-button px-10 py-6 text-lg rounded-none">
                 この空気を体験する
                 <ChevronRight className="ml-2 h-5 w-5" />
@@ -67,10 +67,8 @@ export default function Home() {
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center justify-between gap-16">
               <div className="w-full md:w-1/2 fade-in">
-                <h2 className="text-4xl md:text-5xl font-light mb-10 tracking-wider gold-gradient-text leading-tight">
-                  「贅沢な空気を、
-                  <br />
-                  もっと美しく。」
+                <h2 className="text-4xl md:text-5xl font-light mb-10 tracking-wider gold-gradient-text leading-tight whitespace-nowrap">
+                  「贅沢な空気を、もっと美しく。」
                 </h2>
                 <p className="text-lg mb-8 leading-relaxed text-gray-300">
                   コンパクトなAirFutureが、
@@ -194,18 +192,14 @@ export default function Home() {
                     <Shirt className="h-10 w-10 gold-icon" />
                   </div>
                 </div>
-                <h3 className="text-xl mb-6 gold-text font-medium leading-tight">
-                  クローゼット・靴箱の
-                  <br />
-                  カビ臭除去
+                <h3 className="text-xl mb-6 gold-text font-medium leading-tight whitespace-nowrap">
+                  クローゼット・靴箱のカビ臭除去
                 </h3>
                 <p className="text-sm text-gray-400 leading-relaxed">
-                  大切な衣類や靴を
-                  <br />
-                  臭いやカビから守ります。
-                  <br />
+                  大切な衣類や靴を臭いやカビから守ります。
+                  <br className="hidden md:block" />
                   ハガキサイズのコンパクトさで、
-                  <br />
+                  <br className="hidden md:block" />
                   どんな場所にも設置可能です。
                 </p>
               </div>
@@ -216,19 +210,13 @@ export default function Home() {
                     <Wind className="h-10 w-10 gold-icon" />
                   </div>
                 </div>
-                <h3 className="text-xl mb-6 gold-text font-medium leading-tight">
-                  ペット臭への
-                  <br />
-                  対応
+                <h3 className="text-xl mb-6 gold-text font-medium leading-tight whitespace-nowrap">
+                  ペット臭への対応
                 </h3>
                 <p className="text-sm text-gray-400 leading-relaxed">
-                  ペットと快適に暮らすための
-                  <br />
-                  空間づくりをサポートします。
-                  <br />
-                  イオンクラスター技術で
-                  <br />
-                  臭いの元から分解します。
+                  ペットと快適に暮らすための空間づくりをサポートします。
+                  <br className="hidden md:block" />
+                  イオンクラスター技術で臭いの元から分解します。
                 </p>
               </div>
 
@@ -238,19 +226,13 @@ export default function Home() {
                     <Shield className="h-10 w-10 gold-icon" />
                   </div>
                 </div>
-                <h3 className="text-xl mb-6 gold-text font-medium leading-tight">
-                  アレルギー・
-                  <br />
-                  家庭内クラスター対策
+                <h3 className="text-xl mb-6 gold-text font-medium leading-tight whitespace-nowrap">
+                  アレルギー・ 家庭内クラスター対策
                 </h3>
                 <p className="text-sm text-gray-400 leading-relaxed">
-                  花粉やハウスダストなどの
-                  <br />
-                  アレルゲンを軽減し、
-                  <br />
-                  ご家庭でのクラスター感染
-                  <br />
-                  リスクを低減します。
+                  花粉やハウスダストなどのアレルゲンを軽減し、
+                  <br className="hidden md:block" />
+                  ご家庭でのクラスター感染リスクを低減します。
                 </p>
               </div>
             </div>

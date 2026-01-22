@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+Remotion project node_modules/ should be ignored
+remotion-project/node_modules/
+remotion-project/.remotion/

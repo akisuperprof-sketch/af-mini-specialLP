@@ -1,0 +1,25 @@
+{
+  "name": "remotion-project",
+  "version": "1.0.0",
+  "description": "AirFuture MINI Promo Video",
+  "main": "index.js",
+  "scripts": {
+    "start": "remotion preview src/index.ts",
+    "build": "remotion render src/index.ts Main out.mp4",
+    "dev": "remotion preview src/index.ts"
+  },
+  "dependencies": {
+    "remotion": "latest",
+    "@remotion/cli": "latest",
+    "@remotion/player": "latest",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "lucide-react": "latest"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "typescript": "^5.0.0"
+  },
+  "type": "module"
+}
