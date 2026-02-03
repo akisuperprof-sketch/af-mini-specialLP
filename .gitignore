@@ -39,6 +39,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-Remotion project node_modules/ should be ignored
+# remotion project
 remotion-project/node_modules/
 remotion-project/.remotion/
+remotion-project/*.mp4
+
+# AI agents
+.agent/
+.agents/
+.claude/
+.cursor/
+.gemini/
+.env.local

@@ -36,7 +36,7 @@ export default function LuxuryBackground() {
     }[] = []
 
     // 粒子を生成
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 100; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -53,7 +53,7 @@ export default function LuxuryBackground() {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       // 粒子を描画
-      particles.forEach((particle) => {
+      particles.forEach((particle, i) => {
         ctx.fillStyle = particle.color
         ctx.globalAlpha = particle.opacity
         ctx.beginPath()
@@ -62,6 +62,9 @@ export default function LuxuryBackground() {
 
         // 粒子を上に移動
         particle.y -= particle.speed
+
+        // わずかな横揺れ
+        particle.x += Math.sin(Date.now() / 1000 + i) * 0.2
 
         // 画面外に出たら下に戻す
         if (particle.y < -10) {

@@ -46,8 +46,9 @@
     *   再度ブランドロゴとCTAへの誘導。
 *   **演出技術**:
     *   **Spring Animation**: 物理演算に基づいた滑らかな文字の動き。
-    *   **Particles**: 金の粒子が常時200個浮遊し、空間の奥行きを表現。
+    *   **Dynamic Particles**: 金の粒子が常時200個浮遊。上昇感とランダムな揺らぎ（Sine wave）を付与し、空気の循環を表現。
     *   **Floating Effect**: 製品画像に正弦波（Math.sin）を用いた浮遊感を付与。
+    *   **Mobile-Ready Layout**: 垂直画面での `object-cover` 再生を考慮し、主要コンテンツを中央のセーフゾーンに配置。
     *   **Transitions**: スライド、フェードを組み合わせた映画的なシーン遷移。
 
 ### 4.3 メインLP (Main Content)

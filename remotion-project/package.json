@@ -9,12 +9,13 @@
     "dev": "remotion preview src/index.ts"
   },
   "dependencies": {
-    "remotion": "latest",
     "@remotion/cli": "latest",
     "@remotion/player": "latest",
+    "@remotion/transitions": "^4.0.409",
+    "lucide-react": "latest",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "lucide-react": "latest"
+    "remotion": "latest"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+import LuxuryBackground from "./luxury-background"
 
 export default function VideoIntro({ onComplete }: { onComplete: () => void }) {
     const [isMounted, setIsMounted] = useState(false)
@@ -31,7 +32,9 @@ export default function VideoIntro({ onComplete }: { onComplete: () => void }) {
             className={`fixed inset-0 z-[100] bg-black flex items-center justify-center transition-opacity duration-1000 ease-in-out ${isMounted ? "opacity-100" : "opacity-0"
                 } ${isFadingOut ? "opacity-0 pointer-events-none" : ""}`}
         >
-            <div className="relative w-full h-full flex items-center justify-center">
+            <LuxuryBackground />
+
+            <div className="relative w-full h-full flex items-center justify-center z-10">
                 <video
                     ref={videoRef}
                     src="/videos/out.mp4"
@@ -39,7 +42,7 @@ export default function VideoIntro({ onComplete }: { onComplete: () => void }) {
                     muted
                     playsInline
                     onEnded={handleVideoEnd}
-                    className="w-full h-full object-cover md:object-contain"
+                    className="w-full h-full object-contain"
                 />
 
                 {/* スキップボタン */}

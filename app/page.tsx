@@ -67,8 +67,8 @@ export default function Home() {
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center justify-between gap-16">
               <div className="w-full md:w-1/2 fade-in">
-                <h2 className="text-4xl md:text-5xl font-light mb-10 tracking-wider gold-gradient-text leading-tight whitespace-nowrap">
-                  「贅沢な空気を、もっと美しく。」
+                <h2 className="text-4xl md:text-5xl font-light mb-10 tracking-wider gold-gradient-text leading-tight sm:whitespace-nowrap">
+                  贅沢な空気を、<br className="sm:hidden" />もっと美しく。
                 </h2>
                 <p className="text-lg mb-8 leading-relaxed text-gray-300">
                   コンパクトなAirFutureが、
