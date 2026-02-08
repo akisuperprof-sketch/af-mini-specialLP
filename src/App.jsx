@@ -69,7 +69,7 @@ export default function App() {
               空気を選ぶという、贅沢
             </h1>
             <p className="text-lg md:text-xl text-gray-700 font-medium">
-              ハガキサイズで、空間の質を変える AirFuture mini
+              ハガキサイズで、空間の質を変える<br />AirFuture mini
             </p>
           </div>
 
