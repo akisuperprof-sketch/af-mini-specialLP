@@ -176,7 +176,7 @@ export default function App() {
             alt="Living room with pet"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent z-0"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-0"></div>
         </div>
         <div className="container mx-auto px-4 relative z-20">
           <div className="max-w-xl text-white fade-in">
@@ -207,7 +207,7 @@ export default function App() {
             alt="Luxury closet"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent z-0"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-0"></div>
         </div>
         <div className="container mx-auto px-4 relative z-20">
           <div className="max-w-xl text-white fade-in">
@@ -239,7 +239,7 @@ export default function App() {
             alt="Luxury Car Interior with AirFuture Mini"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent z-0"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-0"></div>
         </div>
 
         {/* Content Overlay */}
@@ -273,7 +273,7 @@ export default function App() {
             alt="Sleeping woman with blue ions"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent z-0"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-0"></div>
         </div>
         <div className="container mx-auto px-4 relative z-20">
           <div className="max-w-xl text-white fade-in">
@@ -305,7 +305,7 @@ export default function App() {
             alt="Woman enjoying spring view free of pollen"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent z-0"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-0"></div>
         </div>
         <div className="container mx-auto px-4 relative z-20">
           <div className="max-w-xl text-white fade-in">
