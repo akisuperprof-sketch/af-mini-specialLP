@@ -60,11 +60,12 @@ export default function App() {
         <div className="container mx-auto px-4 z-10 relative">
           {/* Header / Title Area */}
           <div className="text-center mb-12 fade-in">
-            <div className="flex justify-center items-center mb-4">
-              <img src="/images/logo.jpg" alt="AirFuture mini" className="h-12 md:h-16 w-auto object-contain" />
+            {/* Logo positioned absolute top-left */}
+            <div className="absolute top-8 left-4 md:left-8">
+              <img src="/images/logo.jpg" alt="AirFuture mini" className="h-10 md:h-16 w-auto object-contain" />
             </div>
 
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 clean-title text-gray-900 tracking-wide leading-tight">
+            <h1 className="text-3xl md:text-6xl font-bold mb-6 clean-title text-gray-900 tracking-wide leading-tight mt-12 md:mt-0">
               空気を選ぶという、贅沢
             </h1>
             <p className="text-lg md:text-xl text-gray-700 font-medium">
@@ -184,9 +185,9 @@ export default function App() {
               <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
                 <Dog className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-blue-100">大切な家族との時間</h3>
+              <h3 className="text-lg md:text-xl font-bold text-blue-100">大切な家族との時間</h3>
             </div>
-            <h2 className="text-3xl md:text-5xl font-light mb-8 leading-tight tracking-wide">
+            <h2 className="text-2xl md:text-5xl font-light mb-8 leading-tight tracking-wide">
               匂いも、不安も。<br />消え去る心地よさ。
             </h2>
             <p className="text-lg text-gray-200 leading-relaxed mb-8">
@@ -215,9 +216,9 @@ export default function App() {
               <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
                 <Shield className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-blue-100">資産を守る</h3>
+              <h3 className="text-lg md:text-xl font-bold text-blue-100">資産を守る</h3>
             </div>
-            <h2 className="text-3xl md:text-5xl font-light mb-8 leading-tight tracking-wide">
+            <h2 className="text-2xl md:text-5xl font-light mb-8 leading-tight tracking-wide">
               美しさを、<br />永遠に保つために。
             </h2>
             <p className="text-lg text-gray-200 leading-relaxed mb-8">
@@ -249,9 +250,9 @@ export default function App() {
               <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
                 <Car className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-blue-100">移動を極上の時間に</h3>
+              <h3 className="text-lg md:text-xl font-bold text-blue-100">移動を極上の時間に</h3>
             </div>
-            <h2 className="text-3xl md:text-5xl font-light mb-8 leading-tight tracking-wide">
+            <h2 className="text-2xl md:text-5xl font-light mb-8 leading-tight tracking-wide">
               密閉された空間こそ、<br />最上の空気を。
             </h2>
             <p className="text-lg text-gray-200 leading-relaxed mb-8">
@@ -281,9 +282,9 @@ export default function App() {
               <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
                 <Moon className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-blue-100">極上の睡眠</h3>
+              <h3 className="text-lg md:text-xl font-bold text-blue-100">極上の睡眠</h3>
             </div>
-            <h2 className="text-3xl md:text-5xl font-light mb-8 leading-tight tracking-wide">
+            <h2 className="text-2xl md:text-5xl font-light mb-8 leading-tight tracking-wide">
               目覚めるたび、<br />生まれ変わる。
             </h2>
             <p className="text-lg text-gray-200 leading-relaxed mb-8">
@@ -313,9 +314,9 @@ export default function App() {
               <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
                 <Sun className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-blue-100">季節を愉しむ</h3>
+              <h3 className="text-lg md:text-xl font-bold text-blue-100">季節を愉しむ</h3>
             </div>
-            <h2 className="text-3xl md:text-5xl font-light mb-8 leading-tight tracking-wide">
+            <h2 className="text-2xl md:text-5xl font-light mb-8 leading-tight tracking-wide">
               もう、<br />季節に怯えない。
             </h2>
             <p className="text-lg text-gray-200 leading-relaxed mb-8">
