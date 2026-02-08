@@ -57,13 +57,14 @@ export default function App() {
       <section className="relative min-h-screen flex flex-col items-center pt-32 pb-20 bg-white overflow-hidden">
         <LuxuryBackground />
 
-        <div className="container mx-auto px-4 z-10 relative">
+        {/* Logo positioned absolute top-left of the section */}
+        <div className="absolute top-6 left-6 z-50">
+          <img src="/images/logo.jpg" alt="AirFuture mini" className="h-10 md:h-14 w-auto object-contain" />
+        </div>
+
+        <div className="container mx-auto px-4 z-10 relative pt-12 md:pt-0">
           {/* Header / Title Area */}
           <div className="text-center mb-12 fade-in">
-            {/* Logo positioned absolute top-left */}
-            <div className="absolute top-8 left-4 md:left-8">
-              <img src="/images/logo.jpg" alt="AirFuture mini" className="h-10 md:h-16 w-auto object-contain" />
-            </div>
 
             <h1 className="text-3xl md:text-6xl font-bold mb-6 clean-title text-gray-900 tracking-wide leading-tight mt-12 md:mt-0">
               空気を選ぶという、贅沢
