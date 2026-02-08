@@ -61,7 +61,7 @@ export default function App() {
           {/* Header / Title Area */}
           <div className="text-center mb-12 fade-in">
             <div className="flex justify-center items-center mb-4">
-              <img src="/images/logo.png" alt="AirFuture mini" className="h-12 md:h-16 w-auto object-contain" />
+              <img src="/images/logo.jpg" alt="AirFuture mini" className="h-12 md:h-16 w-auto object-contain" />
             </div>
 
             <h1 className="text-4xl md:text-6xl font-bold mb-6 clean-title text-gray-900 tracking-wide leading-tight">
