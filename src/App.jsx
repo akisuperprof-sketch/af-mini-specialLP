@@ -276,7 +276,7 @@ export default function App() {
           <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-0"></div>
         </div>
         <div className="container mx-auto px-4 relative z-20">
-          <div className="max-w-xl text-white fade-in">
+          <div className="max-w-xl text-white fade-in ml-auto">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
                 <Moon className="w-6 h-6 text-white" />
