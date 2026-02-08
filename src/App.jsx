@@ -237,7 +237,7 @@ export default function App() {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src="/images/car-interior-fixed.png"
+            src="/images/car-interior-v2.png"
             alt="Luxury Car Interior with AirFuture Mini"
             className="w-full h-full object-cover"
           />
