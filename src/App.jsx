@@ -235,18 +235,10 @@ export default function App() {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src="/images/car-bg-1.jpg"
-            alt="Luxury Car Interior"
+            src="/images/car-interior-fixed.png"
+            alt="Luxury Car Interior with AirFuture Mini"
             className="w-full h-full object-cover"
           />
-          {/* Product Overlay - Positioned to cover the original product */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:translate-y-[-20%] w-48 md:w-80 z-10">
-            <img
-              src="/images/product-angle-cutout.png"
-              alt="AirFuture Mini"
-              className="w-full h-auto drop-shadow-[0_25px_25px_rgba(0,0,0,0.6)]"
-            />
-          </div>
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent z-0"></div>
         </div>
 
