@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Noto Sans JP', sans-serif;
+    scroll-behavior: smooth;
+    color: #333;
+    /* Dark gray for text */
+    background-color: #ffffff;
+    /* White background */
+  }
+}
+
+/* Utils */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Clean Typography */
+.clean-title {
+  color: #1a1a1a;
+  letter-spacing: 0.05em;
+}
+
+.clean-text {
+  color: #4a4a4a;
+  line-height: 1.8;
+}
+
+/* Subtle Blue Gradient Text */
+.text-gradient-blue {
+  background: linear-gradient(to right, #2563eb, #3b82f6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Clean Buttons */
+.clean-button {
+  background-color: #1a1a1a;
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.clean-button:hover {
+  background-color: #333;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Icon Styles */
+.clean-icon-container {
+  background-color: #f3f4f6;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clean-icon {
+  color: #1a1a1a;
+}
+
+/* Floating CTA Animation */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.floating-cta-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 50;
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Section Backgrounds */
+.bg-clean-gray {
+  background-color: #f9fafb;
+  /* Very light gray */
+}
+
+.bg-clean-white {
+  background-color: #ffffff;
+}
+
+/* Product Shadow for white bg */
+.product-shadow {
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.15));
+  transition: transform 0.5s ease;
+}
+
+.product-shadow:hover {
+  transform: scale(1.02);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

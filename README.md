@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AirFuture Mini LP (新デザイン版 B)
 
-## Getting Started
+## 概要
+このリポジトリは、AirFuture Miniの新LP (Next.js構成からVite構成へ移行) のコードを含みます。
 
-First, run the development server:
+## リポジトリ構成と切替運用
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+現在、以下のブランチで本番(A)と新版(B)を管理しています。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **main**: 旧デザイン (Next.js) - 現在の本番環境
+- **b-release**: 新デザイン (Vite/React) - 新しいLP候補
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 1. 新デザイン(B)への本番切替手順
+以下のいずれかの方法で切替を行います。
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**推奨: Gitマージによる切替**
+1. `b-release` ブランチを `main` にマージします。
+   ```bash
+   git checkout main
+   git merge b-release
+   git push origin main
+   ```
+2. Vercelが自動的にビルドを開始し、本番環境が新デザインに切り替わります。
+   ※ `vercel.json` により、ビルド設定は自動的に Vite 用 (output: dist) に適用されます。
 
-## Learn More
+**代替: VercelでのPromote**
+1. Vercelのダッシュボードで `b-release` のデプロイメントを確認します。
+2. そのデプロイメントの「Promote to Production」を実行します。
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2. 旧デザイン(A)への復旧手順（ロールバック）
+問題が発生した場合、即座に旧デザインに戻す方法は以下の通りです。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**最短: Vercel Instant Rollback**
+1. Vercelのダッシュボード > Deployments に移動します。
+2. 切替前の正常だったProduction Deployment (Next.js版) を見つけます。
+3. そのデプロイメントの三点リーダーメニューから「Rollback to this Deployment」または「Redeploy」を選択します。
+4. 数秒〜数分で旧版に戻ります。
 
-## Deploy on Vercel
+**恒久対応: Git Revert**
+1. `main` ブランチでのマージコミットを取り消します。
+   ```bash
+   git checkout main
+   git revert -m 1 <merge-commit-hash>
+   git push origin main
+   ```
+2. これによりコードベースも旧版に戻り、再デプロイされます。
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 開発環境 (B版)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Framework**: Vite + React
+- **Install**: `npm ci`
+- **Dev**: `npm run dev`
+- **Build**: `npm run build` (出力先: `dist`)
