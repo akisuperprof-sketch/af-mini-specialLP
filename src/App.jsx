@@ -178,9 +178,9 @@ export default function App() {
             alt="Living room with pet"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-0"></div>
+          <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/80 via-black/40 to-transparent z-0"></div>
         </div>
-        <div className="container mx-auto px-4 relative z-20">
+        <div className="container mx-auto px-4 relative z-20 flex flex-col justify-end h-full md:block pb-12 md:pb-0">
           <div className="max-w-xl text-white fade-in">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
@@ -209,9 +209,9 @@ export default function App() {
             alt="Luxury closet"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-0"></div>
+          <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/80 via-black/40 to-transparent z-0"></div>
         </div>
-        <div className="container mx-auto px-4 relative z-20">
+        <div className="container mx-auto px-4 relative z-20 flex flex-col justify-end h-full md:block pb-12 md:pb-0">
           <div className="max-w-xl text-white fade-in">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
@@ -241,11 +241,11 @@ export default function App() {
             alt="Luxury Car Interior with AirFuture Mini"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-0"></div>
+          <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/80 via-black/40 to-transparent z-0"></div>
         </div>
 
         {/* Content Overlay */}
-        <div className="container mx-auto px-4 relative z-20">
+        <div className="container mx-auto px-4 relative z-20 flex flex-col justify-end h-full md:block pb-12 md:pb-0">
           <div className="max-w-xl text-white fade-in">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
@@ -275,9 +275,9 @@ export default function App() {
             alt="Sleeping woman with blue ions"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-0"></div>
+          <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/80 via-black/40 to-transparent z-0"></div>
         </div>
-        <div className="container mx-auto px-4 relative z-20">
+        <div className="container mx-auto px-4 relative z-20 flex flex-col justify-end h-full md:block pb-12 md:pb-0">
           <div className="max-w-xl text-white fade-in ml-auto">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
@@ -307,9 +307,9 @@ export default function App() {
             alt="Woman enjoying spring view free of pollen"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-0"></div>
+          <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/80 via-black/40 to-transparent z-0"></div>
         </div>
-        <div className="container mx-auto px-4 relative z-20">
+        <div className="container mx-auto px-4 relative z-20 flex flex-col justify-end h-full md:block pb-12 md:pb-0">
           <div className="max-w-xl text-white fade-in">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
