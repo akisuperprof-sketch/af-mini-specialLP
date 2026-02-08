@@ -171,16 +171,16 @@ export default function App() {
       </section>
 
       {/* Scene: Pet (Living Room) */}
-      <section className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden flex items-center">
-        <div className="absolute inset-0">
+      <section className="w-full md:relative md:h-[80vh] md:flex md:items-center md:overflow-hidden">
+        <div className="relative h-[50vh] w-full md:absolute md:inset-0 md:h-full">
           <img
             src="/images/pet-scene.png"
             alt="Living room with pet"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/80 via-black/40 to-transparent z-0"></div>
+          <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-0"></div>
         </div>
-        <div className="container mx-auto px-4 relative z-20 flex flex-col justify-end h-full md:block pb-12 md:pb-0">
+        <div className="relative z-20 bg-neutral-900 md:bg-transparent px-6 py-12 md:container md:mx-auto md:px-4">
           <div className="max-w-xl text-white fade-in">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
@@ -191,7 +191,7 @@ export default function App() {
             <h2 className="text-2xl md:text-5xl font-light mb-8 leading-tight tracking-wide">
               匂いも、不安も。<br />消え去る心地よさ。
             </h2>
-            <p className="text-lg text-gray-200 leading-relaxed mb-8">
+            <p className="text-lg text-gray-200 leading-relaxed md:mb-8">
               愛犬や愛猫と過ごすリビング。<br className="hidden md:inline" />
               気になるペットの臭いをイオンクラスターが元から分解。<br className="hidden md:inline" />
               大切なお客様や家族だからこそ、<br className="hidden md:inline" />
@@ -202,16 +202,16 @@ export default function App() {
       </section>
 
       {/* Scene: Luxury Closet */}
-      <section className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden flex items-center">
-        <div className="absolute inset-0">
+      <section className="w-full md:relative md:h-[80vh] md:flex md:items-center md:overflow-hidden">
+        <div className="relative h-[50vh] w-full md:absolute md:inset-0 md:h-full">
           <img
             src="/images/closet-scene.png"
             alt="Luxury closet"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/80 via-black/40 to-transparent z-0"></div>
+          <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-0"></div>
         </div>
-        <div className="container mx-auto px-4 relative z-20 flex flex-col justify-end h-full md:block pb-12 md:pb-0">
+        <div className="relative z-20 bg-neutral-900 md:bg-transparent px-6 py-12 md:container md:mx-auto md:px-4">
           <div className="max-w-xl text-white fade-in">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
@@ -222,7 +222,7 @@ export default function App() {
             <h2 className="text-2xl md:text-5xl font-light mb-8 leading-tight tracking-wide">
               美しさを、<br />永遠に保つために。
             </h2>
-            <p className="text-lg text-gray-200 leading-relaxed mb-8">
+            <p className="text-lg text-gray-200 leading-relaxed md:mb-8">
               ウォークインクローゼットの大切なコレクション。<br className="hidden md:inline" />
               湿気やカビ、特有の臭いから貴方の資産を守ります。<br className="hidden md:inline" />
               置く場所を選ばないコンパクトさが、<br className="hidden md:inline" />
@@ -233,19 +233,18 @@ export default function App() {
       </section>
 
       {/* Scene: Luxury Car (Mobility) */}
-      <section className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden flex items-center">
-        {/* Background Image */}
-        <div className="absolute inset-0">
+      <section className="w-full md:relative md:h-[80vh] md:flex md:items-center md:overflow-hidden">
+        <div className="relative h-[50vh] w-full md:absolute md:inset-0 md:h-full">
           <img
             src="/images/car-interior-v2.png"
             alt="Luxury Car Interior with AirFuture Mini"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/80 via-black/40 to-transparent z-0"></div>
+          <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-0"></div>
         </div>
 
         {/* Content Overlay */}
-        <div className="container mx-auto px-4 relative z-20 flex flex-col justify-end h-full md:block pb-12 md:pb-0">
+        <div className="relative z-20 bg-neutral-900 md:bg-transparent px-6 py-12 md:container md:mx-auto md:px-4">
           <div className="max-w-xl text-white fade-in">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
@@ -256,7 +255,7 @@ export default function App() {
             <h2 className="text-2xl md:text-5xl font-light mb-8 leading-tight tracking-wide">
               密閉された空間こそ、<br />最上の空気を。
             </h2>
-            <p className="text-lg text-gray-200 leading-relaxed mb-8">
+            <p className="text-lg text-gray-200 leading-relaxed md:mb-8">
               車内のニオイや外気からの汚染物質をシャットアウト。<br className="hidden md:inline" />
               高級車の静寂な空間を、<br className="hidden md:inline" />
               森林のような清々しい空気で満たします。<br className="hidden md:inline" />
@@ -268,17 +267,17 @@ export default function App() {
       </section>
 
       {/* Scene: Bedroom (Sleeping) */}
-      <section className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden flex items-center">
-        <div className="absolute inset-0">
+      <section className="w-full md:relative md:h-[80vh] md:flex md:items-center md:overflow-hidden">
+        <div className="relative h-[50vh] w-full md:absolute md:inset-0 md:h-full">
           <img
             src="/images/bedroom-scene.png"
             alt="Sleeping woman with blue ions"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/80 via-black/40 to-transparent z-0"></div>
+          <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-0"></div>
         </div>
-        <div className="container mx-auto px-4 relative z-20 flex flex-col justify-end h-full md:block pb-12 md:pb-0">
-          <div className="max-w-xl text-white fade-in ml-auto">
+        <div className="relative z-20 bg-neutral-900 md:bg-transparent px-6 py-12 md:container md:mx-auto md:px-4">
+          <div className="max-w-xl text-white fade-in md:ml-auto">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
                 <Moon className="w-6 h-6 text-white" />
@@ -288,7 +287,7 @@ export default function App() {
             <h2 className="text-2xl md:text-5xl font-light mb-8 leading-tight tracking-wide">
               目覚めるたび、<br />生まれ変わる。
             </h2>
-            <p className="text-lg text-gray-200 leading-relaxed mb-8">
+            <p className="text-lg text-gray-200 leading-relaxed md:mb-8">
               寝室の空気質は、睡眠の質そのもの。<br className="hidden md:inline" />
               枕元に置いても気にならない静音設計。<br className="hidden md:inline" />
               青いイオンの光とともに、<br className="hidden md:inline" />
@@ -300,16 +299,16 @@ export default function App() {
       </section>
 
       {/* Scene: Pollen (Window) */}
-      <section className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden flex items-center">
-        <div className="absolute inset-0">
+      <section className="w-full md:relative md:h-[80vh] md:flex md:items-center md:overflow-hidden">
+        <div className="relative h-[50vh] w-full md:absolute md:inset-0 md:h-full">
           <img
             src="/images/pollen-scene.png"
             alt="Woman enjoying spring view free of pollen"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/80 via-black/40 to-transparent z-0"></div>
+          <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent z-0"></div>
         </div>
-        <div className="container mx-auto px-4 relative z-20 flex flex-col justify-end h-full md:block pb-12 md:pb-0">
+        <div className="relative z-20 bg-neutral-900 md:bg-transparent px-6 py-12 md:container md:mx-auto md:px-4">
           <div className="max-w-xl text-white fade-in">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
@@ -320,7 +319,7 @@ export default function App() {
             <h2 className="text-2xl md:text-5xl font-light mb-8 leading-tight tracking-wide">
               もう、<br />季節に怯えない。
             </h2>
-            <p className="text-lg text-gray-200 leading-relaxed mb-8">
+            <p className="text-lg text-gray-200 leading-relaxed md:mb-8">
               窓の外がどんな季節でも、<br className="hidden md:inline" />
               室内は常に聖域（サンクチュアリ）。<br className="hidden md:inline" />
               花粉や有害物質を強力に除去し、<br className="hidden md:inline" />
