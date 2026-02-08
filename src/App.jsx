@@ -60,9 +60,8 @@ export default function App() {
         <div className="container mx-auto px-4 z-10 relative">
           {/* Header / Title Area */}
           <div className="text-center mb-12 fade-in">
-            <div className="flex justify-center items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-full border-2 border-blue-500"></div> {/* Placeholder for Logo Icon */}
-              <h2 className="text-2xl font-medium text-gray-500">AirFuture mini</h2>
+            <div className="flex justify-center items-center mb-4">
+              <img src="/images/logo.png" alt="AirFuture mini" className="h-12 md:h-16 w-auto object-contain" />
             </div>
 
             <h1 className="text-4xl md:text-6xl font-bold mb-6 clean-title text-gray-900 tracking-wide leading-tight">
