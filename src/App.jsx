@@ -15,7 +15,7 @@ const Button = ({ children, onClick, className }) => (
 export default function App() {
   const [showIntro, setShowIntro] = useState(true);
 
-  // Intersection Observer for fade-in animations
+  // Intersection Observer for fade-in/out animations
   useEffect(() => {
     const timer = setTimeout(() => setShowIntro(false), 2000);
 
@@ -24,10 +24,15 @@ export default function App() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("visible");
+          } else {
+            entry.target.classList.remove("visible");
           }
         });
       },
-      { threshold: 0.1 }
+      {
+        threshold: 0.2,
+        rootMargin: "-15% 0px -15% 0px" // Trigger fade-out before element leaves viewport fully
+      }
     );
 
     const fadeElements = document.querySelectorAll(".fade-in");
