@@ -131,8 +131,9 @@ export default function App() {
           </div>
 
           <div className="text-center mt-12 fade-in">
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-              あなたのパーソナルスペースに、常に整った空気を
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 px-4">
+              <span className="inline-block">あなたのパーソナルスペースに、</span>
+              <span className="inline-block">常に整った空気を</span>
             </h3>
             <p className="text-sm text-gray-500 text-right max-w-4xl mx-auto">
               ※効果は使用環境により異なります。
@@ -151,12 +152,12 @@ export default function App() {
                 贅沢な空気を、<br />もっと美しく。
               </h2>
               <p className="text-lg mb-8 leading-relaxed text-gray-600">
-                コンパクトなAirFutureが、<br />
-                さらに小さくなりました。<br />
-                750gの軽量で、<br />
-                どこへでも持ち運び可能です。<br />
-                ハガキサイズながら最大10畳に対応し、<br />
-                家庭空間をクリーンルーム級の<br />
+                コンパクトなAirFutureが、<br className="hidden md:inline" />
+                さらに小さくなりました。<br className="hidden md:inline" />
+                750gの軽量で、<br className="hidden md:inline" />
+                どこへでも持ち運び可能です。<br className="hidden md:inline" />
+                ハガキサイズながら最大10畳に対応し、<br className="hidden md:inline" />
+                家庭空間をクリーンルーム級の<br className="hidden md:inline" />
                 空気環境に整えます。
               </p>
             </div>
@@ -189,9 +190,9 @@ export default function App() {
               匂いも、不安も。<br />消え去る心地よさ。
             </h2>
             <p className="text-lg text-gray-200 leading-relaxed mb-8">
-              愛犬や愛猫と過ごすリビング。<br />
-              気になるペットの臭いをイオンクラスターが元から分解。<br />
-              大切な家族だからこそ、<br />
+              愛犬や愛猫と過ごすリビング。<br className="hidden md:inline" />
+              気になるペットの臭いをイオンクラスターが元から分解。<br className="hidden md:inline" />
+              大切なお客様や家族だからこそ、<br className="hidden md:inline" />
               最上級の空気環境を用意したい。
             </p>
           </div>
@@ -220,9 +221,9 @@ export default function App() {
               美しさを、<br />永遠に保つために。
             </h2>
             <p className="text-lg text-gray-200 leading-relaxed mb-8">
-              ウォークインクローゼットの大切なコレクション。<br />
-              湿気やカビ、特有の臭いから貴方の資産を守ります。<br />
-              置く場所を選ばないコンパクトさが、<br />
+              ウォークインクローゼットの大切なコレクション。<br className="hidden md:inline" />
+              湿気やカビ、特有の臭いから貴方の資産を守ります。<br className="hidden md:inline" />
+              置く場所を選ばないコンパクトさが、<br className="hidden md:inline" />
               美観を損なわず静かに寄り添います。
             </p>
           </div>
@@ -254,10 +255,10 @@ export default function App() {
               密閉された空間こそ、<br />最上の空気を。
             </h2>
             <p className="text-lg text-gray-200 leading-relaxed mb-8">
-              車内のニオイや外気からの汚染物質をシャットアウト。<br />
-              高級車の静寂な空間を、<br />
-              森林のような清々しい空気で満たします。<br />
-              移動時間さえも、リフレッシュのための<br />
+              車内のニオイや外気からの汚染物質をシャットアウト。<br className="hidden md:inline" />
+              高級車の静寂な空間を、<br className="hidden md:inline" />
+              森林のような清々しい空気で満たします。<br className="hidden md:inline" />
+              移動時間さえも、リフレッシュのための<br className="hidden md:inline" />
               贅沢なひとときに変わります。
             </p>
           </div>
@@ -286,10 +287,10 @@ export default function App() {
               目覚めるたび、<br />生まれ変わる。
             </h2>
             <p className="text-lg text-gray-200 leading-relaxed mb-8">
-              寝室の空気質は、睡眠の質そのもの。<br />
-              枕元に置いても気にならない静音設計。<br />
-              青いイオンの光とともに、<br />
-              深い安らぎへといざないます。<br />
+              寝室の空気質は、睡眠の質そのもの。<br className="hidden md:inline" />
+              枕元に置いても気にならない静音設計。<br className="hidden md:inline" />
+              青いイオンの光とともに、<br className="hidden md:inline" />
+              深い安らぎへといざないます。<br className="hidden md:inline" />
               朝、澄み切った空気で目覚める贅沢を。
             </p>
           </div>
@@ -318,10 +319,10 @@ export default function App() {
               もう、<br />季節に怯えない。
             </h2>
             <p className="text-lg text-gray-200 leading-relaxed mb-8">
-              窓の外がどんな季節でも、<br />
-              室内は常に聖域（サンクチュアリ）。<br />
-              花粉や有害物質を強力に除去し、<br />
-              深呼吸できる空間を作り出します。<br />
+              窓の外がどんな季節でも、<br className="hidden md:inline" />
+              室内は常に聖域（サンクチュアリ）。<br className="hidden md:inline" />
+              花粉や有害物質を強力に除去し、<br className="hidden md:inline" />
+              深呼吸できる空間を作り出します。<br className="hidden md:inline" />
               春の陽射しを、心から楽しめる毎日へ。
             </p>
           </div>
