@@ -13,6 +13,10 @@
             "destination": "https://x-autoup.vercel.app/api/$1"
         },
         {
+            "source": "/(dental|hayfever|pet|3dprinter)(.*)",
+            "destination": "/index.html"
+        },
+        {
             "source": "/(.*)",
             "destination": "/index.html"
         }
