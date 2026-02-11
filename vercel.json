@@ -13,7 +13,7 @@
             "destination": "https://x-autoup.vercel.app/api/$1"
         },
         {
-            "source": "/((?!assets/|.*\\..*).*)",
+            "source": "/(.*)",
             "destination": "/index.html"
         }
     ],

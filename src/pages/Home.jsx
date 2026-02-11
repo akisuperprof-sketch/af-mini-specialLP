@@ -7,22 +7,24 @@ export default function Home() {
             const urlParams = new URLSearchParams(window.location.search);
             const pid = urlParams.get('pid') || 'root_redirect';
             const lp = urlParams.get('lp') || 'main_redirect';
-            const utmSource = urlParams.get('utm_source') || '';
 
-            // 2. Log Click (Tracking)
+            // 2. Log Click (Tracking) - Fire and forget with short timeout
+            const trackPromise = fetch(`/api/log_click?pid=${pid}&lp=${lp}`, {
+                method: 'GET',
+                mode: 'no-cors'
+            }).catch(e => console.error("Tracking Error:", e));
+
+            // Set a hard timeout for tracking to ensure redirect happens
+            const timeoutPromise = new Promise(resolve => setTimeout(resolve, 800));
+
             try {
-                // Use the proxied API path
-                // Using keepalive or beacon might be safer but standard fetch with wait is ok for simple redirect logic
-                await fetch(`/api/log_click?pid=${pid}&lp=${lp}`, {
-                    method: 'GET',
-                    mode: 'no-cors' // Ensure it attempts even if CORS issues (though proxy solves this)
-                });
+                // Wait for either tracking to finish or timeout
+                await Promise.race([trackPromise, timeoutPromise]);
             } catch (e) {
-                console.error("Tracking Error:", e);
+                console.error("Redirect logic error:", e);
             }
 
             // 3. Redirect to Main LP (①)
-            // Preserve query parameters
             const targetUrl = new URL("https://v0-air-future-mini-design.vercel.app/");
             urlParams.forEach((value, key) => {
                 targetUrl.searchParams.set(key, value);
