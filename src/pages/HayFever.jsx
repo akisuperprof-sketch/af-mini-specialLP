@@ -38,9 +38,25 @@ export default function HayFever() {
     }, []);
 
     const handleCTAClick = () => {
-        // Redirect to main LP or direct purchase as requested
-        // "purpose flow: /HayFever -> Existing LP -> EC Request"
+        // Tracking
+        try {
+            // Assuming x-autoup is deployed at the same domain or configured via proxy
+            // If cross-domain, standard fetch might fail due to CORS unless configured
+            // Using no-cors mode to at least attempt the request
+            fetch('/api/log_click?pid=hayfever_hero&lp=hayfever', { mode: 'no-cors' });
+        } catch (e) { console.error('Tracking failed', e); }
+
+        // Redirect
         window.location.href = "/?utm_source=hayfever";
+    };
+
+    const trackBuy = (position) => {
+        try {
+            fetch(`/api/log_click?pid=hayfever_buy_${position}&lp=hayfever`, { mode: 'no-cors' });
+        } catch (e) {
+            console.error('Tracking failed', e);
+        }
+        window.open("https://airfuture.vercel.app/apply?utm_source=hayfever", "_blank");
     };
 
     return (
@@ -78,7 +94,7 @@ export default function HayFever() {
                                 AirFuture mini の詳細を見る
                                 <ChevronRight className="ml-2 h-5 w-5" />
                             </Button>
-                            <Button onClick={() => window.open("https://airfuture.vercel.app/apply?utm_source=hayfever", "_blank")} className="bg-gray-900 text-white hover:bg-gray-800 px-8 py-4 text-lg rounded-full transition-colors flex items-center justify-center">
+                            <Button onClick={() => trackBuy('hero')} className="bg-gray-900 text-white hover:bg-gray-800 px-8 py-4 text-lg rounded-full transition-colors flex items-center justify-center">
                                 今すぐ購入する
                                 <ChevronRight className="ml-2 h-5 w-5" />
                             </Button>
@@ -302,7 +318,7 @@ export default function HayFever() {
                         <Button onClick={handleCTAClick} className="bg-white text-gray-900 hover:bg-gray-100 px-10 py-5 text-xl rounded-full transition-colors">
                             AirFuture mini の全性能を見る
                         </Button>
-                        <Button onClick={() => window.open("https://airfuture.vercel.app/apply?utm_source=hayfever", "_blank")} className="bg-blue-600 text-white hover:bg-blue-500 px-10 py-5 text-xl rounded-full transition-colors">
+                        <Button onClick={() => trackBuy('footer')} className="bg-blue-600 text-white hover:bg-blue-500 px-10 py-5 text-xl rounded-full transition-colors">
                             公式ページで購入する
                         </Button>
                     </div>
