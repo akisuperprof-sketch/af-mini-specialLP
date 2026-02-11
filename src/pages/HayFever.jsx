@@ -1,238 +1,185 @@
 import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Button from '../components/Button';
-import { ChevronRight, Wind, Shield, CheckCircle, XCircle, AlertTriangle, Smile } from "lucide-react";
+import { ChevronRight, Wind, Shield, CheckCircle, XCircle } from "lucide-react";
 
 export default function HayFever() {
-    const { scrollYProgress } = useScroll();
-    const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
-
-    const handleCTAClick = () => {
-        try {
-            fetch('/api/log_click?pid=hayfever_hero&lp=hayfever', { mode: 'no-cors' });
-        } catch (e) { console.error('Tracking failed', e); }
-        window.location.href = "/?utm_source=hayfever&lp=hayfever";
+    const IMAGES = {
+        logo: "/images/mini-logo.jpg",
+        hero: "/images/hayfever/hero_v2.png",
+        problem: "/images/hayfever/problem_v2.png",
+        solution: "/images/hayfever/solution_v2.png",
+        lifestyle: "/images/hayfever/lifestyle_v2.png",
+        product: "/images/ミニ斜め背景カット.png"
     };
 
-    const trackBuy = (position) => {
-        try {
-            fetch(`/api/log_click?pid=hayfever_buy_${position}&lp=hayfever`, { mode: 'no-cors' });
-        } catch (e) {
-            console.error('Tracking failed', e);
+    const TARGET_LP_URL = "https://v0-air-future-mini-design.vercel.app/";
+    const TARGET_APPLY_URL = "https://x-autoup.vercel.app/apply.html";
+
+    const handleCTAClick = (pid = 'hayfever_hero') => {
+        const trackingUrl = `/api/log_click?pid=${pid}&lp=hayfever`;
+        if (navigator.sendBeacon) {
+            navigator.sendBeacon(trackingUrl);
+        } else {
+            fetch(trackingUrl, { mode: 'no-cors' });
         }
-        window.location.href = `/apply?lp=hayfever&pid=hayfever_buy_${position}&utm_source=hayfever`;
+        window.location.href = `${TARGET_LP_URL}?utm_source=hayfever&lp=hayfever&pid=${pid}`;
+    };
+
+    const trackBuy = (pid) => {
+        const trackingUrl = `/api/log_click?pid=${pid}&lp=hayfever`;
+        if (navigator.sendBeacon) {
+            navigator.sendBeacon(trackingUrl);
+        } else {
+            fetch(trackingUrl, { mode: 'no-cors' });
+        }
+        window.location.href = `${TARGET_APPLY_URL}?lp=hayfever&pid=${pid}&utm_source=hayfever`;
     };
 
     return (
-        <main className="min-h-screen bg-white text-gray-900 overflow-x-hidden font-sans">
-            <style>{`
-                @keyframes float-pollen {
-                    0% { transform: translate(0, 0) rotate(0deg); opacity: 0.6; }
-                    50% { transform: translate(20px, -20px) rotate(180deg); opacity: 0.8; }
-                    100% { transform: translate(-10px, 40px) rotate(360deg); opacity: 0.6; }
-                }
-                .pollen-particle {
-                    position: absolute;
-                    width: 8px;
-                    height: 8px;
-                    background: #f59e0b;
-                    border-radius: 50%;
-                    filter: blur(1px);
-                    pointer-events: none;
-                }
-            `}</style>
+        <main className="min-h-screen bg-white text-gray-900 overflow-x-hidden">
+            <header className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+                <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+                    <img src={IMAGES.logo} alt="AirFuture mini" className="h-8 md:h-10 object-contain" />
+                    <Button onClick={() => handleCTAClick('header_nav')} className="text-xs md:text-sm font-bold text-gray-600 hover:text-blue-600 transition-colors">
+                        製品詳細 <ChevronRight className="w-3 h-3 ml-1" />
+                    </Button>
+                </div>
+            </header>
 
-            {/* Floating CTA */}
             <div className="fixed bottom-6 right-6 z-50 animate-bounce shadow-xl rounded-full">
-                <Button onClick={handleCTAClick} className="bg-white/90 backdrop-blur-sm text-gray-900 px-6 py-3 text-sm md:text-base rounded-full border border-gray-100 shadow-lg hover:bg-white">
-                    AirFuture mini の詳細を見る
-                    <ChevronRight className="ml-1 h-4 w-4" />
+                <Button onClick={() => handleCTAClick('floating_cta')} className="bg-blue-600 text-white px-6 py-3 text-sm md:text-base rounded-full shadow-lg hover:bg-blue-700 font-bold">
+                    詳細を見る <ChevronRight className="ml-1 h-4 w-4" />
                 </Button>
             </div>
 
-            {/* Hero Section */}
-            <section className="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-yellow-50 to-white overflow-hidden py-10 md:py-0">
-                {/* Floating Pollen Effect */}
-                {[...Array(20)].map((_, i) => (
-                    <div key={i} className="pollen-particle" style={{
-                        top: `${Math.random() * 100}%`,
-                        left: `${Math.random() * 100}%`,
-                        animation: `float-pollen ${3 + Math.random() * 5}s infinite linear`
-                    }}></div>
-                ))}
-
+            <section className="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-white pt-20">
                 <div className="container mx-auto px-4 z-10 relative text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
-                        className="mb-6 md:mb-8"
                     >
-                        <h1 className="text-3xl md:text-7xl font-bold mb-4 md:mb-6 text-gray-900 tracking-tight leading-tight md:leading-none">
-                            家に帰っても、<br />
-                            <span className="text-yellow-600">つらい春</span>へ。
+                        <span className="inline-block py-1 px-3 rounded-full bg-blue-600 text-white text-[10px] md:text-xs font-black mb-4 uppercase tracking-widest">
+                            POLLEN DEFENSE SOLUTION
+                        </span>
+                        <h1 className="text-4xl md:text-8xl font-black mb-6 text-slate-900 leading-tight tracking-tighter">
+                            花粉の季節を、<br />
+                            <span className="text-blue-600">「最高の季節」</span>に変える。
                         </h1>
-                        <p className="text-base md:text-2xl text-gray-700 font-medium mb-6 md:mb-8">
-                            それ、本当に対策できていますか？
+                        <p className="text-base md:text-2xl text-slate-600 font-medium mb-10 max-w-4xl mx-auto">
+                            ハガキサイズの革新。高濃度イオンクラスターが、<br className="hidden md:block" />
+                            室内の花粉を根本から不活化し、クリーンな生活空間を提供します。
                         </p>
                     </motion.div>
+
+                    <div className="flex flex-col md:flex-row gap-4 justify-center mb-16">
+                        <Button onClick={() => handleCTAClick('hero_detail')} className="w-full md:w-auto bg-white text-slate-900 border-2 border-slate-900 px-10 py-5 text-xl rounded-full font-black shadow-sm hover:bg-slate-50 transition-all">
+                            AirFuture mini を詳しく見る
+                        </Button>
+                        <Button onClick={() => trackBuy('hero_order')} className="w-full md:w-auto bg-blue-600 text-white hover:bg-blue-700 px-10 py-5 text-xl rounded-full font-black shadow-lg transition-all">
+                            今すぐ購入する
+                        </Button>
+                    </div>
 
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
+                        initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.3, duration: 0.8 }}
-                        className="mb-8 md:mb-12 max-w-4xl mx-auto"
+                        transition={{ delay: 0.3, duration: 1 }}
+                        className="max-w-6xl mx-auto relative group"
                     >
-                        <img
-                            src="/images/hayfever/gross_pollen.png"
-                            alt="Microscopic Pollen"
-                            className="w-full h-48 md:h-80 object-cover rounded-3xl shadow-2xl opacity-90 hover:scale-105 transition-transform duration-700"
-                        />
-                        <p className="mt-2 md:mt-4 text-xs text-gray-400">※花粉の電子顕微鏡イメージ</p>
+                        <img src={IMAGES.hero} alt="AirFuture mini Pollen Hero" className="relative z-10 w-full rounded-3xl shadow-2xl border border-white" />
                     </motion.div>
+                </div>
+            </section>
 
-                    <div className="flex flex-col md:flex-row gap-4 justify-center px-4 md:px-0">
-                        <Button onClick={handleCTAClick} className="w-full md:w-auto bg-white text-gray-900 border border-gray-200 px-6 py-3 md:px-8 md:py-4 text-base md:text-lg rounded-full shadow-sm hover:shadow-md transition-all">
-                            AirFuture mini の詳細を見る
-                            <ChevronRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
-                        </Button>
-                        <Button onClick={() => trackBuy('hero')} className="w-full md:w-auto bg-black text-white hover:bg-gray-800 px-6 py-3 md:px-8 md:py-4 text-base md:text-lg rounded-full shadow-lg hover:shadow-xl transition-all flex items-center justify-center">
-                            今すぐ購入する
-                            <ChevronRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
-                        </Button>
+            <section className="py-24 bg-slate-50 overflow-hidden">
+                <div className="container mx-auto px-4">
+                    <div className="flex flex-col md:flex-row items-center gap-16 max-w-6xl mx-auto text-left">
+                        <div className="w-full md:w-1/2">
+                            <h2 className="text-3xl md:text-6xl font-black mb-8 leading-tight">
+                                なぜ、<br />
+                                <span className="text-red-500">空気清浄機</span>だけでは<br />不十分なのか？
+                            </h2>
+                            <p className="text-lg text-slate-600 mb-8 leading-relaxed">
+                                従来型のフィルター式は、浮遊している花粉を吸い込むのを待つだけです。<br /><br />
+                                しかし、人の動きやドアの開閉で舞い上がる花粉、衣類に付着した花粉には対応できません。本当に対策すべきは、吸い込む前の「空気そのもの」の改質です。
+                            </p>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="p-4 bg-white rounded-2xl border border-slate-100 shadow-sm">
+                                    <XCircle className="text-red-500 mb-2" />
+                                    <p className="text-xs font-bold">付着花粉への<br />無力さ</p>
+                                </div>
+                                <div className="p-4 bg-white rounded-2xl border border-slate-100 shadow-sm">
+                                    <XCircle className="text-red-500 mb-2" />
+                                    <p className="text-xs font-bold">舞い上がりへの<br />対応遅れ</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-full md:w-1/2">
+                            <img src={IMAGES.problem} alt="Air Purifier Limitation" className="w-full rounded-3xl shadow-2xl" />
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* Problem Section (Re-diffusion) */}
-            <section className="py-12 md:py-24 bg-white relative">
-                <div className="container mx-auto px-6 md:px-4">
-                    <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16 max-w-6xl mx-auto">
+            <section className="py-24 bg-white">
+                <div className="container mx-auto px-4">
+                    <div className="flex flex-col md:flex-row items-center gap-16 max-w-6xl mx-auto text-left">
                         <div className="w-full md:w-1/2 order-2 md:order-1">
-                            <h2 className="text-2xl md:text-5xl font-bold mb-4 md:mb-8 leading-tight text-gray-900">
-                                実は恐ろしい、<br />
-                                <span className="text-red-500">「室内再拡散」</span>
-                            </h2>
-                            <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-6">
-                                外から持ち込まれた花粉は、床や家具、カーペットに付着します。<br />
-                                人が動くたび、ドアを開けるたび、それらは再び舞い上がり、あなたを苦しめます。
-                            </p>
-                            <div className="p-5 md:p-6 bg-red-50 rounded-xl border border-red-100">
-                                <AlertTriangle className="text-red-500 w-6 h-6 md:w-8 md:h-8 mb-2 md:mb-4" />
-                                <p className="font-bold text-red-700 text-sm md:text-base">一般的な空気清浄機の弱点</p>
-                                <p className="text-red-600 text-xs md:text-sm mt-2">
-                                    吸い込むのを待っている間にも、花粉は室内を漂い続けています。
-                                </p>
-                            </div>
+                            <img src={IMAGES.solution} alt="Ion Cluster Solution" className="w-full rounded-3xl shadow-2xl border border-blue-50" />
                         </div>
                         <div className="w-full md:w-1/2 order-1 md:order-2">
-                            <img
-                                src="/images/hayfever/problem.png"
-                                alt="室内の花粉再拡散イメージ"
-                                className="w-full rounded-2xl shadow-xl hover:translate-y-[-10px] transition-transform duration-500"
-                            />
+                            <span className="text-blue-600 font-bold tracking-widest text-xs mb-4 block uppercase leading-none">The Ultimate Solution</span>
+                            <h2 className="text-3xl md:text-6xl font-black mb-8 leading-tight">
+                                攻めの<br />
+                                <span className="text-blue-600">「イオンバリア」</span>
+                            </h2>
+                            <p className="text-lg text-slate-600 mb-10 leading-relaxed">
+                                AirFuture mini から放出される毎秒3,000万個以上の高濃度イオン。これらが室内全体に広がり、花粉やダニの排泄物を分子レベルで攻撃・不活化します。<br /><br />
+                                吸い込むのを待つのではなく、その場で無害化する。これが、最先端の衛生管理です。
+                            </p>
+                            <ul className="space-y-4 font-bold text-slate-800">
+                                <li className="flex items-center"><CheckCircle className="text-blue-600 mr-3 shrink-0" /> 浮遊花粉を不活化</li>
+                                <li className="flex items-center"><CheckCircle className="text-blue-600 mr-3 shrink-0" /> 衣類の付着菌、ニオイも徹底消臭</li>
+                                <li className="flex items-center"><CheckCircle className="text-blue-600 mr-3 shrink-0" /> メンテナンスは2年に1度の素子交換のみ</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Solution Section (Shield) */}
-            <section className="py-12 md:py-24 bg-gray-900 text-white relative overflow-hidden">
-                <div className="absolute inset-0 z-0">
-                    <img
-                        src="/images/hayfever/shield_mini.png"
-                        alt="Ion Shield Protection"
-                        className="w-full h-full object-cover opacity-40 mix-blend-screen"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/80 to-transparent"></div>
+            <section className="py-24 bg-slate-900 text-white text-center">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <h2 className="text-3xl md:text-6xl font-black mb-12">花粉に振り回される日は、<br />今日で終わり。</h2>
+                    <div className="flex flex-col md:flex-row gap-6 justify-center">
+                        <Button onClick={() => handleCTAClick('mid_detail')} className="bg-white text-slate-900 px-10 py-5 text-xl rounded-full font-black shadow-xl">全機能を見る</Button>
+                        <Button onClick={() => trackBuy('mid_order')} className="bg-blue-600 text-white px-10 py-5 text-xl rounded-full font-black shadow-2xl">購入・見積依頼</Button>
+                    </div>
                 </div>
+            </section>
 
-                <div className="container mx-auto px-6 md:px-4 relative z-10">
-                    <div className="max-w-xl">
-                        <span className="inline-block py-1 px-3 rounded-full bg-blue-500/20 text-blue-300 text-[10px] md:text-xs font-bold mb-4 md:mb-6 border border-blue-500/30">
-                            AIO-2 ION CLUSTER TECHNOLOGY
-                        </span>
-                        <h2 className="text-3xl md:text-6xl font-bold mb-6 md:mb-8 leading-tight">
-                            「吸う」から<br />
-                            <span className="text-blue-400">「分解・除去」</span>へ。
-                        </h2>
-                        <p className="text-base md:text-xl text-gray-300 mb-8 md:mb-12 leading-relaxed">
-                            AirFuture mini は、待ち伏せしません。<br />
-                            高濃度イオンを部屋中に放出し、<br />
-                            花粉のタンパク質を直接分解・不活化。<br />
-                            これからの時代の「攻め」の空気清浄です。
-                        </p>
-
-                        <div className="grid grid-cols-2 gap-4 md:gap-6">
-                            <div className="bg-white/10 backdrop-blur p-4 rounded-xl border border-white/10 text-center">
-                                <Shield className="w-6 h-6 md:w-8 md:h-8 mx-auto mb-2 text-blue-400" />
-                                <p className="font-bold text-sm md:text-base">シールド効果</p>
-                            </div>
-                            <div className="bg-white/10 backdrop-blur p-4 rounded-xl border border-white/10 text-center">
-                                <XCircle className="w-6 h-6 md:w-8 md:h-8 mx-auto mb-2 text-blue-400" />
-                                <p className="font-bold text-sm md:text-base">付着菌も除去</p>
-                            </div>
+            <section className="py-24 bg-white relative overflow-hidden">
+                <div className="container mx-auto px-4 max-w-6xl">
+                    <div className="bg-slate-50 rounded-[40px] overflow-hidden flex flex-col md:flex-row items-stretch">
+                        <div className="w-full md:w-1/2 p-12 md:p-20 flex flex-col justify-center text-left">
+                            <h2 className="text-3xl md:text-5xl font-black mb-8 leading-tight">
+                                家族の健康を、<br />ハガキサイズが守る。
+                            </h2>
+                            <p className="text-lg text-slate-600 mb-12">
+                                寝室、リビング、玄関。どこにでも置けるコンパクトさは、生活のあらゆるシーンに「最高の空気」を運びます。
+                            </p>
+                            <Button onClick={() => trackBuy('lifestyle_order')} className="w-fit bg-slate-900 text-white px-8 py-4 text-lg rounded-full font-bold shadow-lg">導入を検討する</Button>
+                        </div>
+                        <div className="w-full md:w-1/2">
+                            <img src={IMAGES.lifestyle} alt="Family Lifestyle" className="w-full h-full object-cover" />
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Product Showcase Section */}
-            <section className="py-12 md:py-24 bg-white">
-                <div className="container mx-auto px-4 text-center">
-                    <h2 className="text-2xl md:text-5xl font-bold mb-10 md:mb-16 text-gray-900">
-                        このサイズに、<br />革命的な清浄力を。
-                    </h2>
-
-                    <div className="max-w-4xl mx-auto relative group px-4 md:px-0">
-                        <div className="absolute inset-0 bg-blue-100 rounded-full blur-3xl opacity-20 group-hover:opacity-40 transition-opacity duration-700"></div>
-                        <img
-                            src="/images/hero-flyer.png"
-                            alt="AirFuture Mini Product"
-                            className="relative z-10 w-full rounded-2xl shadow-2xl transform group-hover:scale-105 transition-transform duration-700"
-                        />
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mt-12 md:mt-16 max-w-5xl mx-auto px-4 md:px-0">
-                        <div className="p-6 md:p-8 bg-gray-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all duration-300">
-                            <h3 className="text-lg md:text-xl font-bold mb-2">超小型・軽量</h3>
-                            <p className="text-sm md:text-base text-gray-600">わずか750g。デスクや枕元、どこでも置けるハガキサイズ。</p>
-                        </div>
-                        <div className="p-6 md:p-8 bg-gray-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all duration-300">
-                            <h3 className="text-lg md:text-xl font-bold mb-2">フィルター交換不要</h3>
-                            <p className="text-sm md:text-base text-gray-600">面倒な掃除や交換コストはゼロ。ずっと清潔に使えます。</p>
-                        </div>
-                        <div className="p-6 md:p-8 bg-gray-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all duration-300">
-                            <h3 className="text-lg md:text-xl font-bold mb-2">静音設計</h3>
-                            <p className="text-sm md:text-base text-gray-600">眠りを妨げない静けさで、24時間あなたを守り続けます。</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* CTA Integration Section */}
-            <section className="py-16 md:py-24 bg-gray-900 text-white text-center">
-                <div className="container mx-auto px-6 md:px-4">
-                    <h2 className="text-2xl md:text-5xl font-light mb-8 md:mb-12">
-                        この春は、<br />
-                        家の空気で深呼吸。
-                    </h2>
-                    <div className="flex flex-col md:flex-row gap-4 md:gap-6 justify-center">
-                        <Button onClick={handleCTAClick} className="w-full md:w-auto bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 md:px-10 md:py-5 text-lg md:text-xl rounded-full transition-colors">
-                            AirFuture mini の全性能を見る
-                        </Button>
-                        <Button onClick={() => trackBuy('footer')} className="w-full md:w-auto bg-blue-600 text-white hover:bg-blue-500 px-8 py-4 md:px-10 md:py-5 text-lg md:text-xl rounded-full transition-colors">
-                            公式ページで購入する
-                        </Button>
-                    </div>
-                </div>
-            </section>
-
-            {/* Footer */}
-            <footer className="py-8 bg-black text-gray-500 text-center border-t border-gray-800">
-                <div className="container mx-auto px-4">
-                    <p className="text-sm">© 2026 AirFuture. All Rights Reserved.</p>
-                </div>
+            <footer className="py-12 bg-black text-slate-600 text-center">
+                <p className="text-xs">© 2026 AirFuture. All Rights Reserved.</p>
             </footer>
         </main>
     );
