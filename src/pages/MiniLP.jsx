@@ -35,15 +35,21 @@ export default function Home() {
         };
     }, []);
 
-    const handleCTAClick = () => {
-        window.open("https://airfuture.vercel.app/apply", "_blank");
+    const handleCTAClick = (pid = 'mini_lp_hero') => {
+        const trackingUrl = `/api/log_click?pid=${pid}&lp=mini_lp`;
+        if (navigator.sendBeacon) {
+            navigator.sendBeacon(trackingUrl);
+        } else {
+            fetch(trackingUrl, { mode: 'no-cors' });
+        }
+        window.location.href = "https://x-autoup.vercel.app/apply.html?lp=mini_lp&utm_source=mini_lp";
     };
 
     return (
         <main className="min-h-screen bg-white text-gray-900 overflow-x-hidden font-sans">
             {/* Floating CTA */}
             <div className="floating-cta-container">
-                <Button onClick={handleCTAClick} className="clean-button px-6 py-3 text-sm md:text-base rounded-full border border-gray-100">
+                <Button onClick={() => handleCTAClick('floating_cta')} className="clean-button px-6 py-3 text-sm md:text-base rounded-full border border-gray-100">
                     ご購入・お問い合わせ
                     <ChevronRight className="ml-1 h-4 w-4" />
                 </Button>
@@ -433,7 +439,7 @@ export default function Home() {
                         お問い合わせ
                     </h2>
 
-                    <Button onClick={handleCTAClick} className="clean-button px-12 py-5 text-xl rounded-full mb-16 fade-in mx-auto hover:bg-black">
+                    <Button onClick={() => handleCTAClick('footer_cta')} className="clean-button px-12 py-5 text-xl rounded-full mb-16 fade-in mx-auto hover:bg-black">
                         申込ページへ
                         <ChevronRight className="ml-2 h-6 w-6" />
                     </Button>
