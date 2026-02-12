@@ -54,9 +54,10 @@ export default function Home() {
             fetch(trackingUrl, { mode: 'no-cors' });
         }
 
-        // クエリパラメータを保持して遷移
+        // クエリパラメータを確実に保持して遷移
         const currentSearch = window.location.search;
-        window.location.href = path + currentSearch;
+        const targetUrl = currentSearch ? (path + currentSearch) : path;
+        window.location.href = targetUrl;
     };
 
     return (
@@ -413,7 +414,7 @@ export default function Home() {
                             あなたに最適な空気対策はこちら
                         </h2>
                         <p className="text-lg text-gray-600 font-medium">
-                            お悩みに合わせて、専用ページで詳しくご紹介しています。
+                            お悩みに合わせて、<br />専用ページで詳しくご紹介しています。
                         </p>
                     </div>
 
@@ -423,8 +424,7 @@ export default function Home() {
                             onClick={() => handleHubNavigation('/hayfever', 'hub_hayfever')}
                             className="group cursor-pointer bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-blue-200 hover:bg-white hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex flex-col items-center text-center"
                         >
-                            <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-500">🌸</div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-3">花粉症でお悩みの方へ</h3>
+                            <h3 className="text-xl font-bold text-gray-900 mb-3">🌸 花粉症でお悩みの方へ</h3>
                             <p className="text-gray-600 text-sm leading-relaxed mb-6">自宅でできる、薬に頼らない対策</p>
                             <div className="mt-auto flex items-center text-blue-600 font-bold group-hover:translate-x-1 transition-transform">
                                 詳細を見る <ChevronRight className="ml-1 h-5 w-5" />
@@ -436,8 +436,7 @@ export default function Home() {
                             onClick={() => handleHubNavigation('/dental', 'hub_dental')}
                             className="group cursor-pointer bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-blue-200 hover:bg-white hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex flex-col items-center text-center"
                         >
-                            <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-500">🏥</div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-3">歯科医院・医療関係の方へ</h3>
+                            <h3 className="text-xl font-bold text-gray-900 mb-3">🏥 歯科医院・医療関係の方へ</h3>
                             <p className="text-gray-600 text-sm leading-relaxed mb-6">院内環境と信頼性を高めたい方</p>
                             <div className="mt-auto flex items-center text-blue-600 font-bold group-hover:translate-x-1 transition-transform">
                                 詳細を見る <ChevronRight className="ml-1 h-5 w-5" />
@@ -449,8 +448,7 @@ export default function Home() {
                             onClick={() => handleHubNavigation('/pet', 'hub_pet')}
                             className="group cursor-pointer bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-blue-200 hover:bg-white hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex flex-col items-center text-center"
                         >
-                            <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-500">🐶</div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-3">ペットと暮らすご家庭へ</h3>
+                            <h3 className="text-xl font-bold text-gray-900 mb-3">🐶 ペットと暮らすご家庭へ</h3>
                             <p className="text-gray-600 text-sm leading-relaxed mb-6">来客も安心できる空間づくり</p>
                             <div className="mt-auto flex items-center text-blue-600 font-bold group-hover:translate-x-1 transition-transform">
                                 詳細を見る <ChevronRight className="ml-1 h-5 w-5" />
@@ -462,8 +460,7 @@ export default function Home() {
                             onClick={() => handleHubNavigation('/3dprinter', 'hub_3dprinter')}
                             className="group cursor-pointer bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-blue-200 hover:bg-white hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex flex-col items-center text-center"
                         >
-                            <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-500">🖨️</div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-3">開発・製造・研究現場の方へ</h3>
+                            <h3 className="text-xl font-bold text-gray-900 mb-3">🖨️ 開発・製造・研究現場の方へ</h3>
                             <p className="text-gray-600 text-sm leading-relaxed mb-6">レジン臭・VOC対策</p>
                             <div className="mt-auto flex items-center text-blue-600 font-bold group-hover:translate-x-1 transition-transform">
                                 詳細を見る <ChevronRight className="ml-1 h-5 w-5" />
