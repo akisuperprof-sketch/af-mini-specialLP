@@ -42,7 +42,7 @@ export default function Home() {
         } else {
             fetch(trackingUrl, { mode: 'no-cors' });
         }
-        window.location.href = "https://x-autoup.vercel.app/apply?lp=mini_lp&utm_source=mini_lp";
+        window.location.href = "https://airfuture.vercel.app/apply?lp=mini_lp&utm_source=mini_lp";
     };
 
     return (

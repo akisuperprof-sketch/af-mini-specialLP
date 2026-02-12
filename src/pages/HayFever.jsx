@@ -14,7 +14,7 @@ export default function HayFever() {
     };
 
     const TARGET_LP_URL = "https://v0-air-future-mini-design.vercel.app/";
-    const TARGET_APPLY_URL = "https://x-autoup.vercel.app/apply";
+    const TARGET_APPLY_URL = "https://airfuture.vercel.app/apply";
 
     const handleCTAClick = (pid = 'hayfever_hero') => {
         const trackingUrl = `/api/log_click?pid=${pid}&lp=hayfever`;

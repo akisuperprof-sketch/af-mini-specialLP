@@ -36,7 +36,7 @@ window.location.href = "https://x-autoup.vercel.app/apply.html";
 #### ✅ 正解：
 ```javascript
 // 正しいURL
-window.location.href = "https://x-autoup.vercel.app/apply";
+window.location.href = "https://airfuture.vercel.app/apply";
 ```
 
 **理由**: 
@@ -48,7 +48,7 @@ window.location.href = "https://x-autoup.vercel.app/apply";
 **すべてのLP（MiniLP, Dental, HayFever等）は以下のパターンに従うこと：**
 
 ```javascript
-const TARGET_APPLY_URL = "https://x-autoup.vercel.app/apply";
+const TARGET_APPLY_URL = "https://airfuture.vercel.app/apply";
 
 const trackBuy = (pid) => {
     const trackingUrl = `/api/log_click?pid=${pid}&lp=<lp_name>`;
