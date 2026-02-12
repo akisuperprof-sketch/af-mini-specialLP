@@ -66,9 +66,11 @@ export default function Dental() {
                 </div>
             </header>
 
-            <div className="fixed bottom-6 right-6 z-50 animate-bounce shadow-xl rounded-full">
-                <Button onClick={() => handleCTAClick('floating_cta')} className="bg-blue-600 text-white px-6 py-3 text-sm md:text-base rounded-full shadow-lg hover:bg-blue-700 font-bold">
-                    詳細を見る <ChevronRight className="ml-1 h-4 w-4" />
+            {/* Floating CTA */}
+            <div className="floating-cta-container">
+                <Button onClick={() => trackBuy('floating_cta')} className="clean-button px-6 py-3 text-sm md:text-base rounded-full border border-blue-200 bg-blue-600 text-white hover:bg-blue-700">
+                    今すぐ購入する
+                    <ChevronRight className="ml-1 h-4 w-4" />
                 </Button>
             </div>
 
