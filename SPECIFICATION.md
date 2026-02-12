@@ -30,7 +30,7 @@ x-autoup (Backend API + Purchase Page)
 #### ❌ 間違い：
 ```javascript
 // これは404エラーになります
-window.location.href = "https://x-autoup.vercel.app/apply.html";
+window.location.href = "https://airfuture.vercel.app/apply.html";
 ```
 
 #### ✅ 正解：
@@ -72,8 +72,8 @@ const trackBuy = (pid) => {
 ```json
 {
   "rewrites": [
-    { "source": "/apply", "destination": "https://x-autoup.vercel.app/apply.html" },
-    { "source": "/api/(.*)", "destination": "https://x-autoup.vercel.app/api/$1" }
+    { "source": "/apply", "destination": "https://airfuture.vercel.app/apply.html" },
+    { "source": "/api/(.*)", "destination": "https://airfuture.vercel.app/api/$1" }
   ]
 }
 ```
@@ -156,13 +156,13 @@ npx vercel --prod --yes
 - 購入ボタンをクリックすると `404 NOT_FOUND` エラー
 
 **原因**: 
-- JavaScriptで `https://x-autoup.vercel.app/apply.html` を使用
+- JavaScriptで `https://airfuture.vercel.app/apply.html` を使用
 - x-autoupの `vercel.json` では `/apply.html` がルーティング定義されていない
 - `/apply` のみが有効なエンドポイント
 
 **修正内容**:
 - `MiniLP.jsx`, `Dental.jsx`, `HayFever.jsx` のすべてで `.html` を削除
-- `TARGET_APPLY_URL` を `https://x-autoup.vercel.app/apply` に統一
+- `TARGET_APPLY_URL` を `https://airfuture.vercel.app/apply` に統一
 
 **教訓**:
 - **他プロジェクトの `vercel.json` を必ず確認すること**
