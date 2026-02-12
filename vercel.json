@@ -2,15 +2,15 @@
     "rewrites": [
         {
             "source": "/admin",
-            "destination": "https://x-autoup.vercel.app/admin.html"
+            "destination": "https://airfuture.vercel.app/admin.html"
         },
         {
             "source": "/apply",
-            "destination": "https://x-autoup.vercel.app/apply.html"
+            "destination": "https://airfuture.vercel.app/apply.html"
         },
         {
             "source": "/api/(.*)",
-            "destination": "https://x-autoup.vercel.app/api/$1"
+            "destination": "https://airfuture.vercel.app/api/$1"
         },
         {
             "source": "/(dental|hayfever|pet|3dprinter)(.*)",

@@ -40,26 +40,35 @@ npm run build
 
 ```javascript
 // これは404エラーになります
-window.location.href = "https://x-autoup.vercel.app/apply.html";
+window.location.href = "https://airfuture.vercel.app/apply.html";
 ```
 
 ### ✅ 正しい実装
 
 ```javascript
 // 正しいURL（拡張子なし）
-window.location.href = "https://x-autoup.vercel.app/apply";
+window.location.href = "https://airfuture.vercel.app/apply";
 ```
 
 詳細は [SPECIFICATION.md](./SPECIFICATION.md) を参照してください。
 
 ## デプロイ
 
-- **本番URL**: https://v0-air-future-mini-design.vercel.app/
+- **本番URL（このプロジェクト）**: https://airfuture.vercel.app/
 - **自動デプロイ**: `main` ブランチへのプッシュで自動実行
+
+### URL構成
+
+- **専門LP（このプロジェクト）**: `https://airfuture.vercel.app/`
+  - /hayfever - 花粉症専門LP
+  - /dental - 歯科専門LP
+  - /pet - ペット専門LP
+  - /3dprinter - 3Dプリンター専門LP
+- **メインLP（別プロジェクト）**: `https://v0-air-future-mini-design.vercel.app/`
 
 ## 関連プロジェクト
 
-- `x-autoup` - バックエンドAPI・購入ページ
+- `airfuture` - バックエンドAPI・購入ページ（旧x-autoup）
 
 ## ドキュメント
 
