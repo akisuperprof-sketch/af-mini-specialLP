@@ -1,18 +1,6 @@
 {
     "rewrites": [
         {
-            "source": "/admin",
-            "destination": "https://airfuture.vercel.app/admin.html"
-        },
-        {
-            "source": "/apply",
-            "destination": "https://airfuture.vercel.app/apply.html"
-        },
-        {
-            "source": "/api/(.*)",
-            "destination": "https://airfuture.vercel.app/api/$1"
-        },
-        {
             "source": "/api/:path*",
             "destination": "https://x-autoup.vercel.app/api/:path*"
         },
