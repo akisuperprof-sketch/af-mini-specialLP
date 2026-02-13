@@ -6,7 +6,7 @@ import { ChevronRight, CheckCircle, AlertTriangle, Heart, Shield, Home, Star } f
 export default function Pet() {
     const IMAGES = {
         logo: "/images/mini-logo.jpg",
-        hero: "/images/pet/hero_v2.png",
+        hero: "/images/hero/pet.png",
         problem: "/images/pet/problem_v2.png",
         solution: "/images/pet/solution_v2.png",
         lifestyle: "/images/pet/lifestyle_v2.png",
@@ -71,13 +71,13 @@ export default function Pet() {
                     <span className="inline-block py-1 px-3 rounded-full bg-emerald-600 text-white text-[10px] md:text-xs font-black mb-4 uppercase tracking-[0.2em]">
                         FOR PET LOVERS
                     </span>
-                    <h1 className="text-4xl md:text-7xl font-bold mb-6 text-slate-900 leading-tight">
-                        「慣れているのは、あなただけ。」<br />
-                        <span className="text-emerald-600">来客は、すぐに気づいています。</span>
+                    <h1 className="text-3xl md:text-7xl font-bold mb-6 text-slate-900 leading-tight">
+                        「慣れているのは、<br className="md:hidden" />あなただけ。」<br />
+                        <span className="text-emerald-600">来客は、すぐに<br className="md:hidden" />気づいています。</span>
                     </h1>
-                    <p className="text-base md:text-2xl text-slate-600 font-medium mb-10 max-w-3xl mx-auto">
+                    <p className="text-base md:text-2xl text-slate-600 font-medium mb-10 max-w-3xl mx-auto px-4">
                         ペット臭・トイレ臭・生活臭。<br />
-                        家族の空間を、もっと安心できる場所へ。
+                        家族の空間を、もっと<br className="md:hidden" />安心できる場所へ。
                     </p>
                     <div className="flex flex-col md:flex-row gap-4 justify-center mb-12">
                         <Button onClick={() => handleCTAClick('hero_detail')} className="w-full md:w-auto bg-white text-slate-900 border-2 border-slate-900 px-8 py-4 text-lg rounded-full shadow-sm hover:bg-slate-50 transition-all font-bold">

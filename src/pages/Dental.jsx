@@ -11,7 +11,7 @@ export default function Dental() {
 
     const IMAGES = {
         logo: "/images/mini-logo.jpg",
-        hero: "/images/dental/hero_v2.png",
+        hero: "/images/hero/dental.png",
         type1: "/images/dental/general_v2.png",
         type2: "/images/dental/lab_v2.png",
         type3: "/images/dental/surgery_v2.png",
@@ -80,10 +80,10 @@ export default function Dental() {
                     <span className="inline-block py-1 px-3 rounded-full bg-blue-600 text-white text-[10px] md:text-xs font-black mb-4 uppercase tracking-[0.2em]">
                         FOR DENTAL PROFESSIONAL
                     </span>
-                    <h1 className="text-4xl md:text-7xl font-bold mb-6 text-slate-900 leading-tight">
-                        院内環境は、<br />医院の<span className="text-blue-600">「信用力」</span>を決める。
+                    <h1 className="text-3xl md:text-7xl font-bold mb-6 text-slate-900 leading-tight">
+                        院内環境は、<br className="md:hidden" />医院の<span className="text-blue-600">「信用力」</span>を<br className="md:hidden" />決める。
                     </h1>
-                    <p className="text-base md:text-2xl text-slate-600 font-medium mb-10 max-w-3xl mx-auto">
+                    <p className="text-base md:text-2xl text-slate-600 font-medium mb-10 max-w-3xl mx-auto px-4">
                         快適性・安全性・信頼性。<br />すべては、空気から始まります。
                     </p>
                     <div className="flex flex-col md:flex-row gap-4 justify-center mb-12">

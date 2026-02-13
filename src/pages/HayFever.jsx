@@ -6,7 +6,7 @@ import { ChevronRight, Wind, Shield, CheckCircle, XCircle } from "lucide-react";
 export default function HayFever() {
     const IMAGES = {
         logo: "/images/mini-logo.jpg",
-        hero: "/images/hayfever/hero_v2.png",
+        hero: "/images/hero/hayfever.png",
         problem: "/images/hayfever/problem_v2.png",
         solution: "/images/hayfever/solution_v2.png",
         lifestyle: "/images/hayfever/lifestyle_v2.png",
@@ -65,13 +65,13 @@ export default function HayFever() {
                         <span className="inline-block py-1 px-3 rounded-full bg-blue-600 text-white text-[10px] md:text-xs font-black mb-4 uppercase tracking-widest">
                             POLLEN DEFENSE SOLUTION
                         </span>
-                        <h1 className="text-4xl md:text-8xl font-black mb-6 text-slate-900 leading-tight tracking-tighter">
+                        <h1 className="text-3xl md:text-8xl font-black mb-6 text-slate-900 leading-tight tracking-tighter">
                             花粉の季節を、<br />
-                            <span className="text-blue-600">「最高の季節」</span>に変える。
+                            <span className="text-blue-600">「最高の季節」</span>に<br className="md:hidden" />変える。
                         </h1>
-                        <p className="text-base md:text-2xl text-slate-600 font-medium mb-10 max-w-4xl mx-auto">
+                        <p className="text-sm md:text-2xl text-slate-600 font-medium mb-10 max-w-4xl mx-auto px-4">
                             ハガキサイズの革新。高濃度イオンクラスターが、<br className="hidden md:block" />
-                            室内の花粉を根本から不活化し、クリーンな生活空間を提供します。
+                            室内の花粉を根本から不活化し、<br className="md:hidden" />クリーンな生活空間を提供します。
                         </p>
                     </motion.div>
 

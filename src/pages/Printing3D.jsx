@@ -6,7 +6,7 @@ import { ChevronRight, CheckCircle, Zap, Coffee, TrendingUp, Shield, AlertTriang
 export default function Printing3D() {
     const IMAGES = {
         logo: "/images/mini-logo.jpg",
-        hero: "/images/3dprinter/hero_v2.png",
+        hero: "/images/hero/3dprinter.png",
         problem: "/images/3dprinter/problem_v2.png",
         solution: "/images/3dprinter/solution_v2.png",
         lifestyle: "/images/3dprinter/lifestyle_v2.png",
@@ -71,11 +71,12 @@ export default function Printing3D() {
                     <span className="inline-block py-1 px-3 rounded-full bg-purple-600 text-white text-[10px] md:text-xs font-black mb-4 uppercase tracking-[0.2em]">
                         FOR 3D PRINTING PROFESSIONALS
                     </span>
-                    <h1 className="text-4xl md:text-7xl font-bold mb-6 text-white leading-tight">
-                        開発スピードの裏で、<br />健康を<span className="text-purple-400">削っていませんか？</span>
+                    <h1 className="text-3xl md:text-7xl font-bold mb-6 text-white leading-tight">
+                        開発スピードの裏で、<br />健康を<span className="text-purple-400">削って<br className="md:hidden" />いませんか？</span>
                     </h1>
-                    <p className="text-base md:text-2xl text-gray-300 font-medium mb-10 max-w-3xl mx-auto">
-                        レジン臭・VOC・有害ガス対策。<br />創作活動を守る、次世代の空気清浄。
+                    <p className="text-base md:text-2xl text-gray-300 font-medium mb-10 max-w-3xl mx-auto px-4">
+                        レジン臭・VOC・有害ガス対策。<br />
+                        創作活動を守る、<br className="md:hidden" />次世代の空気清浄。
                     </p>
                     <div className="flex flex-col md:flex-row gap-4 justify-center mb-12">
                         <Button onClick={() => handleCTAClick('hero_detail')} className="w-full md:w-auto bg-white text-slate-900 border-2 border-white px-8 py-4 text-lg rounded-full shadow-sm hover:bg-gray-100 transition-all font-bold">
