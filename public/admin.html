@@ -513,12 +513,13 @@
             const sourceCV = kpi.cv_by_source || {};
 
             // LP Cards Rendering
+            const origin = window.location.origin;
             const lpConfig = [
-                { id: 'mini_main', name: 'MAIN', icon: '🏠', accent: 'bg-indigo-600', url: '/' },
-                { id: 'hayfever', name: '花粉症', icon: '🌸', accent: 'bg-pink-500', url: '/hayfever' },
-                { id: 'dental', name: '歯科医院', icon: '🏥', accent: 'bg-indigo-400', url: '/dental' },
-                { id: 'pet', name: 'ペット', icon: '🐶', accent: 'bg-amber-500', url: '/pet' },
-                { id: '3dprinter', name: '3Dプリンタ', icon: '🖨️', accent: 'bg-slate-500', url: '/3dprinter' }
+                { id: 'mini_main', name: 'MAIN', icon: '🏠', accent: 'bg-indigo-600', url: origin + '/' },
+                { id: 'hayfever', name: '花粉症', icon: '🌸', accent: 'bg-pink-500', url: origin + '/hayfever' },
+                { id: 'dental', name: '歯科医院', icon: '🏥', accent: 'bg-indigo-400', url: origin + '/dental' },
+                { id: 'pet', name: 'ペット', icon: '🐶', accent: 'bg-amber-500', url: origin + '/pet' },
+                { id: '3dprinter', name: '3Dプリンタ', icon: '🖨️', accent: 'bg-slate-500', url: origin + '/3dprinter' }
             ];
 
             const cardsContainer = document.getElementById('lp-cards-container');
