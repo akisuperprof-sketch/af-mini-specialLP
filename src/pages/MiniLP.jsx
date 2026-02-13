@@ -219,6 +219,194 @@ export default function Home() {
                 </div>
             </section>
 
+            {/* Scene: Luxury Closet */}
+            <section className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden flex items-center">
+                <div className="absolute inset-0">
+                    <img
+                        src="/images/closet-scene.png"
+                        alt="Luxury closet"
+                        className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/80 via-black/40 to-transparent z-0"></div>
+                </div>
+                <div className="container mx-auto px-4 relative z-20 flex flex-col justify-end h-full md:block pb-12 md:pb-0">
+                    <div className="max-w-xl text-white fade-in">
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
+                                <Shield className="w-6 h-6 text-white" />
+                            </div>
+                            <h3 className="text-lg md:text-xl font-bold text-blue-100">資産を守る</h3>
+                        </div>
+                        <h2 className="text-2xl md:text-5xl font-light mb-8 leading-tight tracking-wide">
+                            美しさを、<br />永遠に保つために。
+                        </h2>
+                        <p className="text-sm md:text-lg text-gray-200 leading-relaxed mb-8">
+                            ウォークインクローゼットの大切なコレクション。<br className="hidden md:inline" />
+                            湿気やカビ、特有の臭いから貴方の資産を守ります。<br className="hidden md:inline" />
+                            置く場所を選ばないコンパクトさが、<br className="hidden md:inline" />
+                            美観を損なわず静かに寄り添います。
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            {/* Scene: Luxury Car (Mobility) */}
+            <section className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden flex items-center">
+                {/* Background Image */}
+                <div className="absolute inset-0">
+                    <img
+                        src="/images/car-interior-v3.png"
+                        alt="Luxury Car Interior with AirFuture Mini"
+                        className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/80 via-black/40 to-transparent z-0"></div>
+                </div>
+
+                {/* Content Overlay */}
+                <div className="container mx-auto px-4 relative z-20 flex flex-col justify-end h-full md:block pb-12 md:pb-0">
+                    <div className="max-w-xl text-white fade-in">
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
+                                <Car className="w-6 h-6 text-white" />
+                            </div>
+                            <h3 className="text-lg md:text-xl font-bold text-blue-100">移動を極上の時間に</h3>
+                        </div>
+                        <h2 className="text-2xl md:text-5xl font-light mb-8 leading-tight tracking-wide">
+                            密閉された空間こそ、<br />最上の空気を。
+                        </h2>
+                        <p className="text-sm md:text-lg text-gray-200 leading-relaxed mb-8">
+                            車内のニオイや外気からの汚染物質をシャットアウト。<br className="hidden md:inline" />
+                            高級車の静寂な空間を、<br className="hidden md:inline" />
+                            森林のような清々しい空気で満たします。<br className="hidden md:inline" />
+                            移動時間さえも、リフレッシュのための<br className="hidden md:inline" />
+                            贅沢なひとときに変わります。
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            {/* Scene: Bedroom (Sleeping) */}
+            <section className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden flex items-center">
+                <div className="absolute inset-0">
+                    <img
+                        src="/images/bedroom-scene.png"
+                        alt="Sleeping woman with blue ions"
+                        className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/80 via-black/40 to-transparent z-0"></div>
+                </div>
+                <div className="container mx-auto px-4 relative z-20 flex flex-col justify-end h-full md:block pb-12 md:pb-0">
+                    <div className="max-w-xl text-white fade-in md:ml-auto">
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
+                                <Moon className="w-6 h-6 text-white" />
+                            </div>
+                            <h3 className="text-lg md:text-xl font-bold text-blue-100">極上の睡眠</h3>
+                        </div>
+                        <h2 className="text-2xl md:text-5xl font-light mb-8 leading-tight tracking-wide">
+                            目覚めるたび、<br />生まれ変わる。
+                        </h2>
+                        <p className="text-sm md:text-lg text-gray-200 leading-relaxed mb-8">
+                            寝室の空気質は、睡眠の質そのもの。<br className="hidden md:inline" />
+                            枕元に置いても気にならない静音設計。<br className="hidden md:inline" />
+                            青いイオンの光とともに、<br className="hidden md:inline" />
+                            深い安らぎへといざないます。<br className="hidden md:inline" />
+                            朝、澄み切った空気で目覚める贅沢を。
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            {/* Scene: Pollen (Window) */}
+            <section className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden flex items-center">
+                <div className="absolute inset-0">
+                    <img
+                        src="/images/pollen-scene.png"
+                        alt="Woman enjoying spring view free of pollen"
+                        className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/80 via-black/40 to-transparent z-0"></div>
+                </div>
+                <div className="container mx-auto px-4 relative z-20 flex flex-col justify-end h-full md:block pb-12 md:pb-0">
+                    <div className="max-w-xl text-white fade-in">
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
+                                <Sun className="w-6 h-6 text-white" />
+                            </div>
+                            <h3 className="text-lg md:text-xl font-bold text-blue-100">季節を愉しむ</h3>
+                        </div>
+                        <h2 className="text-2xl md:text-5xl font-light mb-8 leading-tight tracking-wide">
+                            もう、<br />季節に怯えない。
+                        </h2>
+                        <p className="text-sm md:text-lg text-gray-200 leading-relaxed mb-8">
+                            窓の外がどんな季節でも、<br className="hidden md:inline" />
+                            室内は常に聖域（サンクチュアリ）。<br className="hidden md:inline" />
+                            花粉や有害物質を強力に除去し、<br className="hidden md:inline" />
+                            深呼吸できる空間を作り出します。<br className="hidden md:inline" />
+                            春の陽射しを、心から楽しめる毎日へ。
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            {/* Features Section */}
+            <section className="py-24 bg-white">
+                <div className="container mx-auto px-4">
+                    <h2 className="text-3xl md:text-4xl font-light mb-16 text-center tracking-wide text-gray-900 leading-tight fade-in">
+                        「日々の生活に、<br />
+                        静かに寄り添う清浄力。」
+                    </h2>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                        <div className="text-center fade-in p-8 bg-gray-50 rounded-xl hover:shadow-lg transition-shadow">
+                            <div className="flex justify-center mb-6">
+                                <div className="w-16 h-16 rounded-full flex items-center justify-center bg-white shadow-md">
+                                    <Shirt className="h-8 w-8 text-gray-800" />
+                                </div>
+                            </div>
+                            <h3 className="text-lg mb-4 font-bold text-gray-900">
+                                クローゼット・靴箱のカビ臭除去
+                            </h3>
+                            <p className="text-sm text-gray-600 leading-relaxed">
+                                大切な衣類や靴を臭いやカビから守ります。<br />
+                                ハガキサイズのコンパクトさで、<br />
+                                どんな場所にも設置可能です。
+                            </p>
+                        </div>
+
+                        <div className="text-center fade-in p-8 bg-gray-50 rounded-xl hover:shadow-lg transition-shadow">
+                            <div className="flex justify-center mb-6">
+                                <div className="w-16 h-16 rounded-full flex items-center justify-center bg-white shadow-md">
+                                    <Wind className="h-8 w-8 text-gray-800" />
+                                </div>
+                            </div>
+                            <h3 className="text-lg mb-4 font-bold text-gray-900">
+                                ペット臭への対応
+                            </h3>
+                            <p className="text-sm text-gray-600 leading-relaxed">
+                                ペットと快適に暮らすための空間づくりをサポートします。<br />
+                                イオンクラスター技術で臭いの元から分解します。
+                            </p>
+                        </div>
+
+                        <div className="text-center fade-in p-8 bg-gray-50 rounded-xl hover:shadow-lg transition-shadow">
+                            <div className="flex justify-center mb-6">
+                                <div className="w-16 h-16 rounded-full flex items-center justify-center bg-white shadow-md">
+                                    <Shield className="h-8 w-8 text-gray-800" />
+                                </div>
+                            </div>
+                            <h3 className="text-lg mb-4 font-bold text-gray-900">
+                                アレルギー・<br className="md:hidden" />家庭内クラスター対策
+                            </h3>
+                            <p className="text-sm text-gray-600 leading-relaxed">
+                                花粉やハウスダストなどのアレルゲンを軽減し、<br />
+                                ご家庭でのクラスター感染リスクを低減します。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* Hub Section: Niche LP Navigation */}
             <section className="py-24 bg-white">
                 <div className="container mx-auto px-4 max-w-5xl">
