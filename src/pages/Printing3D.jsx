@@ -7,9 +7,9 @@ export default function Printing3D() {
     const IMAGES = {
         logo: "/images/mini-logo.jpg",
         hero: "/images/hero/3dprinter.png",
-        problem: "/images/3dprinter/problem_v2.png",
-        solution: "/images/3dprinter/solution_v2.png",
-        lifestyle: "/images/3dprinter/lifestyle_v2.png",
+        problem: "/images/3dprinter/problem.png",
+        solution: "/images/3dprinter/solution.png",
+        lifestyle: "/images/3dprinter/lifestyle.png",
         product: "/images/ミニ斜め背景カット.png"
     };
 
@@ -75,8 +75,9 @@ export default function Printing3D() {
                         開発スピードの裏で、<br />健康を<span className="text-purple-400">削って<br className="md:hidden" />いませんか？</span>
                     </h1>
                     <p className="text-base md:text-2xl text-gray-300 font-medium mb-10 max-w-3xl mx-auto px-4">
-                        レジン臭・VOC・有害ガス対策。<br />
-                        創作活動を守る、<br className="md:hidden" />次世代の空気清浄。
+                        レジン臭・VOC・有害ガス対策。<br className="hidden md:block" />
+                        創作活動を守る、<br className="md:hidden" />
+                        次世代の空気清浄。
                     </p>
                     <div className="flex flex-col md:flex-row gap-4 justify-center mb-12">
                         <Button onClick={() => handleCTAClick('hero_detail')} className="w-full md:w-auto bg-white text-slate-900 border-2 border-white px-8 py-4 text-lg rounded-full shadow-sm hover:bg-gray-100 transition-all font-bold">
@@ -126,8 +127,13 @@ export default function Printing3D() {
                                 <span className="text-orange-500">健康は守れない</span>
                             </h2>
                             <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-                                3Dプリンタ（FDM・SLA方式）から発生する超微粒子（UFP）や揮発性有機化合物（VOC）は、目に見えず、換気だけでは完全に除去できません。<br /><br />
-                                長時間の造形作業では、この「見えないリスク」が蓄積。呼吸器系への影響、集中力の低下、慢性疲労の原因となります。
+                                3Dプリンタから発生する<br className="md:hidden" />
+                                超微粒子（UFP）やVOCは、<br className="md:hidden" />
+                                目に見えず、換気だけでは<br className="md:hidden" />
+                                完全には除去できません。<br /><br />
+                                長時間の作業では、この<br className="md:hidden" />
+                                「見えないリスク」が蓄積し、<br className="md:hidden" />
+                                健康や集中力に影響を及ぼします。
                             </p>
                             <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200">
                                 <p className="text-sm font-bold text-slate-900 mb-2">⚠️ 主な健康リスク</p>

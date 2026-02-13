@@ -12,9 +12,9 @@ export default function Dental() {
     const IMAGES = {
         logo: "/images/mini-logo.jpg",
         hero: "/images/hero/dental.png",
-        type1: "/images/dental/general_v2.png",
-        type2: "/images/dental/lab_v2.png",
-        type3: "/images/dental/surgery_v2.png",
+        type1: "/images/dental/general.png",
+        type2: "/images/dental/lab.png",
+        type3: "/images/dental/surgery.png",
         product: "/images/ミニ斜め背景カット.png"
     };
 
@@ -103,10 +103,12 @@ export default function Dental() {
             {/* タイプ分類セクション */}
             <section className="py-20 bg-slate-50">
                 <div className="container mx-auto px-4 text-center">
-                    <h2 className="text-3xl md:text-5xl font-bold mb-8 text-slate-900">あなたの医院は、どのタイプですか？</h2>
-                    <p className="text-lg text-slate-600 mb-12 max-w-3xl mx-auto leading-relaxed">
-                        歯科医院の空気環境は、<br />診療スタイルによって課題が異なります。<br /><br />
-                        AirFuture miniは、<br />すべてのタイプに対応できます。
+                    <h2 className="text-3xl md:text-5xl font-bold mb-8 text-slate-900">あなたの医院は、<br className="md:hidden" />どのタイプですか？</h2>
+                    <p className="text-lg text-slate-600 mb-12 max-w-3xl mx-auto leading-relaxed px-4">
+                        歯科医院の空気環境は、<br />
+                        診療スタイルによって<br className="md:hidden" />課題が異なります。<br /><br />
+                        AirFuture miniは、<br className="md:hidden" />
+                        すべてのタイプに対応できます。
                     </p>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                         <button onClick={() => scrollToSection(type1Ref)} className="bg-white rounded-3xl overflow-hidden border-2 border-blue-100 hover:shadow-xl hover:border-blue-300 transition-all text-left group cursor-pointer">
@@ -152,25 +154,19 @@ export default function Dental() {
                     <div className="bg-blue-50 rounded-[40px] p-12 md:p-20">
                         <div className="bg-blue-600 text-white text-xs font-bold py-1 px-4 rounded-full w-fit mb-6">TYPE 01</div>
                         <h2 className="text-3xl md:text-5xl font-bold mb-8 text-slate-900 leading-tight">
-                            「選ばれる医院」は、空気が違う
+                            「選ばれる医院」は、<br className="md:hidden" />空気が違う
                         </h2>
                         <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-                            一般診療中心の医院では、
-                        </p>
-                        <ul className="text-lg text-slate-700 mb-6 space-y-2">
-                            <li>• 長い待ち時間</li>
-                            <li>• コミュニケーション不足</li>
-                            <li>• 治療への不安</li>
-                            <li>• 痛みへの恐怖</li>
-                        </ul>
-                        <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-                            が、患者満足度に直結します。
+                            一般診療中心の医院では、<br className="md:hidden" />患者満足度が重要です。
                         </p>
                         <p className="text-lg text-slate-700 mb-6 leading-relaxed">
-                            そして患者は、<br />無意識に<strong>「空気の印象」</strong>で医院を評価しています。
+                            患者は、無意識に<br className="md:hidden" />
+                            <strong>「空気の印象」</strong>で<br className="md:hidden" />
+                            医院を評価しています。
                         </p>
                         <p className="text-lg text-slate-700 mb-8 leading-relaxed">
-                            薬品臭・粉塵・空気の重さは、<br />不安や不信感を生みます。
+                            薬品臭・粉塵・空気の重さは、<br className="md:hidden" />
+                            不安や不信感を生みます。
                         </p>
                         <div className="bg-blue-600 text-white p-8 rounded-2xl">
                             <p className="text-2xl font-bold">AirFuture miniは、<br />安心できる診療空間をつくります。</p>

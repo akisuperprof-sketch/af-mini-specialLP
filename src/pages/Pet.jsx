@@ -7,9 +7,9 @@ export default function Pet() {
     const IMAGES = {
         logo: "/images/mini-logo.jpg",
         hero: "/images/hero/pet.png",
-        problem: "/images/pet/problem_v2.png",
-        solution: "/images/pet/solution_v2.png",
-        lifestyle: "/images/pet/lifestyle_v2.png",
+        problem: "/images/pet/problem.png",
+        solution: "/images/pet/solution.png",
+        lifestyle: "/images/pet/lifestyle.png",
         product: "/images/ミニ斜め背景カット.png"
     };
 
@@ -132,33 +132,21 @@ export default function Pet() {
                     <div className="flex flex-col md:flex-row items-center gap-16 max-w-6xl mx-auto text-left">
                         <div className="w-full md:w-1/2">
                             <h2 className="text-3xl md:text-6xl font-black mb-8 leading-tight">
-                                なぜ、消臭しても<br />
+                                なぜ、<br className="md:hidden" />消臭しても<br />
                                 <span className="text-orange-500">臭いが戻るのか？</span>
                             </h2>
                             <p className="text-lg text-slate-600 mb-6 leading-relaxed">
-                                多くの消臭対策は、
+                                多くの消臭対策は、<br className="md:hidden" />
+                                匂いを隠すか別の香りで<br className="md:hidden" />
+                                ごまかすだけです。
                             </p>
-                            <ul className="text-lg text-slate-600 mb-6 space-y-2">
-                                <li>• 匂いを隠す</li>
-                                <li>• 別の香りでごまかす</li>
-                            </ul>
                             <p className="text-lg text-slate-600 mb-6 leading-relaxed">
-                                だけです。
-                            </p>
-                            <p className="text-lg text-slate-600 mb-4 leading-relaxed">
-                                しかし、
-                            </p>
-                            <ul className="text-lg text-slate-600 mb-6 space-y-2">
-                                <li>• 床</li>
-                                <li>• 布製品</li>
-                                <li>• ケージ</li>
-                                <li>• 壁紙</li>
-                            </ul>
-                            <p className="text-lg text-slate-600 mb-6 leading-relaxed">
-                                に染み込んだ臭い成分は、<br />時間とともに再放出されます。
+                                しかし、床や布製品に<br className="md:hidden" />
+                                染み込んだ臭い成分は、<br className="md:hidden" />
+                                時間とともに再放出されます。
                             </p>
                             <div className="bg-slate-900 text-white p-6 rounded-2xl">
-                                <p className="text-xl font-black">これが「何度も戻る臭い」の正体です。</p>
+                                <p className="text-xl font-black">これが「何度も戻る臭い」の<br className="md:hidden" />正体です。</p>
                             </div>
                         </div>
                         <div className="w-full md:w-1/2">

@@ -7,9 +7,9 @@ export default function HayFever() {
     const IMAGES = {
         logo: "/images/mini-logo.jpg",
         hero: "/images/hero/hayfever.png",
-        problem: "/images/hayfever/problem_v2.png",
-        solution: "/images/hayfever/solution_v2.png",
-        lifestyle: "/images/hayfever/lifestyle_v2.png",
+        problem: "/images/hayfever/problem.png",
+        solution: "/images/hayfever/solution.png",
+        lifestyle: "/images/hayfever/lifestyle.png",
         product: "/images/ミニ斜め背景カット.png"
     };
 
@@ -71,7 +71,8 @@ export default function HayFever() {
                         </h1>
                         <p className="text-sm md:text-2xl text-slate-600 font-medium mb-10 max-w-4xl mx-auto px-4">
                             ハガキサイズの革新。高濃度イオンクラスターが、<br className="hidden md:block" />
-                            室内の花粉を根本から不活化し、<br className="md:hidden" />クリーンな生活空間を提供します。
+                            室内の花粉を根本から不活化し、<br className="md:hidden" />
+                            クリーンな生活空間を提供します。
                         </p>
                     </motion.div>
 
@@ -100,12 +101,16 @@ export default function HayFever() {
                     <div className="flex flex-col md:flex-row items-center gap-16 max-w-6xl mx-auto text-left">
                         <div className="w-full md:w-1/2">
                             <h2 className="text-3xl md:text-6xl font-black mb-8 leading-tight">
-                                なぜ、<br />
-                                <span className="text-red-500">空気清浄機</span>だけでは<br />不十分なのか？
+                                なぜ、<br className="md:hidden" />
+                                <span className="text-red-500">空気清浄機</span>だけでは<br />
+                                不十分なのか？
                             </h2>
                             <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-                                従来型のフィルター式は、浮遊している花粉を吸い込むのを待つだけです。<br /><br />
-                                しかし、人の動きやドアの開閉で舞い上がる花粉、衣類に付着した花粉には対応できません。本当に対策すべきは、吸い込む前の「空気そのもの」の改質です。
+                                従来型のフィルター式は、浮遊している花粉を<br className="md:hidden" />
+                                吸い込むのを待つだけです。<br /><br />
+                                人の動きで舞い上がる花粉や、衣類に付着した<br className="md:hidden" />
+                                花粉には、吸い込む前の「空気そのもの」の<br className="md:hidden" />
+                                改質が必要です。
                             </p>
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="p-4 bg-white rounded-2xl border border-slate-100 shadow-sm">
