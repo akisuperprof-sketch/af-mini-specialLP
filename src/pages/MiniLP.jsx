@@ -422,48 +422,88 @@ export default function Home() {
                         {/* 1. Hay Fever */}
                         <div
                             onClick={() => handleHubNavigation('/hayfever', 'hub_hayfever')}
-                            className="group cursor-pointer bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-blue-200 hover:bg-white hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex flex-col items-center text-center"
+                            className="group cursor-pointer bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-700 transform hover:-translate-y-2"
                         >
-                            <h3 className="text-xl font-bold text-gray-900 mb-3">🌸 花粉症でお悩みの方へ</h3>
-                            <p className="text-gray-600 text-sm leading-relaxed mb-6">自宅でできる、薬に頼らない対策</p>
-                            <div className="mt-auto flex items-center text-blue-600 font-bold group-hover:translate-x-1 transition-transform">
-                                詳細を見る <ChevronRight className="ml-1 h-5 w-5" />
+                            <div className="relative h-64 overflow-hidden">
+                                <img
+                                    src="/images/hub/hayfever.png"
+                                    alt="花粉のお悩み"
+                                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-60"></div>
+                            </div>
+                            <div className="p-8 text-center bg-white relative">
+                                <h3 className="text-xl font-bold text-gray-900 mb-3">🌸 花粉症でお悩みの方へ</h3>
+                                <p className="text-gray-600 text-sm leading-relaxed mb-6 italic">自宅でできる、薬に頼らない対策</p>
+                                <div className="flex items-center justify-center text-blue-600 font-bold group-hover:translate-x-1 transition-transform">
+                                    詳細を見る <ChevronRight className="ml-1 h-5 w-5" />
+                                </div>
                             </div>
                         </div>
 
                         {/* 2. Dental */}
                         <div
                             onClick={() => handleHubNavigation('/dental', 'hub_dental')}
-                            className="group cursor-pointer bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-blue-200 hover:bg-white hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex flex-col items-center text-center"
+                            className="group cursor-pointer bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-700 transform hover:-translate-y-2"
                         >
-                            <h3 className="text-xl font-bold text-gray-900 mb-3">🏥 歯科医院・医療関係の方へ</h3>
-                            <p className="text-gray-600 text-sm leading-relaxed mb-6">院内環境と信頼性を高めたい方</p>
-                            <div className="mt-auto flex items-center text-blue-600 font-bold group-hover:translate-x-1 transition-transform">
-                                詳細を見る <ChevronRight className="ml-1 h-5 w-5" />
+                            <div className="relative h-64 overflow-hidden">
+                                <img
+                                    src="/images/hub/dental.png"
+                                    alt="歯科医院の衛生管理"
+                                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-60"></div>
+                            </div>
+                            <div className="p-8 text-center bg-white relative">
+                                <h3 className="text-xl font-bold text-gray-900 mb-3">🏥 歯科医院・医療関係の方へ</h3>
+                                <p className="text-gray-600 text-sm leading-relaxed mb-6 italic">院内環境と信頼性を高めたい方</p>
+                                <div className="flex items-center justify-center text-blue-600 font-bold group-hover:translate-x-1 transition-transform">
+                                    詳細を見る <ChevronRight className="ml-1 h-5 w-5" />
+                                </div>
                             </div>
                         </div>
 
                         {/* 3. Pet */}
                         <div
                             onClick={() => handleHubNavigation('/pet', 'hub_pet')}
-                            className="group cursor-pointer bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-blue-200 hover:bg-white hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex flex-col items-center text-center"
+                            className="group cursor-pointer bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-700 transform hover:-translate-y-2"
                         >
-                            <h3 className="text-xl font-bold text-gray-900 mb-3">🐶 ペットと暮らすご家庭へ</h3>
-                            <p className="text-gray-600 text-sm leading-relaxed mb-6">来客も安心できる空間づくり</p>
-                            <div className="mt-auto flex items-center text-blue-600 font-bold group-hover:translate-x-1 transition-transform">
-                                詳細を見る <ChevronRight className="ml-1 h-5 w-5" />
+                            <div className="relative h-64 overflow-hidden">
+                                <img
+                                    src="/images/hub/pet.png"
+                                    alt="ペットのニオイ対策"
+                                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-60"></div>
+                            </div>
+                            <div className="p-8 text-center bg-white relative">
+                                <h3 className="text-xl font-bold text-gray-900 mb-3">🐶 ペットと暮らすご家庭へ</h3>
+                                <p className="text-gray-600 text-sm leading-relaxed mb-6 italic">来客も安心できる空間づくり</p>
+                                <div className="flex items-center justify-center text-blue-600 font-bold group-hover:translate-x-1 transition-transform">
+                                    詳細を見る <ChevronRight className="ml-1 h-5 w-5" />
+                                </div>
                             </div>
                         </div>
 
                         {/* 4. 3D Printer */}
                         <div
                             onClick={() => handleHubNavigation('/3dprinter', 'hub_3dprinter')}
-                            className="group cursor-pointer bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-blue-200 hover:bg-white hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex flex-col items-center text-center"
+                            className="group cursor-pointer bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-700 transform hover:-translate-y-2"
                         >
-                            <h3 className="text-xl font-bold text-gray-900 mb-3">🖨️ 開発・製造・研究現場の方へ</h3>
-                            <p className="text-gray-600 text-sm leading-relaxed mb-6">レジン臭・VOC対策</p>
-                            <div className="mt-auto flex items-center text-blue-600 font-bold group-hover:translate-x-1 transition-transform">
-                                詳細を見る <ChevronRight className="ml-1 h-5 w-5" />
+                            <div className="relative h-64 overflow-hidden">
+                                <img
+                                    src="/images/hub/3dprinter.png"
+                                    alt="3DプリンタのVOC対策"
+                                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-60"></div>
+                            </div>
+                            <div className="p-8 text-center bg-white relative">
+                                <h3 className="text-xl font-bold text-gray-900 mb-3">🖨️ 開発・製造・研究現場の方へ</h3>
+                                <p className="text-gray-600 text-sm leading-relaxed mb-6 italic">レジン臭・VOC対策</p>
+                                <div className="flex items-center justify-center text-blue-600 font-bold group-hover:translate-x-1 transition-transform">
+                                    詳細を見る <ChevronRight className="ml-1 h-5 w-5" />
+                                </div>
                             </div>
                         </div>
                     </div>
