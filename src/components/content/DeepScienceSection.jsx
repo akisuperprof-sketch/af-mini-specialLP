@@ -130,15 +130,15 @@ const DeepScienceSection = () => {
                                     <Sparkles className="w-7 h-7 text-indigo-400" /> なぜ「放出式」なのか？
                                 </h3>
                                 <div className="space-y-8">
-                                    <div className="relative pl-12">
-                                        <div className="absolute left-0 top-0 w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-xs font-bold ring-1 ring-white/10">吸</div>
+                                    <div className="relative pl-16">
+                                        <div className="absolute left-4 top-0 w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-[10px] font-bold ring-1 ring-white/10 text-gray-500">吸</div>
                                         <p className="font-bold text-gray-400 text-sm mb-2 text-left">従来の吸引式空気清浄機</p>
                                         <p className="text-gray-500 text-xs text-left leading-relaxed">本体に吸い込まれた空気しか綺麗にできません。壁や床に付着した菌、衣服のニオイ、部屋の隅にある汚れには手が届きませんでした。</p>
                                     </div>
-                                    <div className="relative pl-12 bg-white/5 p-6 rounded-2xl border border-white/5">
-                                        <div className="absolute left-6 top-6 w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-xs font-bold ring-2 ring-indigo-500/30">放</div>
-                                        <p className="font-bold text-white text-sm mb-2 text-left">Air Future（アクティブ放出式）</p>
-                                        <p className="text-indigo-100 text-xs text-left leading-relaxed">大量のイオンを能動的に空間へ放出。空気だけでなく、ソファや壁に染み付いた菌やVOCまで直接アタックし、空間全体をまるごと洗い流します。</p>
+                                    <div className="relative pl-16 bg-white/5 p-8 rounded-[2rem] border border-white/10 shadow-inner">
+                                        <div className="absolute left-4 top-8 w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-[10px] font-bold ring-2 ring-indigo-500/30 shadow-lg shadow-indigo-500/20">放</div>
+                                        <p className="font-bold text-white text-base mb-3 text-left tracking-tight">Air Future（アクティブ放出式）</p>
+                                        <p className="text-indigo-100/70 text-sm text-left leading-relaxed">大量のイオンを能動的に空間へ放出。空気だけでなく、ソファや壁に染み付いた菌やVOCまで直接アタックし、空間全体をまるごと洗い流します。</p>
                                     </div>
                                 </div>
                             </div>
