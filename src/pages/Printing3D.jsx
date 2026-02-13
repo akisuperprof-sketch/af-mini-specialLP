@@ -48,10 +48,10 @@ export default function Printing3D() {
                 }
             `}</style>
 
-            <header className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-gray-800">
+            <header className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
                 <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-                    <img src={IMAGES.logo} alt="AirFuture mini" className="h-8 md:h-10 object-contain brightness-0 invert" />
-                    <Button onClick={() => handleCTAClick('header_nav')} className="text-xs md:text-sm font-bold text-gray-300 hover:text-purple-400 transition-colors">
+                    <img src={IMAGES.logo} alt="AirFuture mini" className="h-8 md:h-10 object-contain" />
+                    <Button onClick={() => handleCTAClick('header_nav')} className="text-xs md:text-sm font-bold text-gray-600 hover:text-purple-600 transition-colors">
                         製品詳細 <ChevronRight className="w-3 h-3 ml-1" />
                     </Button>
                 </div>
@@ -67,6 +67,31 @@ export default function Printing3D() {
 
             {/* Hero Section */}
             <section className="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-black overflow-hidden pt-20">
+                {/* Floating Particles Background */}
+                <div className="absolute inset-0 z-0 pointer-events-none">
+                    {[...Array(20)].map((_, i) => (
+                        <motion.div
+                            key={i}
+                            initial={{
+                                x: Math.random() * 100 + "%",
+                                y: Math.random() * 100 + "%",
+                                opacity: Math.random() * 0.5
+                            }}
+                            animate={{
+                                y: [null, (Math.random() - 0.5) * 100 + "%"],
+                                x: [null, (Math.random() - 0.5) * 100 + "%"],
+                                opacity: [0.2, 0.5, 0.2]
+                            }}
+                            transition={{
+                                duration: Math.random() * 10 + 10,
+                                repeat: Infinity,
+                                ease: "linear"
+                            }}
+                            className="absolute w-1 h-1 bg-blue-400/30 rounded-full blur-[1px]"
+                        />
+                    ))}
+                </div>
+
                 <div className="container mx-auto px-4 z-10 relative text-center animate-fade-blur">
                     <span className="inline-block py-1 px-3 rounded-full bg-purple-600 text-white text-[10px] md:text-xs font-black mb-4 uppercase tracking-[0.2em]">
                         FOR 3D PRINTING PROFESSIONALS

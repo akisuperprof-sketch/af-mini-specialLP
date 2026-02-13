@@ -76,6 +76,31 @@ export default function Dental() {
 
             {/* Hero Section */}
             <section className="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-slate-50 to-white overflow-hidden pt-20">
+                {/* Floating Clean Particles */}
+                <div className="absolute inset-0 z-0 pointer-events-none">
+                    {[...Array(20)].map((_, i) => (
+                        <motion.div
+                            key={i}
+                            initial={{
+                                x: Math.random() * 100 + "%",
+                                y: Math.random() * 100 + "%",
+                                opacity: 0
+                            }}
+                            animate={{
+                                y: [null, (Math.random() - 0.5) * 50 + "%"],
+                                x: [null, (Math.random() - 0.5) * 50 + "%"],
+                                opacity: [0, 0.3, 0]
+                            }}
+                            transition={{
+                                duration: Math.random() * 15 + 10,
+                                repeat: Infinity,
+                                ease: "linear"
+                            }}
+                            className={`absolute rounded-full blur-[1px] ${i % 2 === 0 ? 'w-1 h-1 bg-blue-400/20' : 'w-2 h-2 bg-blue-200/20'}`}
+                        />
+                    ))}
+                </div>
+
                 <div className="container mx-auto px-4 z-10 relative text-center animate-fade-blur">
                     <span className="inline-block py-1 px-3 rounded-full bg-blue-600 text-white text-[10px] md:text-xs font-black mb-4 uppercase tracking-[0.2em]">
                         FOR DENTAL PROFESSIONAL

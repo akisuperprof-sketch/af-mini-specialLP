@@ -260,7 +260,7 @@
             </div>
 
             <!-- 流入経路別視覚化サマリー (New) -->
-            <div id="visual-source-cards" class="grid grid-cols-4 gap-3 mt-3">
+            <div id="visual-source-cards" class="grid grid-cols-5 gap-3 mt-3">
                 <!-- JSで動的にリッチなカードを挿入 -->
             </div>
 
@@ -809,7 +809,7 @@
                 const stats = rows.find(r => r.src === lp.id) || { c: 0, v: 0, r: 0, cvr: '0.0' };
                 // Calculate percentage of total clicks
                 const pct = tC > 0 ? ((stats.c / tC) * 100).toFixed(0) : 0;
-                
+
                 return `
                 <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col items-center justify-center relative group hover:border-${lp.color}-400 transition-all duration-300">
                     <div class="text-2xl mb-1 group-hover:scale-125 transition-transform">${lp.icon}</div>

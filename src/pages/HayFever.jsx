@@ -56,6 +56,31 @@ export default function HayFever() {
             </div>
 
             <section className="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-white pt-20">
+                {/* Floating Pollen Particles */}
+                <div className="absolute inset-0 z-0 pointer-events-none">
+                    {[...Array(30)].map((_, i) => (
+                        <motion.div
+                            key={i}
+                            initial={{
+                                x: Math.random() * 100 + "%",
+                                y: Math.random() * 100 + "%",
+                                opacity: 0
+                            }}
+                            animate={{
+                                y: [null, (Math.random() - 0.5) * 50 + "%"],
+                                x: [null, (Math.random() - 0.5) * 50 + "%"],
+                                opacity: [0, 0.4, 0]
+                            }}
+                            transition={{
+                                duration: Math.random() * 15 + 10,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                            className="absolute w-2 h-2 bg-yellow-400/20 rounded-full blur-[2px]"
+                        />
+                    ))}
+                </div>
+
                 <div className="container mx-auto px-4 z-10 relative text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
