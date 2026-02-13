@@ -1,4 +1,4 @@
-# AirFuture Mini Special LP - Technical Specification v1.0
+# AirFuture Mini Special LP - Technical Specification v1.1
 
 ## 1. プロジェクト概要 (Project Overview)
 
@@ -100,10 +100,15 @@ const trackBuy = (pid) => {
 
 すべてのLPは以下を含むこと：
 
-1. **ロゴ**: `/images/mini-logo.jpg` をヘッダーに配置
-2. **トラッキング**: `navigator.sendBeacon` を使用した非同期計測
-3. **CTA**: 製品詳細 (`TARGET_LP_URL`) と購入 (`TARGET_APPLY_URL`) の2種類
-4. **パラメータ**: `lp`, `pid`, `utm_source` を正しく付与
+1. **ロゴ**: `/images/mini-logo.jpg` をヘッダーに配置。3DプリンターLPなどはダークテーマだが、ヘッダーは白背景 (`bg-white/80`) で統一する。
+2. **トラッキング**: `navigator.sendBeacon` を使用した非同期計測。**既存の計測コードは、リファクタリング時も絶対に削除せず維持すること。**
+3. **CTA**: 製品詳細 (`TARGET_LP_URL`) と購入 (`TARGET_APPLY_URL`) の2種類。
+4. **パラメータ**: `lp`, `pid`, `utm_source` を各ボタンに正しく付与。
+5. **ハブ機能**: 各LPトップまたはメインLPに、他の特化型LPへの導線（Hubセクション）を設ける。
+
+### 3.3 ハブセクション実装ルール
+- 他のLPへ遷移する際は、現在のURLクエリパラメータ（`pid`, `utm_source`等）を引き継ぐこと。
+- 遷移前に `log_click` イベントを発火させること。
 
 ---
 
@@ -169,14 +174,41 @@ npx vercel --prod --yes
 - **URL末尾の拡張子は安易に付けないこと**
 - **変更時は全LPコンポーネントで一貫性を保つこと**
 
-**再発防止策**:
-1. この仕様書を必ず参照する
-2. 新規LP作成時は既存LP（`Dental.jsx`, `HayFever.jsx`）をテンプレートとして使用する
-3. デプロイ前に購入ボタンの動作確認を必ず実施する
+### 6.2 Bug #2: Hub Section Disappearance (2026-02-13)
+**症状**: 
+- アップデート作業中に、意図せずハブセクション（他LPへのリンク）がコードから消去された。
+
+**原因**: 
+- 大規模なセクションの差し替え時に、既存の重要コンポーネントの存在を確認しなかったため。
+
+**教訓**: 
+- **「追加」の指示は「上書き削除」ではない。** 既存の機能（特に計測、ナビゲーション）は、削除の明記がない限り維持すること。
+
+### 6.3 Bug #3: Vercel Routing Conflict for /apply (2026-02-12)
+**症状**: 
+- `/apply` へのアクセスが React アプリケーションにインターセプトされ、`apply.html` のリダイレクトが動作しない。
+
+**原因**: 
+- Vercel のデフォルトルーティングがすべてのパスを `index.html` に向けていたため。
+
+**修正内容**:
+- `vercel.json` に明示的な `/apply` -> `/apply.html` の書き換えルールを追加。
 
 ---
 
-## 7. 開発ガイドライン (Development Guidelines)
+## 7. 🛡️ 機能維持とリグレッション防止 (Regression Prevention)
+
+### 7.1 計測ロジックの死守
+- `log_click` や `navigator.sendBeacon` を含むトラッキングコードは、エンジンの心臓部である。
+- UIの見た目を変更する際も、これらのロジックを削ったり、引数を変えたりしてはならない。
+
+### 7.2 指示なき削除の禁止
+- 「XXを修正して」という指示は、それ以外の「YY」という既存機能を消して良いという意味ではない。
+- コードを書き換える前に、そのファイル内の既存の重要機能（CTA、計測、SEOタグ）のリストを頭の中で作成し、それらが残っているかを確認すること。
+
+---
+
+## 8. 開発ガイドライン (Development Guidelines)
 
 ### 7.1 新規LP追加手順
 
@@ -204,6 +236,6 @@ npx vercel --prod --yes
 
 ---
 
-**Last Updated**: 2026-02-11  
-**Version**: 1.0  
+**Last Updated**: 2026-02-13  
+**Version**: 1.1  
 **Maintainer**: Antigravity AI Assistant

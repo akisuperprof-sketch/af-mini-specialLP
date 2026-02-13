@@ -73,3 +73,20 @@
     - 画像とテキストの重なり回避のためのグラデーション強化。
     - **Scroll Fade Effect**: スクロール連動のフェードイン/アウト実装。
 - **Image Updates**: 車内画像をユーザー提供の最新版 (`v3`) に差し替え。
+
+### [2026-02-13] Special LPs Expansion & UI/UX Polish
+- **Specialized LPs Completion**: 4つの専門LP（花粉症、歯科医院、ペット、3Dプリンター）の不足画像をAI生成で補完し、コンテンツを完成。
+- **Hero Animations**: 
+    - 各LPのテーマに合わせた浮遊粒子アニメーション（Framer Motion）を実装。
+    - 花粉、清潔な空間、温もりのある空間、先進的な作業環境を視覚的に強化。
+- **Hub Navigation Restore**:
+    - メインLP (`AFminiHP検討`) および各専門LPのハブセクションを復元。
+    - 遷移時に `pid` や `utm_source` などのURLクエリパラメータを完全に引き継ぐロジック (`handleHubNavigation`) を実装。
+- **Admin Layout Update**:
+    - 管理画面 (`admin.html`) のKPIカードを5カラムに変更し、3Dプリンター等の項目が切れないように調整。
+- **Header & Logo Alignment**:
+    - 3DプリンターLPのヘッダーを他と統一（白背景）。全LPで共通のブランド体験に修正。
+- **Favicon Update**:
+    - メインLPのファビコンを最新のスクリーンショット画像に変更。
+- **Mobile Optimization**:
+    - 全LPのテキスト改行 (`br` タグ) をスマホ表示向けに再調整し、不自然な2文字改行等を根絶。

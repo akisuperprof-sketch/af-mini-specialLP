@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import LuxuryBackground from '../components/LuxuryBackground';
 import Button from '../components/Button';
 import { ChevronRight, Shirt, Wind, Shield, CheckCircle, Dog, Sun, Moon, Car } from "lucide-react";
+import DeepScienceSection from '../components/content/DeepScienceSection';
 
 export default function Home() {
     const [showIntro, setShowIntro] = useState(true);
@@ -186,6 +187,8 @@ export default function Home() {
                     </div>
                 </div>
             </section>
+
+            <DeepScienceSection />
 
             {/* Scene: Pet (Living Room) */}
             <section className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden flex items-center">

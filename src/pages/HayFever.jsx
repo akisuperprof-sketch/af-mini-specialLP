@@ -41,7 +41,7 @@ export default function HayFever() {
             <header className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
                 <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                     <img src={IMAGES.logo} alt="AirFuture mini" className="h-8 md:h-10 object-contain" />
-                    <Button onClick={() => handleCTAClick('header_nav')} className="text-xs md:text-sm font-bold text-gray-600 hover:text-blue-600 transition-colors">
+                    <Button onClick={() => handleCTAClick('header_nav')} className="text-xs md:text-sm font-bold text-gray-600 hover:text-amber-600 transition-colors">
                         製品詳細 <ChevronRight className="w-3 h-3 ml-1" />
                     </Button>
                 </div>
@@ -49,13 +49,13 @@ export default function HayFever() {
 
             {/* Floating CTA */}
             <div className="floating-cta-container">
-                <Button onClick={() => trackBuy('floating_cta')} className="clean-button px-6 py-3 text-sm md:text-base rounded-full border border-blue-200 bg-blue-600 text-white hover:bg-blue-700">
+                <Button onClick={() => trackBuy('floating_cta')} className="clean-button px-6 py-3 text-sm md:text-base rounded-full border border-amber-200 bg-amber-500 text-white hover:bg-amber-600">
                     今すぐ購入する
                     <ChevronRight className="ml-1 h-4 w-4" />
                 </Button>
             </div>
 
-            <section className="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-white pt-20">
+            <section className="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-amber-50 to-white pt-20">
                 {/* Floating Pollen Particles */}
                 <div className="absolute inset-0 z-0 pointer-events-none">
                     {[...Array(30)].map((_, i) => (
@@ -87,12 +87,12 @@ export default function HayFever() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <span className="inline-block py-1 px-3 rounded-full bg-blue-600 text-white text-[10px] md:text-xs font-black mb-4 uppercase tracking-widest">
+                        <span className="inline-block py-1 px-3 rounded-full bg-amber-500 text-white text-[10px] md:text-xs font-black mb-4 uppercase tracking-widest">
                             POLLEN DEFENSE SOLUTION
                         </span>
                         <h1 className="text-3xl md:text-8xl font-black mb-6 text-slate-900 leading-tight tracking-tighter">
                             花粉の季節を、<br />
-                            <span className="text-blue-600">「最高の季節」</span>に<br className="md:hidden" />変える。
+                            <span className="text-amber-500">「最高の季節」</span>に<br className="md:hidden" />変える。
                         </h1>
                         <p className="text-sm md:text-2xl text-slate-600 font-medium mb-10 max-w-4xl mx-auto px-4">
                             ハガキサイズの革新。高濃度イオンクラスターが、<br className="hidden md:block" />
@@ -105,7 +105,7 @@ export default function HayFever() {
                         <Button onClick={() => handleCTAClick('hero_detail')} className="w-full md:w-auto bg-white text-slate-900 border-2 border-slate-900 px-10 py-5 text-xl rounded-full font-black shadow-sm hover:bg-slate-50 transition-all">
                             AirFuture mini を詳しく見る
                         </Button>
-                        <Button onClick={() => trackBuy('hero_order')} className="w-full md:w-auto bg-blue-600 text-white hover:bg-blue-700 px-10 py-5 text-xl rounded-full font-black shadow-lg transition-all">
+                        <Button onClick={() => trackBuy('hero_order')} className="w-full md:w-auto bg-amber-500 text-white hover:bg-amber-600 px-10 py-5 text-xl rounded-full font-black shadow-lg transition-all">
                             今すぐ購入する
                         </Button>
                     </div>
@@ -159,22 +159,22 @@ export default function HayFever() {
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col md:flex-row items-center gap-16 max-w-6xl mx-auto text-left">
                         <div className="w-full md:w-1/2 order-2 md:order-1">
-                            <img src={IMAGES.solution} alt="Ion Cluster Solution" className="w-full rounded-3xl shadow-2xl border border-blue-50" />
+                            <img src={IMAGES.solution} alt="Ion Cluster Solution" className="w-full rounded-3xl shadow-2xl border border-amber-50" />
                         </div>
                         <div className="w-full md:w-1/2 order-1 md:order-2">
-                            <span className="text-blue-600 font-bold tracking-widest text-xs mb-4 block uppercase leading-none">The Ultimate Solution</span>
+                            <span className="text-amber-500 font-bold tracking-widest text-xs mb-4 block uppercase leading-none">The Ultimate Solution</span>
                             <h2 className="text-3xl md:text-6xl font-black mb-8 leading-tight">
                                 攻めの<br />
-                                <span className="text-blue-600">「イオンバリア」</span>
+                                <span className="text-amber-500">「イオンバリア」</span>
                             </h2>
                             <p className="text-lg text-slate-600 mb-10 leading-relaxed">
                                 AirFuture mini から放出される毎秒3,000万個以上の高濃度イオン。これらが室内全体に広がり、花粉やダニの排泄物を分子レベルで攻撃・不活化します。<br /><br />
                                 吸い込むのを待つのではなく、その場で無害化する。これが、最先端の衛生管理です。
                             </p>
                             <ul className="space-y-4 font-bold text-slate-800">
-                                <li className="flex items-center"><CheckCircle className="text-blue-600 mr-3 shrink-0" /> 浮遊花粉を不活化</li>
-                                <li className="flex items-center"><CheckCircle className="text-blue-600 mr-3 shrink-0" /> 衣類の付着菌、ニオイも徹底消臭</li>
-                                <li className="flex items-center"><CheckCircle className="text-blue-600 mr-3 shrink-0" /> メンテナンスは2年に1度の素子交換のみ</li>
+                                <li className="flex items-center"><CheckCircle className="text-amber-500 mr-3 shrink-0" /> 浮遊花粉を不活化</li>
+                                <li className="flex items-center"><CheckCircle className="text-amber-500 mr-3 shrink-0" /> 衣類の付着菌、ニオイも徹底消臭</li>
+                                <li className="flex items-center"><CheckCircle className="text-amber-500 mr-3 shrink-0" /> メンテナンスは2年に1度の素子交換のみ</li>
                             </ul>
                         </div>
                     </div>
@@ -186,7 +186,7 @@ export default function HayFever() {
                     <h2 className="text-3xl md:text-6xl font-black mb-12">花粉に振り回される日は、<br />今日で終わり。</h2>
                     <div className="flex flex-col md:flex-row gap-6 justify-center">
                         <Button onClick={() => handleCTAClick('mid_detail')} className="bg-white text-slate-900 px-10 py-5 text-xl rounded-full font-black shadow-xl">全機能を見る</Button>
-                        <Button onClick={() => trackBuy('mid_order')} className="bg-blue-600 text-white px-10 py-5 text-xl rounded-full font-black shadow-2xl">購入・見積依頼</Button>
+                        <Button onClick={() => trackBuy('mid_order')} className="bg-amber-500 text-white px-10 py-5 text-xl rounded-full font-black shadow-2xl">購入・見積依頼</Button>
                     </div>
                 </div>
             </section>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AirFuture X自動投稿管理画面 v3.4</title>
+    <title>AirFuture X自動投稿管理画面 v3.5</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.10/dayjs.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
@@ -116,7 +116,7 @@
                 <h1 class="text-xl font-black tracking-tighter text-slate-900 flex items-center gap-2">
                     <span
                         class="bg-indigo-600 text-white px-2 py-0.5 rounded text-lg shadow-md shadow-indigo-200">AF</span>
-                    <span>AirFuture <span class="text-indigo-600">X自動投稿管理画面</span></span>
+                    <span>X自動投稿管理画面 <span class="text-indigo-600 text-xs font-bold opacity-70">x-autoup</span></span>
                 </h1>
                 <div class="flex items-center gap-3 mt-1">
                     <button onclick="toggleHelp()"
@@ -218,6 +218,41 @@
             </div>
         </section>
 
+        <!-- セクション区切りタイトル -->
+        <div class="pt-8 pb-4 flex items-center gap-4">
+            <div class="h-px bg-slate-200 flex-1"></div>
+            <h2 class="text-lg font-black text-slate-900 flex items-center gap-3 whitespace-nowrap">
+                <span class="w-2 h-6 bg-indigo-500 rounded-full"></span>
+                AF-MINI LP管理画面
+            </h2>
+            <div class="h-px bg-slate-200 flex-1"></div>
+        </div>
+
+        <!-- LP別 KPIカード・クイックリンク -->
+        <div class="grid grid-cols-5 gap-4 mb-6">
+            <template id="lp-card-template">
+                <div
+                    class="bg-white p-4 rounded-3xl border border-slate-100 shadow-sm flex flex-col items-center text-center transition-all hover:shadow-xl hover:-translate-y-1 relative group overflow-hidden">
+                    <div class="text-3xl mb-2 lp-icon">🏠</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 lp-name">MAIN</div>
+                    <div class="flex items-baseline gap-1 mb-4">
+                        <span class="text-2xl font-black text-slate-900 lp-pv">0</span>
+                        <span class="text-[10px] text-slate-400 font-bold uppercase">PV</span>
+                    </div>
+                    <div class="flex gap-2 w-full">
+                        <div
+                            class="flex-1 bg-slate-50 border border-slate-100 px-3 py-1.5 rounded-full flex items-center justify-between">
+                            <span class="text-[8px] font-black text-slate-400 lp-cv-label">CV: 0</span>
+                            <span class="text-[8px] font-black text-slate-400 lp-cvr">0.0%</span>
+                        </div>
+                    </div>
+                    <a href="#" target="_blank" class="absolute inset-0 z-10 lp-link" title="ページを開く"></a>
+                    <div class="absolute bottom-0 left-0 w-full h-1 lp-accent"></div>
+                </div>
+            </template>
+            <div id="lp-cards-container" class="contents"></div>
+        </div>
+
         <!-- KPI管理・解析セクション (下部) -->
         <section class="space-y-3">
             <h2 class="text-sm font-black text-slate-900 flex items-center gap-1.5 hidden">
@@ -259,13 +294,8 @@
                 </div>
             </div>
 
-            <!-- 流入経路別視覚化サマリー (New) -->
-            <div id="visual-source-cards" class="grid grid-cols-5 gap-3 mt-3">
-                <!-- JSで動的にリッチなカードを挿入 -->
-            </div>
-
             <div class="grid grid-cols-12 gap-3 h-[200px]">
-                <!-- 左側: LP別パフォーマンス (Filter機能統合) -->
+                <!-- 左側: LP別パフォーマンス -->
                 <div
                     class="col-span-5 bg-white p-3 rounded-2xl border border-slate-200 shadow-sm flex flex-col h-full overflow-hidden">
                     <div class="flex justify-between items-center mb-2">
@@ -288,15 +318,13 @@
                                     <th class="px-2 py-1.5 text-right rounded-r-lg">Rev</th>
                                 </tr>
                             </thead>
-                            <tbody id="source-breakdown-body" class="divide-y divide-slate-50">
-                                <!-- JSで挿入 -->
-                            </tbody>
+                            <tbody id="source-breakdown-body" class="divide-y divide-slate-50"></tbody>
                         </table>
                     </div>
-                    <input type="hidden" id="filter-lp" value="all"> <!-- 互換性のため隠しフィールドとして保持 -->
+                    <input type="hidden" id="filter-lp" value="all">
                 </div>
 
-                <!-- 中央: コンテンツランキング (Compact) -->
+                <!-- 中央: コンテンツランキング -->
                 <div class="col-span-4 bg-white p-3 rounded-2xl border border-slate-200 shadow-sm flex flex-col h-full">
                     <h3 class="text-[9px] text-slate-400 font-black uppercase mb-2 tracking-widest">コンテンツ別 (Top 10)</h3>
                     <div id="stats-container" class="space-y-1.5 flex-1 overflow-y-auto pr-1"></div>
@@ -305,118 +333,15 @@
                     </div>
                 </div>
 
-                <!-- 右側: ログ (Compact) -->
+                <!-- 右側: ログ -->
                 <div class="col-span-3 bg-white p-3 rounded-2xl border border-slate-200 shadow-sm flex flex-col h-full">
                     <h3 class="text-[9px] text-slate-400 font-black uppercase mb-2 tracking-widest">ログ</h3>
                     <div id="cron-logs-container" class="space-y-0.5 flex-1 overflow-y-auto text-[8px]"></div>
                 </div>
             </div>
-
-            <!-- システム構成フローチャート (Infographic) -->
-            <div class="mt-3 bg-white p-3 rounded-2xl border border-slate-200 shadow-sm">
-                <h3 class="text-[9px] text-slate-400 font-black uppercase mb-3 tracking-widest text-center">システム連携マップ
-                </h3>
-                <div class="flex justify-around items-center gap-2 relative h-16">
-                    <!-- Step 1: Entry -->
-                    <div class="flex flex-col items-center gap-1 z-10 w-24">
-                        <div
-                            class="bg-slate-900 text-white p-1.5 rounded-lg border border-slate-800 shadow-md transform hover:scale-105 transition cursor-default flex items-center gap-1.5">
-                            <div
-                                class="w-4 h-4 bg-white/10 rounded flex items-center justify-center text-[8px] font-black">
-                                X</div>
-                            <div class="leading-none">
-                                <span class="text-[8px] font-black block">入口</span>
-                                <span class="text-[6px] text-slate-400">SNS / 広告</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-slate-200"><svg class="w-4 h-4" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7">
-                            </path>
-                        </svg></div>
-
-                    <!-- Step 2: Redirector -->
-                    <div class="flex flex-col items-center gap-1 z-10 w-28">
-                        <div
-                            class="bg-blue-600 text-white p-1.5 rounded-lg border border-blue-500 shadow-lg ring-1 ring-blue-400/30 transform hover:scale-105 transition cursor-default flex items-center gap-1.5">
-                            <div class="w-4 h-4 bg-white/20 rounded flex items-center justify-center"><svg
-                                    class="w-2 h-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.826a4 4 0 015.656 0l4 4a4 4 0 01-5.656 5.656l-1.1-1.1">
-                                    </path>
-                                </svg></div>
-                            <div class="leading-none">
-                                <span class="text-[8px] font-black block">計測・振分</span>
-                                <span class="text-[6px] text-blue-100">airfuture.vercel</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-slate-200"><svg class="w-4 h-4" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7">
-                            </path>
-                        </svg></div>
-
-                    <!-- Step 3: Landing Pages -->
-                    <div class="flex flex-col gap-1.5 z-10">
-                        <div
-                            class="bg-indigo-50 border border-indigo-100 p-1 rounded-lg shadow-sm flex items-center gap-2 w-36 group hover:border-indigo-300 transition cursor-default">
-                            <div
-                                class="w-6 h-6 bg-white rounded shadow-sm overflow-hidden flex-shrink-0 border border-indigo-100">
-                                <img src="https://v0-air-future-mini-design.vercel.app/product-angle-cutout.png"
-                                    class="w-full h-full object-contain p-0.5" onerror="this.src='/favicon.png'">
-                            </div>
-                            <div class="leading-none">
-                                <span class="text-[8px] font-extrabold text-indigo-900 block">メインLP</span>
-                                <span class="text-[6px] text-indigo-400">デザイン・詳細版</span>
-                            </div>
-                        </div>
-                        <div
-                            class="bg-emerald-50 border border-emerald-100 p-1 rounded-lg shadow-sm flex items-center gap-2 w-36 group hover:border-emerald-300 transition cursor-default">
-                            <div
-                                class="w-6 h-6 bg-white rounded shadow-sm overflow-hidden flex-shrink-0 border border-emerald-100">
-                                <img src="https://airfuture.vercel.app/images/hayfever/product_mini.png"
-                                    class="w-full h-full object-contain p-0.5"
-                                    onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%2310b981%22/></svg>'">
-                            </div>
-                            <div class="leading-none">
-                                <span class="text-[8px] font-extrabold text-emerald-900 block">特化型LP</span>
-                                <span class="text-[6px] text-emerald-400">花粉・歯科・ペット等</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-slate-200"><svg class="w-4 h-4" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7">
-                            </path>
-                        </svg></div>
-
-                    <!-- Step 4: Purchase -->
-                    <div class="flex flex-col items-center gap-1 z-10 w-24">
-                        <div
-                            class="bg-rose-500 text-white p-1.5 rounded-xl shadow-lg ring-2 ring-rose-100 transform hover:scale-110 transition cursor-default animate-pulse flex items-center gap-1.5">
-                            <div class="w-4 h-4 bg-white/20 rounded-full flex items-center justify-center"><svg
-                                    class="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z">
-                                    </path>
-                                </svg></div>
-                            <div class="leading-none text-left">
-                                <span class="text-[9px] font-black block">申込</span>
-                                <span class="text-[6px] text-rose-100">注文受付フォーム</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </section>
 
-        <!-- ヘルプモーダル -->
+        <!-- カスタムダイアログ群 -->
         <div id="help-modal"
             class="fixed inset-0 bg-slate-900/60 z-[2000] hidden items-center justify-center p-6 backdrop-blur-sm">
             <div class="bg-white p-10 rounded-[40px] max-w-lg w-full shadow-2xl relative">
@@ -432,17 +357,12 @@
                         <h3 class="font-bold text-slate-900 mb-2">1. 投稿管理 (上部)</h3>
                         <p>自動投稿のスケジュール管理を行います。記事生成ボタンからAIに記事を作らせたり、「今すぐ投稿」で即時配信が可能です。</p>
                     </div>
-                    <div>
-                        <h3 class="font-bold text-slate-900 mb-2">2. データ解析 (下部)</h3>
-                        <p>実際のクリックや成約(CV)などの成果を確認します。どの記事が成約に結び付いているか、損益分岐点を超えているかを確認してください。</p>
-                    </div>
                 </div>
                 <button onclick="toggleHelp()"
                     class="mt-8 w-full bg-slate-100 text-slate-900 font-black py-4 rounded-2xl hover:bg-slate-200 transition">閉じる</button>
             </div>
         </div>
 
-        <!-- 記事生成モーダル -->
         <div id="gen-modal"
             class="fixed inset-0 bg-slate-900/60 z-[3000] hidden items-center justify-center p-6 backdrop-blur-sm">
             <div class="bg-white p-10 rounded-[40px] max-w-lg w-full shadow-2xl relative">
@@ -450,100 +370,64 @@
                 <div class="space-y-6">
                     <div>
                         <label
-                            class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">AI指示プロンプト
-                            (任意)</label>
-                        <textarea id="gen-memo" placeholder="例: 春の花粉シーズンに向けて、専門家としての信頼性を重視した投稿を作成してください。"
-                            class="w-full h-32 border-2 border-slate-100 rounded-2xl p-5 text-sm focus:border-indigo-500 outline-none transition font-medium"></textarea>
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">開始日付
-                            (JST)</label>
-                        <input type="date" id="gen-start-date"
-                            class="w-full border-2 border-slate-100 rounded-xl px-4 py-3.5 text-sm font-black outline-none bg-slate-50 focus:bg-white transition">
-                    </div>
-                    <div>
-                        <label
-                            class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">作成する日数</label>
-                        <select id="gen-days"
-                            class="w-full border-2 border-slate-100 rounded-xl px-4 py-3.5 text-sm font-black outline-none bg-slate-50 focus:bg-white transition">
-                            <option value="1">1日分 (3件)</option>
-                            <option value="3">3日分 (9件)</option>
-                            <option value="7">7日分 (21件)</option>
-                            <option value="14">14日分 (42件)</option>
-                        </select>
+                            class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">AI指示プロンプト</label>
+                        <textarea id="gen-memo" placeholder="例: 春の花粉シーズンに向けて..."
+                            class="w-full h-32 border-2 border-slate-100 rounded-2xl p-5 text-sm outline-none transition font-medium"></textarea>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <button onclick="triggerGenerate(true)"
-                            class="bg-indigo-600 text-white font-black py-5 rounded-3xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-100 flex flex-col items-center">
-                            <span>ストーリー形式</span>
-                            <span class="text-[8px] opacity-60 font-bold tracking-widest mt-1">NARRATIVE</span>
-                        </button>
+                            class="bg-indigo-600 text-white font-black py-5 rounded-3xl hover:bg-indigo-700 transition">ストーリー形式</button>
                         <button onclick="triggerGenerate(false)"
-                            class="bg-white border-2 border-indigo-600 text-indigo-600 font-black py-5 rounded-3xl hover:bg-indigo-50 transition border-b-4 active:border-b-0 active:translate-y-1">単品案を生成</button>
+                            class="bg-white border-2 border-indigo-600 text-indigo-600 font-black py-5 rounded-3xl hover:bg-indigo-50 transition">単品案を生成</button>
                     </div>
                     <button onclick="closeGenerateModal()"
-                        class="w-full text-[10px] font-black text-slate-300 hover:text-slate-500 uppercase tracking-widest pt-4">パネルを閉じる</button>
+                        class="w-full text-xs font-black text-slate-300 pt-4">閉じる</button>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- カスタム確認モーダル -->
-    <div id="confirm-modal"
-        class="fixed inset-0 bg-slate-900/60 z-[4000] hidden items-center justify-center p-6 backdrop-blur-sm">
-        <div class="bg-white p-8 rounded-3xl max-w-sm w-full shadow-2xl relative">
-            <h3 class="text-xl font-black text-slate-900 mb-4" id="confirm-title">確認</h3>
-            <p class="text-sm text-slate-600 mb-6" id="confirm-message">この操作を実行しますか？</p>
-            <div class="flex gap-3">
-                <button onclick="confirmAction(false)"
-                    class="flex-1 bg-slate-100 text-slate-600 font-black py-3 rounded-xl hover:bg-slate-200 transition">キャンセル</button>
-                <button onclick="confirmAction(true)" id="confirm-ok-btn"
-                    class="flex-1 bg-indigo-600 text-white font-black py-3 rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-100">OK</button>
+        <div id="confirm-modal"
+            class="fixed inset-0 bg-slate-900/60 z-[4000] hidden items-center justify-center p-6 backdrop-blur-sm">
+            <div class="bg-white p-8 rounded-3xl max-w-sm w-full shadow-2xl relative">
+                <h3 class="text-xl font-black text-slate-900 mb-4" id="confirm-title">確認</h3>
+                <p class="text-sm text-slate-600 mb-6" id="confirm-message">この操作を実行しますか？</p>
+                <div class="flex gap-3">
+                    <button onclick="confirmAction(false)"
+                        class="flex-1 bg-slate-100 text-slate-600 font-black py-3 rounded-xl">キャンセル</button>
+                    <button onclick="confirmAction(true)"
+                        class="flex-1 bg-indigo-600 text-white font-black py-3 rounded-xl shadow-lg shadow-indigo-100">OK</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- アラートモーダル -->
-    <div id="alert-modal"
-        class="fixed inset-0 bg-slate-900/60 z-[4000] hidden items-center justify-center p-6 backdrop-blur-sm">
-        <div class="bg-white p-8 rounded-3xl max-w-sm w-full shadow-2xl relative">
-            <div class="text-center mb-6">
-                <div id="alert-icon" class="mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4">
-                    <!-- Icon will be dynamically set -->
-                </div>
+        <div id="alert-modal"
+            class="fixed inset-0 bg-slate-900/60 z-[4000] hidden items-center justify-center p-6 backdrop-blur-sm">
+            <div class="bg-white p-8 rounded-3xl max-w-sm w-full shadow-2xl relative text-center">
+                <div id="alert-icon" class="mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4"></div>
                 <h3 class="text-xl font-black text-slate-900" id="alert-title">通知</h3>
+                <p class="text-sm text-slate-600 mt-2 mb-6" id="alert-message"></p>
+                <button onclick="closeAlert()"
+                    class="w-full bg-indigo-600 text-white font-black py-3 rounded-xl shadow-lg shadow-indigo-100">閉じる</button>
             </div>
-            <p class="text-sm text-slate-600 text-center mb-6" id="alert-message">操作が完了しました</p>
-            <button onclick="closeAlert()"
-                class="w-full bg-indigo-600 text-white font-black py-3 rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-100">閉じる</button>
         </div>
     </div>
 
     <script>
         let adminPW = localStorage.getItem('af_admin_pw');
         let currentData = null;
-        let pendingAction = null; // For confirm modal
 
         function checkAuth() { const pw = document.getElementById('admin-pw').value; if (pw) { localStorage.setItem('af_admin_pw', pw); adminPW = pw; tryFetch(); } }
         function logout() { localStorage.removeItem('af_admin_pw'); location.reload(); }
         function toggleHelp() { const modal = document.getElementById('help-modal'); modal.classList.toggle('hidden'); modal.classList.toggle('flex'); }
-        function openGenerateModal() {
-            // Set default start date to today (JST)
-            const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Tokyo' });
-            document.getElementById('gen-start-date').value = today;
-            document.getElementById('gen-modal').classList.remove('hidden');
-            document.getElementById('gen-modal').classList.add('flex');
-        }
+        function openGenerateModal() { document.getElementById('gen-modal').classList.remove('hidden'); document.getElementById('gen-modal').classList.add('flex'); }
         function closeGenerateModal() { document.getElementById('gen-modal').classList.add('hidden'); document.getElementById('gen-modal').classList.remove('flex'); }
 
-        // カスタム確認ダイアログ
         function showConfirm(message, title = '確認') {
             return new Promise((resolve) => {
                 document.getElementById('confirm-title').innerText = title;
                 document.getElementById('confirm-message').innerText = message;
                 document.getElementById('confirm-modal').classList.remove('hidden');
                 document.getElementById('confirm-modal').classList.add('flex');
-
                 window.confirmAction = (result) => {
                     document.getElementById('confirm-modal').classList.add('hidden');
                     document.getElementById('confirm-modal').classList.remove('flex');
@@ -552,40 +436,21 @@
             });
         }
 
-        // カスタムアラート
         function showAlert(message, title = '通知', isSuccess = true) {
-            const iconHtml = isSuccess
-                ? '<svg class="w-10 h-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>'
-                : '<svg class="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
-
-            const iconBg = isSuccess ? 'bg-emerald-100' : 'bg-red-100';
-
+            const iconHtml = isSuccess ? '<svg class="w-10 h-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>' : '<svg class="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
             document.getElementById('alert-title').innerText = title;
             document.getElementById('alert-message').innerText = message;
             document.getElementById('alert-icon').innerHTML = iconHtml;
-            document.getElementById('alert-icon').className = `mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 ${iconBg}`;
+            document.getElementById('alert-icon').className = `mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 ${isSuccess ? 'bg-emerald-100' : 'bg-red-100'}`;
             document.getElementById('alert-modal').classList.remove('hidden');
             document.getElementById('alert-modal').classList.add('flex');
         }
-
-        function closeAlert() {
-            document.getElementById('alert-modal').classList.add('hidden');
-            document.getElementById('alert-modal').classList.remove('flex');
-        }
+        function closeAlert() { document.getElementById('alert-modal').classList.add('hidden'); }
 
         async function tryFetch() {
             try {
-                const lp = document.getElementById('filter-lp').value;
-                const period = document.getElementById('filter-period').value;
-                const res = await fetch(`/api/dashboard?human_only=true&lp=${lp}&period=${period}`, { headers: { 'x-admin-password': adminPW } });
-                if (res.status === 401) {
-                    if (adminPW) {
-                        alert('Unauthorized - session cleared');
-                        localStorage.removeItem('af_admin_pw');
-                    }
-                    location.reload();
-                    return;
-                }
+                const res = await fetch(`/api/dashboard?human_only=true`, { headers: { 'x-admin-password': adminPW } });
+                if (res.status === 401) { logout(); return; }
                 currentData = await res.json();
                 document.getElementById('auth-overlay').classList.add('hidden-auth');
                 document.getElementById('main-content').classList.remove('hidden-auth');
@@ -594,73 +459,35 @@
         }
 
         async function triggerCron(action) {
-            const btn = event.target; const orig = btn.innerText; btn.innerText = '実行中...'; btn.disabled = true;
-            try { await fetch(`/api/cron?action=${action}&pw=${adminPW}`); setTimeout(tryFetch, 1500); }
-            finally { setTimeout(() => { btn.innerText = orig; btn.disabled = false; }, 1500); }
-        }
-
-        async function triggerGenerate(storyMode) {
-            const memo = document.getElementById('gen-memo').value;
-            const days = document.getElementById('gen-days').value;
-            const startDate = document.getElementById('gen-start-date').value;
-            closeGenerateModal();
-            try {
-                await fetch('/api/generate', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPW },
-                    body: JSON.stringify({ count: 3, storyMode, days: parseInt(days), memo, startDate })
-                });
-                setTimeout(tryFetch, 2000);
-            } catch (err) { console.error(err); }
+            try { await fetch(`/api/cron?action=${action}&pw=${adminPW}`); setTimeout(tryFetch, 1500); } catch (err) { }
         }
 
         async function postOp(id, action) {
+            const btn = event.currentTarget;
             const actionLabel = action === 'force_post' ? '今すぐ投稿' : '削除';
-            if (!confirm(`ID#${id} に対して ${actionLabel} を実行します。よろしいですか？`)) return;
-
+            const confirmed = await showConfirm(`ID#${id} に対して ${actionLabel} を実行します。`, '操作確認');
+            if (!confirmed) return;
+            if (btn) btn.disabled = true;
             try {
                 const res = await fetch(`/api/manage_post?action=${action}&id=${id}&pw=${adminPW}`);
                 const data = await res.json();
-
-                if (!res.ok) {
-                    alert(`❌ エラー: ${data.error || res.statusText}`);
-                    console.error('API Error:', data);
-                    return;
-                }
-
-                alert(`✅ ${actionLabel}が完了しました！`);
+                if (!res.ok) { showAlert(data.error || 'Error', 'エラー', false); return; }
+                showAlert('完了しました', '成功');
                 await tryFetch();
-            } catch (err) {
-                alert(`❌ ネットワークエラー: ${err.message}`);
-                console.error(err);
-            }
+            } catch (err) { showAlert(err.message, '通信エラー', false); }
+            finally { if (btn) btn.disabled = false; }
         }
 
         function render(data) {
             const kpi = data.kpi || {};
-            const storageStatus = document.getElementById('storage-status');
-            const statusDot = document.getElementById('status-dot');
-            const statusContainer = document.getElementById('storage-status-container');
-
-            if (data.storage_status === 'CONNECTED') {
-                storageStatus.innerText = '接続済み';
-                storageStatus.className = 'text-[10px] font-black text-emerald-600 uppercase';
-                statusDot.className = 'w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]';
-                statusContainer.className = 'flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-emerald-50 border border-emerald-100 shadow-inner';
-            } else {
-                storageStatus.innerText = data.storage_error ? 'エラー発生' : 'ローカル限定';
-                storageStatus.className = 'text-[10px] font-black text-red-600 uppercase';
-                statusDot.className = 'w-2 h-2 rounded-full bg-red-500 animate-pulse';
-                statusContainer.className = 'flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-red-50 border border-red-100 shadow-inner';
-                if (data.storage_error) {
-                    console.error('Storage Error:', data.storage_error);
-                }
-            }
-
             document.getElementById('ops-queued').innerText = kpi.queued || 0;
             document.getElementById('ops-today').innerText = kpi.posted_today || 0;
-            document.getElementById('ops-status').innerText = (kpi.autopost_status || 'ACTIVE') === 'ACTIVE' ? '稼働中' : '停止中';
-            document.getElementById('ops-errors').innerText = kpi.failed_24h || 0;
+
+            const statusEl = document.getElementById('ops-status');
+            const isActive = (kpi.autopost_status || '').includes('ON') || (kpi.autopost_status || '').includes('ACTIVE');
+            statusEl.innerText = isActive ? '稼働中' : '停止中';
+            statusEl.parentElement.className = isActive ? 'bg-emerald-50 p-3 rounded-2xl border border-emerald-100 relative' : 'bg-rose-50 p-3 rounded-2xl border border-rose-100 relative';
+            statusEl.className = isActive ? 'text-2xl font-black text-emerald-700' : 'text-2xl font-black text-rose-700';
 
             document.getElementById('kpi-clicks').innerText = (kpi.total_clicks || 0).toLocaleString();
             document.getElementById('kpi-cv').innerText = (kpi.total_cv || 0).toLocaleString();
@@ -670,165 +497,67 @@
             document.getElementById('kpi-aov').innerText = kpi.aov || 0;
 
             const tableBody = document.getElementById('queue-table-body');
-            const fQ = document.getElementById('filter-queue').value;
-            let pList = [];
-
-            const todayStr = dayjs().format('YYYY/MM/DD');
-
-            if (fQ === 'pending') {
-                pList = (data.posts || []).filter(p => p.status !== 'posted' && p.status !== 'deleted');
-                pList.sort((a, b) => new Date(a.scheduled_at) - new Date(b.scheduled_at));
-            } else if (fQ === 'today') {
-                pList = (data.recent_posted || []).concat(data.posts || []).filter(p => p.status === 'posted' && p.posted_at && p.posted_at.replace(/-/g, '/').includes(todayStr));
-                pList.sort((a, b) => new Date(b.posted_at) - new Date(a.posted_at));
-            } else {
-                pList = (data.posts || []).concat(data.recent_posted || []).slice(0, 50);
-                pList.sort((a, b) => new Date(b.posted_at || b.scheduled_at) - new Date(a.posted_at || a.scheduled_at));
-            }
-
-            tableBody.innerHTML = pList.map(p => {
-                const isPosted = p.status === 'posted';
-                const timeStr = dayjs(p.posted_at || p.scheduled_at).format('MM/DD HH:mm');
-                const stCls = isPosted ? 'bg-green-100 text-green-700' : (p.status === 'retry' ? 'bg-orange-100 text-orange-600' : 'bg-slate-100 text-slate-500');
-                return `
-                <tr class="hover:bg-slate-50/50 transition">
-                    <td class="px-6 py-4">
-                        <span class="px-2 py-0.5 rounded-full text-[8px] font-black uppercase ${stCls}">${isPosted ? '完了' : p.status}</span>
-                        <div class="text-[10px] font-mono font-bold text-slate-400 mt-1">${timeStr}</div>
+            const pList = (data.posts || []).filter(p => p.status !== 'posted' && p.status !== 'deleted');
+            tableBody.innerHTML = pList.map(p => `
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[8px] font-black bg-slate-100">${p.status}</span><div class="text-[9px] mt-1">${dayjs(p.scheduled_at).format('MM/DD HH:mm')}</div></td>
+                    <td class="px-4 py-3 font-bold">#${p.id}</td>
+                    <td class="px-4 py-3 text-xs line-clamp-1">${p.draft || ''}</td>
+                    <td class="px-4 py-3 text-right">
+                        <button onclick="postOp('${p.id}', 'force_post')" class="btn-op-blue">今すぐ投稿</button>
+                        <button onclick="postOp('${p.id}', 'delete')" class="btn-op-red ml-1">削除</button>
                     </td>
-                    <td class="px-6 py-4 text-[11px] font-black text-slate-900">#${p.id}</td>
-                    <td class="px-6 py-4">
-                        <p class="text-[12px] font-medium text-slate-600 line-clamp-2">${p.content || p.draft || ''}</p>
-                    </td>
-                    <td class="px-6 py-4 text-right">
-                        ${!isPosted ? `<button type="button" onclick="postOp('${p.id}', 'force_post')" class="btn-op-blue">今すぐ投稿</button><button type="button" onclick="postOp('${p.id}', 'delete')" class="btn-op-red ml-1">削除</button>` : '<span class="text-[9px] font-bold text-slate-200 uppercase tracking-widest">アーカイブ済み</span>'}
-                    </td>
-                </tr>`;
-            }).join('');
+                </tr>`).join('');
 
-            // Render Content Ranking
-            const topPerf = data.top_performing || [];
-            if (topPerf.length === 0) {
-                document.getElementById('stats-container').innerHTML = '';
-                document.getElementById('stats-empty').classList.remove('hidden');
-            } else {
-                document.getElementById('stats-empty').classList.add('hidden');
-                document.getElementById('stats-container').innerHTML = topPerf.map(p => `
-                <div class="flex justify-between items-center bg-slate-50 p-1.5 rounded-lg border border-transparent hover:border-slate-100 transition">
-                    <div class="flex flex-col gap-0.5"><span class="text-[8px] font-black text-slate-400">ID#${p.id}</span><span class="text-[9px] font-bold text-slate-900 truncate w-24">${(p.draft || '').substring(0, 20)}...</span></div>
-                    <div class="flex gap-2 text-[8px] font-black"><span class="text-blue-500">${p.click_count}c</span><span class="text-indigo-600">${p.cv_count}v</span></div>
-                </div>`).join('');
-            }
-
-            // Render Source Breakdown Table
             const sourceClicks = kpi.clicks_by_source || {};
             const sourceCV = kpi.cv_by_source || {};
-            const allSources = new Set([...Object.keys(sourceClicks), ...Object.keys(sourceCV)]);
 
-            const sourceMap = {
-                'mini_main': 'Miniメイン',
-                'biz_lp': '法人LP',
-                'hayfever': '花粉症LP',
-                'dental': '歯科特化LP',
-                'pet': 'ペットLP',
-                '3dprinter': '3DプリンターLP',
-                'default_lp': '不明/その他'
-            };
-
-            // Calculate Total Row
-            let tC = 0, tV = 0, tR = 0;
-            const rows = Array.from(allSources).map(src => {
-                const c = sourceClicks[src] || 0;
-                // sourceCV can be number (old cache) or object { count, revenue }
-                let v = 0, r = 0;
-                const cvData = sourceCV[src];
-                if (typeof cvData === 'object') {
-                    v = cvData.count || 0;
-                    r = cvData.revenue || 0;
-                } else {
-                    v = cvData || 0;
-                }
-
-                const cvr = c > 0 ? ((v / c) * 100).toFixed(1) : '0.0';
-
-                tC += c; tV += v; tR += r;
-
-                return { src, name: sourceMap[src] || src, c, v, r, cvr };
-            });
-
-            // Sort by CV then Clicks
-            rows.sort((a, b) => b.v - a.v || b.c - a.c);
-
-            // Add Total Row
-            const totalRow = {
-                name: '合計 (TOTAL)',
-                c: tC,
-                v: tV,
-                r: tR,
-                cvr: tC > 0 ? ((tV / tC) * 100).toFixed(1) : '0.0',
-                isTotal: true
-            };
-
-            const urlMap = {
-                'mini_main': 'https://v0-air-future-mini-design.vercel.app/',
-                'hayfever': 'https://airfuture.vercel.app/hayfever',
-                'biz_lp': 'https://airfuture.vercel.app/', // Proxy or redirect origin
-                'pet': 'https://airfuture.vercel.app/pet',
-                'dental': 'https://airfuture.vercel.app/dental',
-                '3dprinter': 'https://airfuture.vercel.app/3dprinter',
-                'main_redirect': 'https://airfuture.vercel.app/',
-                'default_lp': 'https://airfuture.vercel.app/'
-            };
-
-            const htmlRows = [totalRow, ...rows].map(row => {
-                const url = urlMap[row.src] || '#';
-                const nameDisplay = row.isTotal ? row.name : `<a href="${url}" target="_blank" title="${url}" class="hover:text-blue-600 transition underline decoration-dotted decoration-slate-200 underline-offset-2">${row.name}</a>`;
-
-                return `
-                <tr class="text-[9px] font-bold text-slate-600 ${row.isTotal ? 'bg-slate-50 font-black text-slate-900 border-b-2 border-slate-100' : 'hover:bg-slate-50 transition border-b border-slate-50'}">
-                    <td class="px-2 py-1.5">${nameDisplay}</td>
-                    <td class="px-2 py-1.5 text-right font-mono">${row.c.toLocaleString()}</td>
-                    <td class="px-2 py-1.5 text-right font-mono ${row.v > 0 ? 'text-indigo-600' : ''}">${row.v.toLocaleString()}</td>
-                    <td class="px-2 py-1.5 text-right font-mono text-slate-400">${row.cvr}%</td>
-                    <td class="px-2 py-1.5 text-right font-mono ${row.r > 0 ? 'text-emerald-600' : 'text-slate-300'}">¥${row.r.toLocaleString()}</td>
-                </tr>
-            `}).join('');
-
-            document.getElementById('source-breakdown-body').innerHTML = htmlRows;
-
-            // --- visual-source-cards 描画 (New) ---
-            const majorLPs = [
-                { id: 'mini_main', name: 'Main', icon: '🏠', color: 'indigo' },
-                { id: 'hayfever', name: '花粉症', icon: '🌸', color: 'pink' },
-                { id: 'dental', name: '歯科医院', icon: '🏥', color: 'blue' },
-                { id: 'pet', name: 'ペット', icon: '🐶', color: 'orange' },
-                { id: '3dprinter', name: '3Dプリンタ', icon: '🖨️', color: 'slate' }
+            // LP Cards Rendering
+            const lpConfig = [
+                { id: 'mini_main', name: 'MAIN', icon: '🏠', accent: 'bg-indigo-600', url: '/' },
+                { id: 'hayfever', name: '花粉症', icon: '🌸', accent: 'bg-pink-500', url: '/hayfever' },
+                { id: 'dental', name: '歯科医院', icon: '🏥', accent: 'bg-indigo-400', url: '/dental' },
+                { id: 'pet', name: 'ペット', icon: '🐶', accent: 'bg-amber-500', url: '/pet' },
+                { id: '3dprinter', name: '3Dプリンタ', icon: '🖨️', accent: 'bg-slate-500', url: '/3dprinter' }
             ];
 
-            const visualCardsHtml = majorLPs.map(lp => {
-                const stats = rows.find(r => r.src === lp.id) || { c: 0, v: 0, r: 0, cvr: '0.0' };
-                // Calculate percentage of total clicks
-                const pct = tC > 0 ? ((stats.c / tC) * 100).toFixed(0) : 0;
+            const cardsContainer = document.getElementById('lp-cards-container');
+            const template = document.getElementById('lp-card-template');
+            cardsContainer.innerHTML = '';
 
-                return `
-                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col items-center justify-center relative group hover:border-${lp.color}-400 transition-all duration-300">
-                    <div class="text-2xl mb-1 group-hover:scale-125 transition-transform">${lp.icon}</div>
-                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-tighter">${lp.name}</div>
-                    <div class="mt-2 text-center">
-                        <div class="text-lg font-black text-slate-900">${stats.c}<span class="text-[8px] text-slate-400 ml-0.5">PV</span></div>
-                        <div class="flex items-center gap-1.5 mt-1 justify-center">
-                            <span class="text-[9px] font-black px-1.5 py-0.5 rounded-full bg-${lp.color}-50 text-${lp.color}-600 border border-${lp.color}-100">CV: ${stats.v}</span>
-                            <span class="text-[9px] font-black text-slate-400">${stats.cvr}%</span>
-                        </div>
-                    </div>
-                    <!-- 簡易ゲージ -->
-                    <div class="absolute bottom-0 left-0 h-1 bg-${lp.color}-500 transition-all duration-1000" style="width: ${pct}%"></div>
-                </div>
-                `;
+            lpConfig.forEach(conf => {
+                const clone = template.content.cloneNode(true);
+                const pv = sourceClicks[conf.id] || 0;
+                const cvData = sourceCV[conf.id] || { count: 0 };
+                const cv = typeof cvData === 'object' ? cvData.count : cvData;
+                const cvr = pv > 0 ? ((cv / pv) * 100).toFixed(1) : '0.0';
+
+                clone.querySelector('.lp-icon').innerText = conf.icon;
+                clone.querySelector('.lp-name').innerText = conf.name;
+                clone.querySelector('.lp-pv').innerText = pv.toLocaleString();
+                clone.querySelector('.lp-cv-label').innerText = `CV: ${cv}`;
+                clone.querySelector('.lp-cvr').innerText = `${cvr}%`;
+                clone.querySelector('.lp-link').href = conf.url;
+
+                const accent = clone.querySelector('.lp-accent');
+                accent.className = `absolute bottom-0 left-0 w-full h-1 ${conf.accent}`;
+
+                if (cv > 0) {
+                    const pill = clone.querySelector('.lp-cv-label').parentElement;
+                    pill.className = `flex-1 bg-${conf.accent.split('-')[1]}-50 border border-${conf.accent.split('-')[1]}-100 px-3 py-1.5 rounded-full flex items-center justify-between`;
+                    clone.querySelector('.lp-cv-label').className = `text-[8px] font-black text-${conf.accent.split('-')[1]}-600`;
+                    clone.querySelector('.lp-cvr').className = `text-[8px] font-black text-${conf.accent.split('-')[1]}-400`;
+                }
+
+                cardsContainer.appendChild(clone);
+            });
+
+            const allSources = new Set([...Object.keys(sourceClicks), ...Object.keys(sourceCV)]);
+            document.getElementById('source-breakdown-body').innerHTML = Array.from(allSources).map(src => {
+                const c = sourceClicks[src] || 0;
+                const v = typeof sourceCV[src] === 'object' ? sourceCV[src].count : (sourceCV[src] || 0);
+                return `<tr class="text-[9px] border-b border-slate-50"><td class="px-2 py-1">${src}</td><td class="text-right px-2 py-1">${c}</td><td class="text-right px-2 py-1">${v}</td><td class="text-right px-2 py-1">${c > 0 ? ((v / c) * 100).toFixed(1) : 0}%</td></tr>`;
             }).join('');
-            document.getElementById('visual-source-cards').innerHTML = visualCardsHtml;
-
-            document.getElementById('cron-logs-container').innerHTML = (data.cronLogs || []).map(l => `<div class="flex justify-between border-b border-slate-50 py-0.5"><span class="font-bold text-slate-500 truncate w-12">${l.action}</span><span class="text-slate-300 font-mono">${dayjs(l.timestamp).format('HH:mm')}</span></div>`).join('');
         }
         if (adminPW) tryFetch();
     </script>
