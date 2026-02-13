@@ -259,6 +259,11 @@
                 </div>
             </div>
 
+            <!-- 流入経路別視覚化サマリー (New) -->
+            <div id="visual-source-cards" class="grid grid-cols-4 gap-3 mt-3">
+                <!-- JSで動的にリッチなカードを挿入 -->
+            </div>
+
             <div class="grid grid-cols-12 gap-3 h-[200px]">
                 <!-- 左側: LP別パフォーマンス (Filter機能統合) -->
                 <div
@@ -790,6 +795,38 @@
             `}).join('');
 
             document.getElementById('source-breakdown-body').innerHTML = htmlRows;
+
+            // --- visual-source-cards 描画 (New) ---
+            const majorLPs = [
+                { id: 'mini_main', name: 'Main', icon: '🏠', color: 'indigo' },
+                { id: 'hayfever', name: '花粉症', icon: '🌸', color: 'pink' },
+                { id: 'dental', name: '歯科医院', icon: '🏥', color: 'blue' },
+                { id: 'pet', name: 'ペット', icon: '🐶', color: 'orange' },
+                { id: '3dprinter', name: '3Dプリンタ', icon: '🖨️', color: 'slate' }
+            ];
+
+            const visualCardsHtml = majorLPs.map(lp => {
+                const stats = rows.find(r => r.src === lp.id) || { c: 0, v: 0, r: 0, cvr: '0.0' };
+                // Calculate percentage of total clicks
+                const pct = tC > 0 ? ((stats.c / tC) * 100).toFixed(0) : 0;
+                
+                return `
+                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col items-center justify-center relative group hover:border-${lp.color}-400 transition-all duration-300">
+                    <div class="text-2xl mb-1 group-hover:scale-125 transition-transform">${lp.icon}</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-tighter">${lp.name}</div>
+                    <div class="mt-2 text-center">
+                        <div class="text-lg font-black text-slate-900">${stats.c}<span class="text-[8px] text-slate-400 ml-0.5">PV</span></div>
+                        <div class="flex items-center gap-1.5 mt-1 justify-center">
+                            <span class="text-[9px] font-black px-1.5 py-0.5 rounded-full bg-${lp.color}-50 text-${lp.color}-600 border border-${lp.color}-100">CV: ${stats.v}</span>
+                            <span class="text-[9px] font-black text-slate-400">${stats.cvr}%</span>
+                        </div>
+                    </div>
+                    <!-- 簡易ゲージ -->
+                    <div class="absolute bottom-0 left-0 h-1 bg-${lp.color}-500 transition-all duration-1000" style="width: ${pct}%"></div>
+                </div>
+                `;
+            }).join('');
+            document.getElementById('visual-source-cards').innerHTML = visualCardsHtml;
 
             document.getElementById('cron-logs-container').innerHTML = (data.cronLogs || []).map(l => `<div class="flex justify-between border-b border-slate-50 py-0.5"><span class="font-bold text-slate-500 truncate w-12">${l.action}</span><span class="text-slate-300 font-mono">${dayjs(l.timestamp).format('HH:mm')}</span></div>`).join('');
         }
