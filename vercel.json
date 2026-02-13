@@ -13,7 +13,11 @@
             "destination": "/admin.html"
         },
         {
-            "source": "/((?!index\\.html$|admin$).*)",
+            "source": "/apply",
+            "destination": "/apply.html"
+        },
+        {
+            "source": "/((?!index\\.html$|admin$|apply$).*)",
             "destination": "/index.html"
         }
     ],
