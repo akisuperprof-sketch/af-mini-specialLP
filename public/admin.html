@@ -553,7 +553,9 @@
             document.getElementById('kpi-aov').innerText = kpi.aov || 0;
 
             const tableBody = document.getElementById('queue-table-body');
-            const pList = (data.posts || []).filter(p => p.status !== 'posted' && p.status !== 'deleted');
+            const pList = (data.posts || [])
+                .filter(p => p.status !== 'posted' && p.status !== 'deleted')
+                .sort((a, b) => dayjs(a.scheduled_at).valueOf() - dayjs(b.scheduled_at).valueOf());
             tableBody.innerHTML = pList.map(p => `
                 <tr class="hover:bg-slate-50 transition">
                     <td class="px-4 py-3"><span class="px-2 py-0.5 rounded text-[8px] font-black bg-slate-100">${p.status}</span><div class="text-[9px] mt-1">${dayjs(p.scheduled_at).format('MM/DD HH:mm')}</div></td>
