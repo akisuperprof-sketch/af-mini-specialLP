@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Button from '../components/Button';
 import { ChevronRight, CheckCircle, Zap, Coffee, TrendingUp, Shield, AlertTriangle, Factory, GraduationCap, Building2, Stethoscope } from "lucide-react";
@@ -15,6 +15,16 @@ export default function Printing3D() {
 
     const TARGET_LP_URL = "https://v0-air-future-mini-design.vercel.app/";
     const TARGET_APPLY_URL = "https://airfuture.vercel.app/apply";
+
+    // Track page view on mount
+    useEffect(() => {
+        const trackingUrl = `/api/log_click?pid=direct_visit&lp=3dprinter`;
+        if (navigator.sendBeacon) {
+            navigator.sendBeacon(trackingUrl);
+        } else {
+            fetch(trackingUrl, { mode: 'no-cors' });
+        }
+    }, []);
 
     const handleCTAClick = (pid = '3dprinter_hero') => {
         const trackingUrl = `/api/log_click?pid=${pid}&lp=3dprinter`;
@@ -330,7 +340,9 @@ export default function Printing3D() {
                 </div>
             </section>
 
-            <footer className="py-12 bg-black text-slate-600 text-center"><p className="text-xs">© 2026 AirFuture. All Rights Reserved.</p></footer>
+            <footer className="py-12 bg-black text-slate-600 text-center">
+                <p className="text-xs">© 2026 AirFuture. All Rights Reserved.</p>
+            </footer>
         </main>
     );
 }

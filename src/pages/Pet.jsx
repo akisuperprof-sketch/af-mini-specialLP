@@ -1,20 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Button from '../components/Button';
-import { ChevronRight, CheckCircle, AlertTriangle, Heart, Shield, Home, Star } from "lucide-react";
+import { ChevronRight, Dog, Wind, Shield, CheckCircle, Heart, Award } from "lucide-react";
 
 export default function Pet() {
     const IMAGES = {
         logo: "/images/mini-logo.jpg",
         hero: "/images/hero/pet.png",
         problem: "/images/pet/problem.png",
-        solution: "/images/pet/solution.png",
-        lifestyle: "/images/pet/lifestyle.png",
+        lifestyle1: "/images/pet/lifestyle1.png",
+        lifestyle2: "/images/pet/lifestyle2.png",
         product: "/images/ミニ斜め背景カット.png"
     };
 
     const TARGET_LP_URL = "https://v0-air-future-mini-design.vercel.app/";
     const TARGET_APPLY_URL = "https://airfuture.vercel.app/apply";
+
+    // Track page view on mount
+    useEffect(() => {
+        const trackingUrl = `/api/log_click?pid=direct_visit&lp=pet`;
+        if (navigator.sendBeacon) {
+            navigator.sendBeacon(trackingUrl);
+        } else {
+            fetch(trackingUrl, { mode: 'no-cors' });
+        }
+    }, []);
 
     const handleCTAClick = (pid = 'pet_hero') => {
         const trackingUrl = `/api/log_click?pid=${pid}&lp=pet`;

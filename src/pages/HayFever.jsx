@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Button from '../components/Button';
 import { ChevronRight, Wind, Shield, CheckCircle, XCircle } from "lucide-react";
@@ -15,6 +15,16 @@ export default function HayFever() {
 
     const TARGET_LP_URL = "https://v0-air-future-mini-design.vercel.app/";
     const TARGET_APPLY_URL = "https://airfuture.vercel.app/apply";
+
+    // Track page view on mount
+    useEffect(() => {
+        const trackingUrl = `/api/log_click?pid=direct_visit&lp=hayfever`;
+        if (navigator.sendBeacon) {
+            navigator.sendBeacon(trackingUrl);
+        } else {
+            fetch(trackingUrl, { mode: 'no-cors' });
+        }
+    }, []);
 
     const handleCTAClick = (pid = 'hayfever_hero') => {
         const trackingUrl = `/api/log_click?pid=${pid}&lp=hayfever`;

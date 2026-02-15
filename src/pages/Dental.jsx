@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Button from '../components/Button';
 import { ChevronRight, CheckCircle, Heart, TrendingUp, Zap, AlertTriangle, Shield } from "lucide-react";
@@ -8,6 +8,16 @@ export default function Dental() {
     const type1Ref = useRef(null);
     const type2Ref = useRef(null);
     const type3Ref = useRef(null);
+
+    // Track page view on mount
+    useEffect(() => {
+        const trackingUrl = `/api/log_click?pid=direct_visit&lp=dental`;
+        if (navigator.sendBeacon) {
+            navigator.sendBeacon(trackingUrl);
+        } else {
+            fetch(trackingUrl, { mode: 'no-cors' });
+        }
+    }, []);
 
     const IMAGES = {
         logo: "/images/mini-logo.jpg",
