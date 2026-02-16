@@ -101,7 +101,7 @@
             // 1. Resolve PID & LP_ID
             const urlParams = new URLSearchParams(window.location.search);
             let pid = urlParams.get('pid');
-            let lp_id = urlParams.get('lp') || localStorage.getItem('af_lp') || 'mini_main';
+            let lp_id = urlParams.get('lp') || localStorage.getItem('af_lp') || 'mini_lp';
 
             if (!pid) {
                 pid = localStorage.getItem('af_pid');
