@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Button from '../components/Button';
-import { ChevronRight, Dog, Wind, Shield, CheckCircle, Heart, Award } from "lucide-react";
+import { ChevronRight, CheckCircle, AlertTriangle, Heart, Shield, Home, Star, Dog, Wind } from "lucide-react";
 
 export default function Pet() {
     const IMAGES = {
         logo: "/images/mini-logo.jpg",
         hero: "/images/hero/pet.png",
         problem: "/images/pet/problem.png",
-        lifestyle1: "/images/pet/lifestyle1.png",
-        lifestyle2: "/images/pet/lifestyle2.png",
+        solution: "/images/pet/solution.png",
+        lifestyle: "/images/pet/lifestyle.png",
         product: "/images/ミニ斜め背景カット.png"
     };
 
