@@ -110,6 +110,11 @@ const trackBuy = (pid) => {
 - 他のLPへ遷移する際は、現在のURLクエリパラメータ（`pid`, `utm_source`等）を引き継ぐこと。
 - 遷移前に `log_click` イベントを発火させること。
 
+### 3.4 マーケティング素材 (Marketing Assets)
+- **広告用画像**: `/public/marketing/`
+  - `airfuture_mini_black_premium_ad.png`: ブラックプレミアムモデルのハイブランド向け広告画像。
+- **SNS 投稿管理**: `x-autoup` プロジェクトと連携し、画像 ALT テキストやハッシュタグ戦略を管理。
+
 ---
 
 ## 4. トラッキング仕様 (Tracking Specification)
@@ -249,6 +254,6 @@ npx vercel --prod --yes
 
 ---
 
-**Last Updated**: 2026-02-13  
-**Version**: 1.1  
+**Last Updated**: 2026-02-16  
+**Version**: 1.2  
 **Maintainer**: Antigravity AI Assistant

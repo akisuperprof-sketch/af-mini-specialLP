@@ -1,5 +1,17 @@
 # Changelog - AirFuture Mini Special LP
 
+## [1.3.0] - 2026-02-16
+
+### Added
+- **New Marketing Assets**: 
+  - Generated high-end luxury graphics for "AirFuture mini" (Black Premium model).
+  - Saved final ad graphic at `/public/marketing/airfuture_mini_black_premium_ad.png`.
+- **Branding Workflow**: Established `.agent/workflows/branding_generation_rules.md` (shared reference via x-autoup) to ensure visual consistency using `favicon.png` as the master device model.
+
+### Changed
+- **DataService Synchronization**:
+  - Updated `DataService` to support Japanese labels ("開発者", "一般", "BOT", "人間") in Google Sheets, synchronized with the `x-autoup` backend logic.
+
 ## [1.2.0] - 2026-02-13
 
 ### Added
