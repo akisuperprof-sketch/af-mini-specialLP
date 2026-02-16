@@ -77,6 +77,7 @@ class DataService {
             cv_count: parseInt(row.get('cv_count') || '0'),
             lp_section: row.get('lp_section'),
             ab_version: row.get('ab_version'),
+            slot_id: row.get('slot_id'),
             _row: row
         };
     }
@@ -97,14 +98,13 @@ class DataService {
 
         // Deduplication Logic
         const posts = await this.getPosts();
-        const recentPosts = posts.slice(-100); // Check last 100 for safety
+        const recentPosts = posts.slice(-100);
 
         if (recentPosts.some(p => p.dedupe_hash === dedupe_hash)) {
             logger.warn(`Skipping duplicate content (hash match): ${text.substring(0, 20)}...`);
             return { skipped: true, reason: 'duplicate_hash' };
         }
 
-        // Similarity check (Jaccard)
         for (const p of recentPosts) {
             if (this._calculateSimilarity(text, p.draft) > 0.8) {
                 logger.warn(`Skipping similar content (similarity > 0.8)`);
@@ -128,19 +128,27 @@ class DataService {
             priority: post.priority || 0
         };
 
-        // Final URL replacement: Replace [post_id] with real ID
         if (newPost.draft && newPost.draft.includes('[post_id]')) {
             newPost.draft = newPost.draft.replace(/\[post_id\]/g, newPost.id);
         }
 
         if (this.useSheets) {
             try {
-                // Ensure Sheets compatibility for 'c' column if 'id' is used as 'c' in current sheet
                 const rows = await googleSheetService.getRows('posts');
                 const headers = rows.length > 0 ? rows[0]._worksheet.headerValues : [];
                 if (!headers.includes('id') && headers.includes('c')) {
                     newPost.c = newPost.id;
                 }
+                const postsHeaders = [
+                    'id', 'status', 'scheduled_at', 'draft', 'stage', 'enemy', 'season',
+                    'hashtags', 'cta_type', 'media_type', 'media_prompt', 'dedupe_hash',
+                    'priority', 'retry_count', 'last_error', 'tweet_id', 'posted_at',
+                    'metrics_like', 'metrics_rt', 'metrics_reply', 'metrics_checked_at_1h',
+                    'metrics_checked_at_24h', 'created_at', 'updated_at', 'ai_model',
+                    'lp_priority', 'post_type', 'click_count', 'cv_count', 'lp_section',
+                    'ab_version', 'slot_id'
+                ];
+                await googleSheetService.ensureSheet('posts', postsHeaders);
                 await googleSheetService.addRow('posts', newPost);
                 return { success: true, id: newPost.id };
             } catch (error) {
@@ -269,23 +277,6 @@ class DataService {
         }
     }
 
-    async getContentTemplates() {
-        if (!this.useSheets) return [];
-        try {
-            const rows = await googleSheetService.getRows('content_templates');
-            return rows.map(r => ({
-                id: r.get('id'),
-                name: r.get('name'),
-                type: r.get('type'),
-                template_text: r.get('template_text'),
-                usage_notes: r.get('usage_notes')
-            }));
-        } catch (e) {
-            logger.warn('Error fetching content_templates', e.message);
-            return [];
-        }
-    }
-
     async getPostPatterns() {
         if (!this.useSheets) return [];
         try {
@@ -305,7 +296,7 @@ class DataService {
     // --- Cron & Lock Mechanism ---
 
     async acquireLock(key, ttlSeconds = 300) {
-        if (!this.useSheets) return true; // Local mode always succeeds
+        if (!this.useSheets) return true;
         try {
             const rows = await googleSheetService.getRows('locks');
             const row = rows.find(r => r.get('key') === key);
@@ -317,13 +308,11 @@ class DataService {
                     logger.warn(`Lock [${key}] is currently held by another process.`);
                     return false;
                 }
-                // Lock expired, overtake
                 row.set('locked_at', now.toISOString());
                 row.set('expires_at', new Date(now.getTime() + ttlSeconds * 1000).toISOString());
                 await row.save();
                 return true;
             } else {
-                // Create new lock
                 await googleSheetService.addRow('locks', {
                     key: key,
                     locked_at: now.toISOString(),
@@ -343,7 +332,7 @@ class DataService {
             const rows = await googleSheetService.getRows('locks');
             const row = rows.find(r => r.get('key') === key);
             if (row) {
-                row.set('expires_at', new Date(0).toISOString()); // Expire immediately
+                row.set('expires_at', new Date(0).toISOString());
                 await row.save();
             }
         } catch (e) {
@@ -362,16 +351,66 @@ class DataService {
         const botKeywords = ['bot', 'crawl', 'spider', 'headless', 'preview', 'lighthouse', 'curl', 'wget', 'python-requests', 'vercel'];
         const uaLower = ua.toLowerCase();
         if (botKeywords.some(kw => uaLower.includes(kw))) return true;
-
-        // Browser checks
         if (!ref && (uaLower.includes('curl') || uaLower.includes('wget') || uaLower.includes('python'))) return true;
-
         return false;
     }
 
     getIpHash(ip) {
         if (!ip) return '';
         return crypto.createHash('md5').update(ip).digest('hex').substring(0, 12);
+    }
+
+    async getVisitorInfo(ip_hash, ip, ua, ref) {
+        if (!this.useSheets) return { label: 'LocalVisitor', is_dev: true, is_bot: false };
+        const isAdmin = ref && ref.includes('admin.html');
+        const isBot = this.isBot(ua, ref);
+
+        try {
+            await googleSheetService.ensureSheet('visitors', ['ip_hash', 'visitor_index', 'label', 'first_seen', 'last_ts', 'is_dev', 'ua']);
+            const rows = await googleSheetService.getRows('visitors');
+            let row = rows.find(r => r.get('ip_hash') === ip_hash);
+
+            if (row) {
+                row.set('last_ts', this._getJSTTimestamp());
+                await row.save();
+                return {
+                    label: row.get('label'),
+                    is_dev: row.get('is_dev') === '開発者' || row.get('is_dev') === 'TRUE' || isAdmin,
+                    is_bot: isBot
+                };
+            } else {
+                const nextIndex = rows.length + 1;
+                const label = `訪問者 #${nextIndex}`;
+
+                await googleSheetService.addRow('visitors', {
+                    ip_hash,
+                    visitor_index: nextIndex,
+                    label: label,
+                    first_seen: this._getJSTTimestamp(),
+                    last_ts: this._getJSTTimestamp(),
+                    is_dev: isAdmin ? '開発者' : '一般',
+                    ua: ua || ''
+                });
+                return { label: label, is_dev: isAdmin, is_bot: isBot };
+            }
+        } catch (e) {
+            logger.warn('Error management visitors sheet', e.message);
+            return { label: 'Unknown', is_dev: isAdmin, is_bot: isBot };
+        }
+    }
+
+    getLpName(lp_id) {
+        const lpMap = {
+            'mini_lp': 'メイン',
+            'mini_main': 'メイン',
+            'hayfever': '花粉',
+            'pet': 'ペット',
+            'dental': '歯科',
+            '3dprinter': '3D',
+            'hub': 'ハブ',
+            'default_lp': '未指定'
+        };
+        return lpMap[lp_id] || lp_id;
     }
 
     async addCronLog(log) {
@@ -383,41 +422,43 @@ class DataService {
         if (this.useSheets) {
             await googleSheetService.addRow('cron_logs', entry);
         }
-        logger.info(`Cron Log [${log.action}]: ${log.status} - ${log.processed_count || 0} processed`);
+        logger.info(`Cron Log [${log.action}]: ${log.status}`);
     }
 
     async addEventLog(action, data = {}) {
         if (!this.useSheets) {
-            logger.info(`Event Log [${action} (Local)]: pid=${data.pid} val=${data.revenue || 0}`);
+            logger.info(`Event Log [${action} (Local)]`);
             return;
         }
 
         const pid = data.pid || data.post_id || '';
+        const ipHash = data.ip_hash || this.getIpHash(data.ip || '');
+        const vInfo = await this.getVisitorInfo(ipHash, data.ip, data.ua, data.ref);
+
         const entry = {
             ts: this._getJSTTimestamp(),
             post_id: pid,
             action,
             pid: pid,
+            visitor_label: vInfo.label,
+            lp_name: this.getLpName(data.lp_id || 'default_lp'),
             lp_id: data.lp_id || 'default_lp',
             dest_url: data.dest_url || '',
             ref: data.ref || '',
             ua: data.ua || '',
-            ip_hash: data.ip_hash || '',
-            is_bot: data.is_bot ? 'TRUE' : 'FALSE',
+            ip_hash: ipHash,
+            is_bot: (data.is_bot || vInfo.is_bot) ? 'BOT' : '人間',
+            is_dev: vInfo.is_dev ? '開発者' : '一般',
             revenue: parseFloat(data.revenue || 0),
             order_id: data.order_id || '',
             data: data.data ? JSON.stringify(data.data) : ''
         };
 
         try {
-            // Optimization: Remove ensureSheet per call to avoid latency and potential Vercel timeout.
-            // We assume the sheet is already set up or created during the first write/init.
             await googleSheetService.addRow('logs', entry);
-            logger.info(`Event Log [${action}]: pid=${entry.pid} is_bot=${entry.is_bot}`);
+            logger.info(`Event Log [${action}]: ${entry.visitor_label} (${entry.lp_name})`);
         } catch (e) {
-            logger.error(`[CRITICAL] Error adding event log to Sheet: ${e.message}`);
-            // Fallback for debugging: store the last error in the service
-            this.lastError = `${new Date().toLocaleTimeString()}: ${e.message}`;
+            logger.error(`Error adding event log: ${e.message}`);
         }
     }
 }
