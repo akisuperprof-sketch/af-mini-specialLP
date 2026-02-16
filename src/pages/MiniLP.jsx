@@ -7,8 +7,16 @@ import DeepScienceSection from '../components/content/DeepScienceSection';
 export default function Home() {
     const [showIntro, setShowIntro] = useState(true);
 
-    // Intersection Observer for fade-in/out animations
+    // Intersection Observer for fade-in/out animations and Page View tracking
     useEffect(() => {
+        // Track page view on mount
+        const trackingUrl = `/api/log_click?pid=direct_visit&lp=mini_lp`;
+        if (navigator.sendBeacon) {
+            navigator.sendBeacon(trackingUrl);
+        } else {
+            fetch(trackingUrl, { mode: 'no-cors' });
+        }
+
         const timer = setTimeout(() => setShowIntro(false), 2000);
 
         const observer = new IntersectionObserver(
