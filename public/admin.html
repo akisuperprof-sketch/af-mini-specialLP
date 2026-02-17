@@ -275,7 +275,7 @@
                                 <span class="text-lg font-black text-slate-800 lp-pv leading-none">0</span>
                                 <span class="text-[6px] font-black text-slate-400 uppercase">pv</span>
                             </div>
-                            <div class="flex gap-2 mt-0.5">
+                            <div class="flex flex-wrap gap-x-2 gap-y-0.5 mt-0.5">
                                 <div class="flex items-center">
                                     <span class="text-[5px] text-slate-300 font-black mr-0.5 uppercase">成約</span>
                                     <span class="text-[9px] font-bold text-slate-600 lp-cv-label leading-none">0</span>
@@ -283,6 +283,11 @@
                                 <div class="flex items-center">
                                     <span class="text-[5px] text-slate-300 font-black mr-0.5 uppercase">率</span>
                                     <span class="text-[9px] font-bold text-indigo-600 lp-cvr leading-none">0%</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="text-[5px] text-emerald-300 font-black mr-0.5 uppercase">収益</span>
+                                    <span
+                                        class="text-[9px] font-bold text-emerald-600 lp-revenue leading-none">¥0</span>
                                 </div>
                             </div>
                         </div>
@@ -294,44 +299,26 @@
 
             <!-- 下段詳細エリア -->
             <div class="flex-1 flex flex-col md:flex-row gap-3 min-h-0 overflow-hidden">
-                <!-- 左: メトリクス & トラフィック -->
-                <div class="w-full md:w-[22%] flex flex-col gap-3 overflow-hidden">
-                    <div class="grid grid-cols-2 gap-2 shrink-0 font-black tracking-tighter">
-                        <div class="glass p-3 rounded-2xl">
+                <!-- 左: メトリクス -->
+                <div class="w-full md:w-[22%] flex flex-col gap-3 justify-center">
+                    <div class="grid grid-cols-2 gap-2 font-black tracking-tighter">
+                        <div class="glass p-3 rounded-2xl flex flex-col justify-center h-14">
                             <p class="text-[7px] text-slate-400 uppercase mb-0.5">総クリック</p>
-                            <p id="kpi-clicks" class="text-lg">0</p>
+                            <p id="kpi-clicks" class="text-lg leading-none">0</p>
                         </div>
-                        <div class="bg-indigo-600/5 p-3 rounded-2xl border border-indigo-600/10">
+                        <div
+                            class="bg-indigo-600/5 p-3 rounded-2xl border border-indigo-600/10 flex flex-col justify-center h-14">
                             <p class="text-[7px] text-indigo-400 uppercase mb-0.5">成約件数</p>
-                            <p id="kpi-cv" class="text-lg text-indigo-700">0</p>
+                            <p id="kpi-cv" class="text-lg text-indigo-700 leading-none">0</p>
                         </div>
-                        <div class="glass p-3 rounded-2xl">
+                        <div class="glass p-3 rounded-2xl flex flex-col justify-center h-14">
                             <p class="text-[7px] text-slate-400 uppercase mb-0.5">平均CVR</p>
-                            <p id="kpi-cvr" class="text-lg text-indigo-600">0%</p>
+                            <p id="kpi-cvr" class="text-lg text-indigo-600 leading-none">0%</p>
                         </div>
-                        <div class="bg-emerald-600/5 p-3 rounded-2xl border border-emerald-600/10">
+                        <div
+                            class="bg-emerald-600/5 p-3 rounded-2xl border border-emerald-600/10 flex flex-col justify-center h-14">
                             <p class="text-[7px] text-emerald-400 uppercase mb-0.5">推定収益</p>
-                            <p id="kpi-revenue" class="text-lg text-emerald-700">¥0</p>
-                        </div>
-                    </div>
-
-                    <!-- トラフィック表 -->
-                    <div class="flex-1 glass rounded-[28px] overflow-hidden flex flex-col min-h-0">
-                        <div class="px-3 py-1.5 border-b border-slate-100 bg-white/20 shrink-0">
-                            <span class="text-[7px] font-black text-slate-300 uppercase tracking-widest">トラフィック詳細</span>
-                        </div>
-                        <div class="flex-1 overflow-hidden">
-                            <table class="w-full text-left text-[7px] font-bold">
-                                <thead class="sticky top-0 bg-white/80 backdrop-blur z-10 border-b border-slate-100">
-                                    <tr class="text-slate-300 font-black">
-                                        <th class="py-1 px-3">ソース</th>
-                                        <th class="py-1 text-right">PV</th>
-                                        <th class="py-1 text-right">CV</th>
-                                        <th class="py-1 text-right px-3">収益</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="source-breakdown-body" class="divide-y divide-slate-100/20"></tbody>
-                            </table>
+                            <p id="kpi-revenue" class="text-lg text-emerald-700 leading-none">¥0</p>
                         </div>
                     </div>
                 </div>
@@ -527,16 +514,21 @@
             container.innerHTML = '';
             lps.forEach(c => {
                 const clone = template.content.cloneNode(true);
-                let v = 0; let cvCount = 0;
+                let v = 0; let cvCount = 0; let rev = 0;
                 // キーをユニーク化して二重集計を防止
                 const keys = Array.from(new Set([c.id, ...(c.aliases || [])]));
-                keys.forEach(key => { v += (sClicks[key] || 0); cvCount += (sCV[key]?.count || 0); });
+                keys.forEach(key => {
+                    v += (sClicks[key] || 0);
+                    cvCount += (sCV[key]?.count || 0);
+                    rev += (sCV[key]?.revenue || 0);
+                });
                 const rate = v > 0 ? ((cvCount / v) * 100).toFixed(1) : '0.0';
                 clone.querySelector('.lp-icon').innerText = c.icon;
                 clone.querySelector('.lp-name').innerText = c.name;
                 clone.querySelector('.lp-pv').innerText = v.toLocaleString();
                 clone.querySelector('.lp-cv-label').innerText = cvCount;
                 clone.querySelector('.lp-cvr').innerText = rate + '%';
+                clone.querySelector('.lp-revenue').innerText = '¥' + rev.toLocaleString();
                 clone.querySelector('.lp-link').href = window.location.origin + (c.id === 'mini_lp' ? '/' : '/' + c.id);
                 clone.querySelector('.lp-accent').className += ' ' + c.accent;
                 container.appendChild(clone);
@@ -561,30 +553,6 @@
                 pathEmpty.classList.add('hidden');
             } else { pathContainer.innerHTML = ''; pathEmpty.classList.remove('hidden'); }
 
-            const allRawSrc = new Set([...Object.keys(sClicks), ...Object.keys(sCV)]);
-            const groupedSrc = {};
-
-            Array.from(allRawSrc).forEach(s => {
-                const master = lps.find(l => l.id === s || (l.aliases && l.aliases.includes(s)));
-                const groupKey = master ? master.id : s;
-                if (!groupedSrc[groupKey]) groupedSrc[groupKey] = { master, pv: 0, cv: 0, rev: 0 };
-                groupedSrc[groupKey].pv += (sClicks[s] || 0);
-                groupedSrc[groupKey].cv += (sCV[s]?.count || 0);
-                groupedSrc[groupKey].rev += (sCV[s]?.revenue || 0);
-            });
-
-            document.getElementById('source-breakdown-body').innerHTML = Object.entries(groupedSrc)
-                .sort((a, b) => b[1].pv - a[1].pv) // PV順にソート
-                .map(([key, data]) => {
-                if (!data.pv && !data.cv) return '';
-                const displayName = data.master ? `${data.master.icon} ${data.master.name}` : key;
-                return `<tr>
-                    <td class="py-2 px-3 text-slate-500 font-bold text-[9px]">${displayName}</td>
-                    <td class="text-right text-slate-800 font-black text-[10px]">${data.pv.toLocaleString()}</td>
-                    <td class="text-right text-indigo-600 font-black text-[10px]">${data.cv.toLocaleString()}</td>
-                    <td class="text-right px-3 font-black text-emerald-600 text-[10px]">¥${data.rev.toLocaleString()}</td>
-                </tr>`;
-            }).join('');
             document.getElementById('storage-status').innerHTML = `<span class="opacity-40">SYNCED</span> | <span class="text-indigo-400 font-black">DEV: ${k.internal?.dev_clicks || 0}</span> | <span class="text-slate-300 font-black">BOT: ${k.internal?.bot_clicks || 0}</span>`;
         }
         if (adminPW) tryFetch();
