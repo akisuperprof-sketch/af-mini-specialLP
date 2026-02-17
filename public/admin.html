@@ -528,7 +528,9 @@
             lps.forEach(c => {
                 const clone = template.content.cloneNode(true);
                 let v = 0; let cvCount = 0;
-                [c.id, ...(c.aliases || [])].forEach(key => { v += (sClicks[key] || 0); cvCount += (sCV[key]?.count || 0); });
+                // キーをユニーク化して二重集計を防止
+                const keys = Array.from(new Set([c.id, ...(c.aliases || [])]));
+                keys.forEach(key => { v += (sClicks[key] || 0); cvCount += (sCV[key]?.count || 0); });
                 const rate = v > 0 ? ((cvCount / v) * 100).toFixed(1) : '0.0';
                 clone.querySelector('.lp-icon').innerText = c.icon;
                 clone.querySelector('.lp-name').innerText = c.name;
@@ -559,17 +561,28 @@
                 pathEmpty.classList.add('hidden');
             } else { pathContainer.innerHTML = ''; pathEmpty.classList.remove('hidden'); }
 
-            const allSrc = new Set([...Object.keys(sClicks), ...Object.keys(sCV)]);
-            document.getElementById('source-breakdown-body').innerHTML = Array.from(allSrc).sort().map(s => {
-                const val = sClicks[s] || 0; const coVal = sCV[s]?.count || 0;
-                if (!val && !coVal) return '';
+            const allRawSrc = new Set([...Object.keys(sClicks), ...Object.keys(sCV)]);
+            const groupedSrc = {};
+
+            Array.from(allRawSrc).forEach(s => {
                 const master = lps.find(l => l.id === s || (l.aliases && l.aliases.includes(s)));
-                const displayName = master ? `${master.icon} ${master.name}` : s;
+                const groupKey = master ? master.id : s;
+                if (!groupedSrc[groupKey]) groupedSrc[groupKey] = { master, pv: 0, cv: 0, rev: 0 };
+                groupedSrc[groupKey].pv += (sClicks[s] || 0);
+                groupedSrc[groupKey].cv += (sCV[s]?.count || 0);
+                groupedSrc[groupKey].rev += (sCV[s]?.revenue || 0);
+            });
+
+            document.getElementById('source-breakdown-body').innerHTML = Object.entries(groupedSrc)
+                .sort((a, b) => b[1].pv - a[1].pv) // PV順にソート
+                .map(([key, data]) => {
+                if (!data.pv && !data.cv) return '';
+                const displayName = data.master ? `${data.master.icon} ${data.master.name}` : key;
                 return `<tr>
                     <td class="py-2 px-3 text-slate-500 font-bold text-[9px]">${displayName}</td>
-                    <td class="text-right text-slate-800 font-black text-[10px]">${val.toLocaleString()}</td>
-                    <td class="text-right text-indigo-600 font-black text-[10px]">${coVal.toLocaleString()}</td>
-                    <td class="text-right px-3 font-black text-emerald-600 text-[10px]">¥${(sCV[s]?.revenue || 0).toLocaleString()}</td>
+                    <td class="text-right text-slate-800 font-black text-[10px]">${data.pv.toLocaleString()}</td>
+                    <td class="text-right text-indigo-600 font-black text-[10px]">${data.cv.toLocaleString()}</td>
+                    <td class="text-right px-3 font-black text-emerald-600 text-[10px]">¥${data.rev.toLocaleString()}</td>
                 </tr>`;
             }).join('');
             document.getElementById('storage-status').innerHTML = `<span class="opacity-40">SYNCED</span> | <span class="text-indigo-400 font-black">DEV: ${k.internal?.dev_clicks || 0}</span> | <span class="text-slate-300 font-black">BOT: ${k.internal?.bot_clicks || 0}</span>`;
