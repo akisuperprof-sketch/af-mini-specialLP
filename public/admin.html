@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AirFuture Premium Analytics v7.0</title>
+    <title>AirFuture Premium Analytics v7.6</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.10/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap"
         rel="stylesheet">
@@ -343,10 +344,19 @@
                             </select>
                         </div>
                     </div>
-                    <div id="stats-container" class="flex-1 p-4 flex flex-col justify-center items-center gap-3"></div>
+                    <div class="flex-1 flex flex-col min-h-0">
+                        <!-- グラフエリア -->
+                        <div class="h-[45%] p-4 border-b border-slate-50 bg-slate-50/30">
+                            <canvas id="pvTrendChart"></canvas>
+                        </div>
+                        <!-- 回遊フローエリア -->
+                        <div id="stats-container"
+                            class="flex-1 p-3 flex flex-col justify-center items-center gap-2 overflow-y-auto scrolling-content">
+                        </div>
+                    </div>
                     <div id="stats-empty"
-                        class="hidden flex-1 flex items-center justify-center text-slate-300 font-bold uppercase text-[9px]">
-                        No Data</div>
+                        class="hidden flex-1 flex items-center justify-center text-slate-300 font-bold uppercase text-[10px] tracking-widest">
+                        Data Synchronizing...</div>
                 </div>
 
                 <!-- 右: 実行ログ (アコーディオン風) -->
@@ -459,6 +469,8 @@
 
         async function triggerCron(action) { try { await fetch(`/api/cron?action=${action}&pw=${adminPW}`); setTimeout(tryFetch, 1000); } catch (e) { } }
 
+        let trendChart = null;
+
         function render(data) {
             const k = data.kpi || {};
             document.getElementById('ops-queued').innerText = k.queued || 0;
@@ -471,6 +483,36 @@
             document.getElementById('kpi-cv').innerText = (k.total_cv || 0).toLocaleString();
             document.getElementById('kpi-revenue').innerText = '¥' + (k.total_revenue || 0).toLocaleString();
             document.getElementById('kpi-cvr').innerText = (k.cvr || "0.0") + '%';
+
+            // PV Trend Chart Initialization
+            const ctx = document.getElementById('pvTrendChart').getContext('2d');
+            const trend = k.pv_trend || [];
+            if (trendChart) trendChart.destroy();
+            trendChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: trend.map(d => d.t),
+                    datasets: [{
+                        label: 'PV Flux',
+                        data: trend.map(d => d.v),
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.05)',
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { display: true, grid: { display: false }, border: { display: false }, ticks: { color: '#94a3b8', font: { size: 7, weight: 'bold' } } },
+                        y: { display: true, grid: { color: '#f1f5f9' }, border: { display: false }, ticks: { color: '#94a3b8', font: { size: 7, weight: 'bold' }, stepSize: 1 } }
+                    }
+                }
+            });
 
             document.getElementById('cron-logs-container').innerHTML = (data.cronLogs || []).map(l => `
                 <div class="flex gap-2 hover:text-slate-900 border-b border-slate-100/30 pb-1">
