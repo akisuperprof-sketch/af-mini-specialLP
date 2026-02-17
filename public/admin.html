@@ -4,22 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AirFuture Premium Analytics v7.0</title>
+    <title>AirFuture ULTRA-CORE Analytics v7.7</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.10/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap"
         rel="stylesheet">
     <style>
         :root {
-            --glass: rgba(255, 255, 255, 0.75);
-            --border: rgba(255, 255, 255, 0.6);
+            --glass: rgba(15, 23, 42, 0.4);
+            --border: rgba(255, 255, 255, 0.1);
+            --accent-post: #6366f1;
+            --accent-anal: #10b981;
         }
 
         body {
             font-family: 'Outfit', 'Noto Sans JP', sans-serif;
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            color: #1e293b;
+            background: radial-gradient(circle at top right, #1e1b4b, #0f172a);
+            background-attachment: fixed;
+            color: #f1f5f9;
             letter-spacing: -0.01em;
             min-height: 100vh;
         }
@@ -33,9 +37,19 @@
 
         .glass {
             background: var(--glass);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(20px);
             border: 1px solid var(--border);
-            box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.4);
+        }
+
+        .section-glow-indigo {
+            box-shadow: 0 0 20px -5px rgba(99, 102, 241, 0.3);
+            border-color: rgba(99, 102, 241, 0.2);
+        }
+
+        .section-glow-emerald {
+            box-shadow: 0 0 20px -5px rgba(16, 185, 129, 0.3);
+            border-color: rgba(16, 185, 129, 0.2);
         }
 
         .hidden-auth {
@@ -153,238 +167,202 @@
                 <a href="https://cron-job.org" target="_blank"
                     class="flex items-center gap-1.5 text-slate-500 hover:text-slate-900 transition font-black text-[10px] uppercase tracking-wider">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                        <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    Cron Status ↗
-                </a>
-                <a href="https://docs.google.com/spreadsheets/d/1XasT4Wf27uFByXN_f6o8F6N_A0zNf-6lY37z7x_oA8c/edit#gid=155635466"
-                    target="_blank"
-                    class="flex items-center gap-1.5 text-emerald-600 hover:text-emerald-700 transition font-black text-[10px] uppercase tracking-wider">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                        <path
-                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                    Spreadsheet ↗
-                </a>
-            </nav>
-
-            <div class="flex items-center gap-3">
-                <div id="ops-status-container"
-                    class="px-3 py-1.5 rounded-full text-[8px] font-black uppercase tracking-widest bg-emerald-100 text-emerald-700 border border-emerald-200">
-                    <span id="ops-status">稼働中</span>
-                </div>
-                <button onclick="logout()"
-                    class="p-2 hover:bg-slate-100 rounded-xl transition text-slate-300 hover:text-rose-500">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                        <path
-                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
-                        </path>
-                    </svg>
-                </button>
-            </div>
-        </header>
-
-        <!-- セクション1: X自動投稿管理 -->
-        <section class="flex flex-col gap-1.5 shrink-0 md:h-[28%] overflow-hidden">
-            <div class="section-header">
-                <div class="section-dot"></div>
-                <h2 class="section-title">X自動投稿管理 (Auto-Post Management)</h2>
-            </div>
-
-            <div class="flex-1 flex flex-col md:flex-row gap-3 min-h-0">
-                <!-- クイックアクション -->
-                <div class="w-full md:w-[22%] flex flex-col gap-2">
-                    <div class="glass rounded-3xl p-3 flex-1 flex flex-col justify-center gap-3">
-                        <div class="grid grid-cols-2 gap-2">
-                            <div class="text-center bg-white/40 p-2 rounded-2xl">
-                                <p class="text-[6px] font-black text-slate-400 uppercase mb-0.5">予約中</p>
-                                <p id="ops-queued" class="text-2xl font-black text-slate-800 tracking-tighter">0</p>
-                            </div>
-                            <div class="text-center bg-white/40 p-2 rounded-2xl">
-                                <p class="text-[6px] font-black text-slate-400 uppercase mb-0.5">本日投稿</p>
-                                <p id="ops-today" class="text-2xl font-black text-indigo-600 tracking-tighter">0</p>
-                            </div>
+                        <div id="ops-status-container"
+                            class="px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-[0_0_15px_-3px_rgba(16,185,129,0.3)]">
+                            <span id="ops-status">SYSTEM ACTIVE</span>
                         </div>
-                        <div class="flex flex-col gap-1.5">
-                            <button onclick="openGenerateModal()"
-                                class="w-full bg-indigo-600 text-white font-black py-2.5 rounded-2xl text-[9px] tracking-widest shadow-lg shadow-indigo-100 uppercase hover:bg-indigo-700 transition-all">AI一括生成</button>
-                            <button onclick="triggerCron('scheduled_post')"
-                                class="w-full bg-slate-100 text-slate-700 font-black py-2 rounded-2xl text-[9px] tracking-widest uppercase hover:bg-slate-200 transition-all">今すぐ投稿実行</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 投稿予約リスト -->
-                <div class="flex-1 glass rounded-[36px] flex flex-col overflow-hidden">
-                    <div
-                        class="px-6 py-3 border-b border-slate-100/50 bg-white/20 flex justify-between items-center shrink-0">
-                        <span class="text-[8px] font-black text-slate-400 uppercase tracking-widest">配信予約キュー & 履歴</span>
-                        <div class="flex items-center gap-4">
-                            <div class="flex items-center gap-2">
-                                <input type="checkbox" id="show-bots" onchange="tryFetch()"
-                                    class="w-3 h-3 rounded text-indigo-600">
-                                <label for="show-bots"
-                                    class="text-[8px] font-black text-slate-300 uppercase cursor-pointer">Bot/Dev表示</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex-1 overflow-auto px-4 scrolling-content">
-                        <table class="w-full text-left">
-                            <thead class="sticky top-0 bg-white/80 backdrop-blur z-10">
-                                <tr
-                                    class="text-[8px] text-slate-400 font-black uppercase tracking-widest border-b border-slate-100/50">
-                                    <th class="py-3 px-2">日時 / 状態</th>
-                                    <th class="py-3">ID</th>
-                                    <th class="py-3">プレビュー</th>
-                                    <th class="py-3 text-right pr-2">Link / 操作</th>
-                                </tr>
-                            </thead>
-                            <tbody id="queue-table-body" class="divide-y divide-slate-100/30 text-[9px] font-medium">
-                            </tbody>
-                            <tbody id="history-table-body"
-                                class="divide-y divide-slate-100/30 text-[9px] font-medium border-t-2 border-slate-100">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- セクション2: 流入経路計測管理 -->
-        <section class="flex flex-col gap-2 flex-1 md:min-h-0 overflow-hidden">
-            <div class="section-header">
-                <div class="section-dot bg-emerald-500"></div>
-                <h2 class="section-title">流入経路計測管理 (Analytics & Conversion)</h2>
-            </div>
-
-            <!-- LPパフォーマンスカード (5列グリッド強制) -->
-            <div id="lp-cards-container" class="grid grid-cols-2 md:grid-cols-5 gap-2 shrink-0 md:h-[14%] min-h-[70px]">
-                <template id="lp-card-template">
-                    <div
-                        class="glass rounded-[24px] p-2 flex items-center gap-3 relative overflow-hidden group hover:bg-white transition-all border border-white/60 bg-white/20 min-w-0">
-                        <div class="flex flex-col items-center justify-center shrink-0 w-8">
-                            <div class="text-xl lp-icon mb-0.5">🏠</div>
-                            <div
-                                class="text-[6px] font-black text-slate-400 uppercase tracking-tighter lp-name truncate w-full text-center">
-                                MAIN
-                            </div>
-                        </div>
-                        <div
-                            class="flex-1 border-l border-slate-100 pl-2.5 py-0.5 flex flex-col justify-center min-w-0">
-                            <div class="flex items-baseline gap-1">
-                                <span class="text-lg font-black text-slate-800 lp-pv leading-none">0</span>
-                                <span class="text-[6px] font-black text-slate-400 uppercase">pv</span>
-                            </div>
-                            <div class="flex flex-wrap gap-x-2 gap-y-0.5 mt-0.5">
-                                <div class="flex items-center">
-                                    <span class="text-[5px] text-slate-300 font-black mr-0.5 uppercase">成約</span>
-                                    <span class="text-[9px] font-bold text-slate-600 lp-cv-label leading-none">0</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <span class="text-[5px] text-slate-300 font-black mr-0.5 uppercase">率</span>
-                                    <span class="text-[9px] font-bold text-indigo-600 lp-cvr leading-none">0%</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <span class="text-[5px] text-emerald-300 font-black mr-0.5 uppercase">収益</span>
-                                    <span
-                                        class="text-[9px] font-bold text-emerald-600 lp-revenue leading-none">¥0</span>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#" target="_blank" class="absolute inset-0 z-10 lp-link"></a>
-                        <div class="absolute bottom-0 left-0 w-full h-1 lp-accent opacity-60"></div>
-                    </div>
-                </template>
-            </div>
-
-            <!-- 下段詳細エリア -->
-            <div class="flex-1 flex flex-col md:flex-row gap-3 min-h-0 overflow-hidden">
-                <!-- 左: メトリクス -->
-                <div class="w-full md:w-[13%] flex flex-col gap-2 justify-center">
-                    <div class="flex flex-col gap-1.5 font-black tracking-tighter">
-                        <div class="glass p-2 px-3 rounded-2xl flex flex-col justify-center h-12">
-                            <p class="text-[6px] text-slate-400 uppercase">総クリック</p>
-                            <p id="kpi-clicks" class="text-lg leading-none">0</p>
-                        </div>
-                        <div
-                            class="bg-indigo-600/5 p-2 px-3 rounded-2xl border border-indigo-600/10 flex flex-col justify-center h-12">
-                            <p class="text-[6px] text-indigo-400 uppercase">成約件数</p>
-                            <p id="kpi-cv" class="text-lg text-indigo-700 leading-none">0</p>
-                        </div>
-                        <div class="glass p-2 px-3 rounded-2xl flex flex-col justify-center h-12">
-                            <p class="text-[6px] text-slate-400 uppercase">平均CVR</p>
-                            <p id="kpi-cvr" class="text-lg text-indigo-600 leading-none">0%</p>
-                        </div>
-                        <div
-                            class="bg-emerald-600/5 p-2 px-3 rounded-2xl border border-emerald-600/10 flex flex-col justify-center h-12">
-                            <p class="text-[6px] text-emerald-400 uppercase">推定収益</p>
-                            <p id="kpi-revenue" class="text-lg text-emerald-700 leading-none">¥0</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 中央: 訪問者回遊 (スクーロールなし・ステップ形式) -->
-                <div class="flex-1 glass rounded-[36px] flex flex-col overflow-hidden">
-                    <div
-                        class="px-5 py-2 border-b border-slate-100 flex justify-between items-center bg-white/20 shrink-0">
-                        <div class="flex flex-col gap-0.5">
-                            <h3
-                                class="text-[9px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                                <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                                Visitor Journey Flow
-                            </h3>
-                            <p class="text-[6px] text-slate-300 font-bold ml-3.5">※ のべ回数（PV）で集計。1人が複数クリックする可能性があります。</p>
-                        </div>
-                        <div class="flex gap-2">
-                            <select id="filter-period" onchange="tryFetch()"
-                                class="text-[8px] bg-slate-100 border-none rounded-lg px-2 py-0.5 font-black outline-none cursor-pointer">
-                                <option value="all">全期間</option>
-                                <option value="today">本日のみ</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div id="stats-container" class="flex-1 p-4 flex flex-col justify-center items-center gap-3"></div>
-                    <div id="stats-empty"
-                        class="hidden flex-1 flex items-center justify-center text-slate-300 font-bold uppercase text-[9px]">
-                        No Data</div>
-                </div>
-
-                <!-- 右: 実行ログ (アコーディオン風) -->
-                <div id="log-section" class="w-full md:w-[15%] transition-all duration-500 group relative">
-                    <button onclick="toggleLog()"
-                        class="w-full glass rounded-[28px] p-4 flex md:flex-col items-center justify-between md:justify-center gap-2 hover:bg-white transition-colors h-full">
-                        <div
-                            class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-indigo-100 group-hover:text-indigo-600 transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        <button onclick="logout()"
+                            class="p-2 hover:bg-white/5 rounded-xl transition text-slate-400 hover:text-rose-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 stroke-width="2.5">
-                                <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                <path
+                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                                </path>
                             </svg>
-                        </div>
-                        <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">実行ログ<br
-                                class="hidden md:block"><span class="text-[7px]">CLICK TO VIEW</span></span>
-                    </button>
+                        </button>
+    </div>
+    </header>
 
-                    <div id="log-modal"
-                        class="hidden absolute bottom-0 right-0 w-[320px] h-[400px] glass rounded-[36px] flex flex-col overflow-hidden shadow-2xl z-50 animate-fade-in">
-                        <div class="px-5 py-4 border-b border-slate-100 flex justify-between items-center bg-white/60">
-                            <span class="text-[10px] font-black text-slate-500 uppercase">System Logs</span>
-                            <button onclick="toggleLog()"
-                                class="text-slate-300 hover:text-rose-500 transition font-black text-lg">×</button>
+    <!-- セクション1: X自動投稿管理 -->
+    <section class="flex flex-col gap-2 shrink-0 md:h-[28%] overflow-hidden">
+        <div class="section-header">
+            <div class="section-dot !bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]"></div>
+            <h2 class="section-title !text-indigo-400">Operational Tactics <span
+                    class="text-slate-600 ml-2">(Auto-Post)</span></h2>
+        </div>
+
+        <div class="flex-1 flex flex-col md:flex-row gap-3 min-h-0">
+            <!-- クイックアクション -->
+            <div class="w-full md:w-[22%] flex flex-col gap-2">
+                <div
+                    class="glass section-glow-indigo rounded-3xl p-3 flex-1 flex flex-col justify-center gap-3 bg-indigo-950/20">
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="text-center bg-white/5 p-2 rounded-2xl border border-white/5">
+                            <p class="text-[6px] font-black text-slate-500 uppercase mb-0.5">QUEUE</p>
+                            <p id="ops-queued" class="text-xl font-black text-white leading-none tracking-tighter">0</p>
                         </div>
-                        <div id="cron-logs-container"
-                            class="flex-1 overflow-y-auto p-4 font-mono text-[9px] space-y-1.5 text-slate-500 bg-white/40 scrolling-content">
+                        <div class="text-center bg-indigo-500/10 p-2 rounded-2xl border border-indigo-500/10">
+                            <p class="text-[6px] font-black text-indigo-400 uppercase mb-0.5">TODAY</p>
+                            <p id="ops-today" class="text-xl font-black text-white leading-none tracking-tighter">0</p>
                         </div>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <button onclick="triggerCron('generate')"
+                            class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all shadow-lg shadow-indigo-600/20 ring-1 ring-white/20 active:scale-95">AI一括生成</button>
+                        <button onclick="triggerCron('post')"
+                            class="w-full py-2 bg-white/5 hover:bg-white/10 text-slate-300 rounded-2xl font-black text-[9px] uppercase tracking-widest transition-all border border-white/10 active:scale-95">今すぐ投稿実行</button>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- フッター -->
-        <footer
-            class="hidden md:flex h-5 justify-between items-center shrink-0 border-t border-slate-100 pt-1 text-[7px] font-black text-slate-300 uppercase tracking-[0.6em]">
-            <span>Secured By AirFuture Ultra-Infratrucure</span>
-            <span>Version 7.0 (Production-Ready)</span>
-        </footer>
+            <!-- 配信予定キュー & 履歴 -->
+            <div class="flex-1 glass section-glow-indigo rounded-3xl overflow-hidden flex flex-col bg-indigo-950/20">
+                <div class="px-5 py-2 border-b border-white/5 flex justify-between items-center bg-white/5 shrink-0">
+                    <h3 class="text-[8px] font-black text-indigo-400 uppercase tracking-widest">Post Protocol Matrix
+                    </h3>
+                    <label class="flex items-center gap-2 cursor-pointer group">
+                        <input type="checkbox" id="check-bot" onchange="tryFetch()" class="hidden">
+                        <div class="w-6 h-3 bg-slate-800 rounded-full relative transition-all group-hover:bg-slate-700">
+                            <div id="check-bot-dot"
+                                class="absolute left-0.5 top-0.5 w-2 h-2 bg-slate-500 rounded-full transition-all">
+                            </div>
+                        </div>
+                        <span class="text-[7px] font-black text-slate-500 uppercase tracking-widest">BOT/DEV表示</span>
+                    </label>
+                </div>
+                <div class="flex-1 overflow-x-auto scrolling-content">
+                    <table class="w-full text-left text-[9px]">
+                        <thead
+                            class="sticky top-0 bg-[#161c30] text-slate-500 font-extrabold uppercase tracking-widest text-[7px] border-b border-white/5">
+                            <tr>
+                                <th class="py-2 px-3">日時 / 状態</th>
+                                <th class="py-2">ID</th>
+                                <th class="py-2">プレビュー</th>
+                                <th class="py-2 text-right pr-3">LINK / 操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="queue-table-body" class="divide-y divide-white/5"></tbody>
+                        <tbody id="history-table-body" class="divide-y divide-white/5 border-t border-white/5"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- セクション2: 流入経路計測管理 -->
+    <section class="flex-1 flex flex-col gap-2 min-h-0 overflow-hidden">
+        <div class="section-header">
+            <div class="section-dot !bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+            <h2 class="section-title !text-emerald-400">Strategic Intelligence <span
+                    class="text-slate-600 ml-2">(Analytics & CV)</span></h2>
+        </div>
+
+        <!-- LPパフォーマンスカード -->
+        <div id="lp-cards-container" class="grid grid-cols-5 gap-3 shrink-0 invisible">
+            <template id="lp-card-template">
+                <div
+                    class="glass section-glow-emerald rounded-[28px] p-3 flex items-center gap-3 relative overflow-hidden group hover:bg-emerald-500/10 transition-all border-white/5 bg-emerald-950/10 h-20">
+                    <div
+                        class="w-10 h-10 rounded-xl flex items-center justify-center text-xl bg-white/5 border border-white/5 shadow-inner lp-icon shrink-0">
+                        🏠</div>
+                    <div class="flex-1 min-w-0">
+                        <p
+                            class="text-[7px] font-black text-emerald-400 uppercase tracking-tighter lp-name mb-0.5 truncate">
+                            MAIN</p>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-xl font-black text-white lp-pv leading-none tracking-tighter">0</span>
+                            <span class="text-[6px] font-black text-slate-500 uppercase">pv</span>
+                        </div>
+                        <div class="flex flex-wrap gap-x-2 gap-y-0.5 mt-0.5">
+                            <div class="flex items-center">
+                                <span class="text-[5px] text-slate-500 font-black mr-0.5 uppercase">CV</span>
+                                <span class="text-[9px] font-black text-slate-300 lp-cv-label leading-none">0</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-[5px] text-indigo-400/60 font-black mr-0.5 uppercase">率</span>
+                                <span class="text-[9px] font-black text-indigo-400 lp-cvr leading-none">0%</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-[5px] text-emerald-500/60 font-black mr-0.5 uppercase">REV</span>
+                                <span class="text-[9px] font-black text-emerald-400 lp-revenue leading-none">¥0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" target="_blank" class="absolute inset-0 z-10 lp-link"></a>
+                    <div class="absolute bottom-0 left-0 w-full h-0.5 lp-accent opacity-40"></div>
+                </div>
+            </template>
+        </div>
+
+        <!-- 下段詳細エリア -->
+        <div class="flex-1 flex flex-col md:flex-row gap-3 min-h-0 overflow-hidden">
+            <!-- 左: メトリクス -->
+            <div class="w-full md:w-[13%] flex flex-col gap-2 justify-center">
+                <div class="flex flex-col gap-2 font-black tracking-tighter">
+                    <div class="glass rounded-2xl p-2 px-3 border-white/5 bg-white/5">
+                        <p class="text-[6px] text-slate-500 uppercase">NET CLICKS</p>
+                        <p id="kpi-clicks" class="text-xl leading-none text-white tracking-tighter">0</p>
+                    </div>
+                    <div class="bg-indigo-500/10 p-2 px-3 rounded-2xl border border-indigo-500/10">
+                        <p class="text-[6px] text-indigo-400 uppercase">CONVERSIONS</p>
+                        <p id="kpi-cv" class="text-xl text-indigo-300 leading-none tracking-tighter">0</p>
+                    </div>
+                    <div class="glass rounded-2xl p-2 px-3 border-white/5 bg-white/5">
+                        <p class="text-[6px] text-slate-500 uppercase">AVG RATIO</p>
+                        <p id="kpi-cvr" class="text-xl text-indigo-400 leading-none tracking-tighter">0%</p>
+                    </div>
+                    <div class="bg-emerald-500/10 p-2 px-3 rounded-2xl border border-emerald-500/10">
+                        <p class="text-[6px] text-emerald-400 uppercase">EST REVENUE</p>
+                        <p id="kpi-revenue" class="text-xl text-emerald-400 leading-none tracking-tighter">¥0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 中央: PV水位グラフ -->
+            <div
+                class="flex-1 glass section-glow-emerald rounded-[36px] flex flex-col overflow-hidden bg-emerald-950/10 border-white/5">
+                <div class="px-5 py-2 border-b border-white/5 flex justify-between items-center bg-white/5 shrink-0">
+                    <h3 class="text-[8px] font-black text-emerald-400 uppercase tracking-widest">Temporal Density
+                        Matrix (PV TREND)</h3>
+                    <span class="text-[6px] text-slate-500 font-black uppercase tracking-widest">Real-time 24h
+                        Flux</span>
+                </div>
+                <div class="flex-1 p-4 relative min-h-0">
+                    <canvas id="pvTrendChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 右: 訪問者回遊 -->
+            <div
+                class="w-full md:w-[25%] glass section-glow-emerald rounded-[36px] flex flex-col overflow-hidden bg-emerald-950/20 border-white/5">
+                <div class="px-5 py-2 border-b border-white/5 flex justify-between items-center bg-white/5 shrink-0">
+                    <div class="flex flex-col">
+                        <h3 class="text-[8px] font-black text-emerald-300 uppercase tracking-widest">Behavioral
+                            Journey</h3>
+                        <p class="text-[5px] text-slate-500 font-bold uppercase tracking-widest">Cumulative PV
+                            based sequence</p>
+                    </div>
+                    <select id="filter-period" onchange="tryFetch()"
+                        class="text-[9px] bg-white/5 border border-white/10 rounded-lg px-2 py-0.5 font-black outline-none cursor-pointer text-emerald-400 hover:bg-white/10 transition-all">
+                        <option value="all">ALL TIME</option>
+                        <option value="today">LAST 24H</option>
+                    </select>
+                </div>
+                <div id="stats-container" class="flex-1 p-4 flex flex-col gap-2 overflow-y-auto scrolling-content">
+                </div>
+                <div id="stats-empty"
+                    class="hidden flex-1 flex items-center justify-center text-slate-600 font-black uppercase text-[9px]">
+                    Zero Seq</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer
+        class="hidden md:flex h-5 justify-between items-center shrink-0 border-t border-slate-100 pt-1 text-[7px] font-black text-slate-300 uppercase tracking-[0.6em]">
+        <span>Secured By AirFuture Ultra-Infratrucure</span>
+        <span>Version 7.0 (Production-Ready)</span>
+    </footer>
     </div>
 
     <!-- AI 生成モーダル -->
@@ -428,7 +406,7 @@
 
         async function tryFetch() {
             try {
-                const b = document.getElementById('show-bots')?.checked || false;
+                const b = document.getElementById('check-bot')?.checked || false;
                 const p = document.getElementById('filter-period')?.value || 'all';
                 const res = await fetch(`/api/dashboard?human_only=${!b}&period=${p}`, { headers: { 'x-admin-password': adminPW } });
                 if (res.status === 401) { logout(); return; }
@@ -459,72 +437,114 @@
 
         async function triggerCron(action) { try { await fetch(`/api/cron?action=${action}&pw=${adminPW}`); setTimeout(tryFetch, 1000); } catch (e) { } }
 
+        let trendChart = null;
+
         function render(data) {
             const k = data.kpi || {};
             document.getElementById('ops-queued').innerText = k.queued || 0;
             document.getElementById('ops-today').innerText = k.posted_today || 0;
             const active = (k.autopost_status || '').match(/ON|ACTIVE/);
-            document.getElementById('ops-status').innerText = active ? '稼働中' : '停止中';
-            document.getElementById('ops-status-container').className = active ? 'px-3 py-1.5 rounded-full text-[8px] font-black uppercase tracking-widest bg-emerald-100 text-emerald-700 border border-emerald-200' : 'px-3 py-1.5 rounded-full text-[8px] font-black uppercase tracking-widest bg-rose-100 text-rose-700 border border-rose-200';
+            document.getElementById('ops-status').innerText = active ? 'SYSTEM ACTIVE' : 'LOCKED';
+            document.getElementById('ops-status-container').className = active
+                ? 'px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-[0_0_15px_-3px_rgba(16,185,129,0.3)]'
+                : 'px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest bg-rose-500/10 text-rose-400 border border-rose-500/20 shadow-[0_0_15px_-3px_rgba(244,63,94,0.3)]';
 
             document.getElementById('kpi-clicks').innerText = (k.total_clicks || 0).toLocaleString();
             document.getElementById('kpi-cv').innerText = (k.total_cv || 0).toLocaleString();
             document.getElementById('kpi-revenue').innerText = '¥' + (k.total_revenue || 0).toLocaleString();
             document.getElementById('kpi-cvr').innerText = (k.cvr || "0.0") + '%';
 
-            document.getElementById('cron-logs-container').innerHTML = (data.cronLogs || []).map(l => `
-                <div class="flex gap-2 hover:text-slate-900 border-b border-slate-100/30 pb-1">
-                    <span class="text-indigo-400 font-black shrink-0">[${dayjs(l.timestamp).format('HH:mm')}]</span>
-                    <span class="truncate">${l.action || '実行'}${l.status ? ' (' + l.status + ')' : ''}</span>
-                </div>`).join('') || '<p class="text-slate-300 italic text-center">待機中</p>';
+            // PV Trend Chart
+            const ctx = document.getElementById('pvTrendChart').getContext('2d');
+            const trend = k.pv_trend || [];
+            if (trendChart) trendChart.destroy();
+            trendChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: trend.map(d => d.t),
+                    datasets: [{
+                        label: 'PV FLUX',
+                        data: trend.map(d => d.v),
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, border: { display: false }, ticks: { color: '#475569', font: { size: 7, weight: 'bold' } } },
+                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, border: { display: false }, ticks: { color: '#475569', font: { size: 7, weight: 'bold' } } }
+                    }
+                }
+            });
 
+            // Journey Flow
+            const journeys = data.topJourneys || [];
+            const pathContainer = document.getElementById('stats-container');
+            const pathEmpty = document.getElementById('stats-empty');
+            if (journeys.length > 0) {
+                pathContainer.innerHTML = journeys.slice(0, 10).map((j, idx) => `
+                    <div class="w-full flex items-center gap-3 animate-fade-in" style="animation-delay: ${idx * 50}ms">
+                        <div class="w-7 h-7 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-[9px] font-black border border-emerald-500/20 shrink-0 select-none">${j.count}</div>
+                        <div class="flex-1 bg-white/5 p-2 rounded-xl border border-white/5 flex items-center justify-between min-w-0">
+                            <p class="text-[9px] font-bold text-slate-400 truncate tracking-tight">${j.path}</p>
+                            <span class="text-[6px] font-black text-slate-600 uppercase ml-2">PV</span>
+                        </div>
+                    </div>`).join('');
+                pathEmpty.classList.add('hidden');
+            } else { pathContainer.innerHTML = ''; pathEmpty.classList.remove('hidden'); }
+
+            // Future Queue
             const posts = (data.posts || []).filter(p => !['posted', 'deleted'].includes(p.status)).sort((a, b) => dayjs(a.scheduled_at).valueOf() - dayjs(b.scheduled_at).valueOf());
             document.getElementById('queue-table-body').innerHTML = posts.map(p => `
-                <tr class="group hover:bg-white/60 transition-all">
-                    <td class="py-2.5 px-2 text-slate-800"><span class="bg-indigo-50 text-indigo-400 px-1.5 py-0.5 rounded mr-1.5 font-black uppercase text-[7px]">${p.status}</span>${dayjs(p.scheduled_at).format('MM/DD HH:mm')}</td>
-                    <td class="py-2.5 font-black text-slate-500 tracking-tighter">#${p.id}</td>
-                    <td class="py-2.5 text-slate-400 line-clamp-1 italic text-[9px]">${p.draft || ''}</td>
-                    <td class="py-2.5 text-right pr-2">
-                        <div class="flex gap-2 justify-end opacity-100 md:opacity-0 group-hover:opacity-100 transition-all">
-                            <button onclick="postOp('${p.id}', 'force_post')" class="bg-indigo-600 text-white px-2 py-0.5 rounded text-[8px] font-black shadow-lg">投稿</button>
-                            <button onclick="postOp('${p.id}', 'delete')" class="bg-rose-50 text-rose-600 px-2 py-0.5 rounded text-[8px] font-black">削除</button>
+                <tr class="group hover:bg-white/5 transition-all">
+                    <td class="py-2.5 px-3 text-slate-400"><span class="bg-indigo-500/10 text-indigo-400 px-1.5 py-0.5 rounded border border-indigo-500/20 mr-1.5 font-black uppercase text-[7px]">${p.status}</span>${dayjs(p.scheduled_at).format('MM/DD HH:mm')}</td>
+                    <td class="py-2.5 font-black text-slate-600 tracking-tighter">#${p.id}</td>
+                    <td class="py-2.5 text-slate-500 line-clamp-1 italic text-[9px]">${p.draft || ''}</td>
+                    <td class="py-2.5 text-right pr-3">
+                        <div class="flex gap-2 justify-end opacity-0 group-hover:opacity-100 transition-all">
+                            <button onclick="postOp('${p.id}', 'force_post')" class="bg-indigo-600 text-white px-2 py-0.5 rounded text-[8px] font-black shadow-lg shadow-indigo-500/20 ring-1 ring-white/10">GO</button>
+                            <button onclick="postOp('${p.id}', 'delete')" class="bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded text-[8px] font-black border border-rose-500/20">DEL</button>
                         </div>
                     </td>
-                </tr>`).join('') || '<tr><td colspan="4" class="p-4 text-center text-slate-200 font-black uppercase text-[9px]">予約なし</td></tr>';
+                </tr>`).join('') || '<tr><td colspan="4" class="p-4 text-center text-slate-600 font-black uppercase text-[8px]">Matrix Empty</td></tr>';
 
+            // History
             const recent = data.recent_posted || [];
             document.getElementById('history-table-body').innerHTML = recent.map(p => `
-                <tr class="bg-slate-50/20 group hover:bg-white transition-all">
-                    <td class="py-2 px-2 text-slate-400"><span class="bg-slate-100 text-slate-400 px-1.5 py-0.5 rounded mr-1.5 font-black uppercase text-[7px]">POSTED</span>${dayjs(p.posted_at).format('MM/DD HH:mm')}</td>
-                    <td class="py-2 font-black text-slate-300 tracking-tighter">#${p.id}</td>
-                    <td class="py-2 text-slate-300 line-clamp-1 italic text-[9px]">${p.draft || ''}</td>
-                    <td class="py-2 text-right pr-2">
-                        <a href="https://x.com/i/web/status/${p.tweet_id}" target="_blank" class="bg-slate-900 text-white px-3 py-0.5 rounded-lg text-[8px] font-black inline-flex hover:bg-indigo-600 transition-all">X ↗</a>
+                <tr class="bg-white/5 group hover:bg-white/10 transition-all">
+                    <td class="py-2 px-3 text-slate-500"><span class="bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded border border-white/5 mr-1.5 font-black uppercase text-[7px]">POSTED</span>${dayjs(p.posted_at).format('MM/DD HH:mm')}</td>
+                    <td class="py-2 font-black text-slate-600 tracking-tighter">#${p.id}</td>
+                    <td class="py-2 text-slate-500 line-clamp-1 italic text-[9px]">${p.draft || ''}</td>
+                    <td class="py-2 text-right pr-3">
+                        <a href="https://x.com/i/web/status/${p.tweet_id}" target="_blank" class="bg-slate-800 text-white px-3 py-1 rounded-lg text-[8px] font-black inline-flex hover:bg-indigo-600 transition-all border border-white/10">X ↗</a>
                     </td>
-                </tr>`).join('');
+                </tr>`).join('') || '<tr><td colspan="4" class="p-4 text-center text-slate-700 font-black uppercase text-[8px]">History Empty</td></tr>';
 
-            const sClicks = k.clicks_by_source || {};
-            const sCV = k.cv_by_source || {};
-            const lps = [
-                { id: 'mini_lp', aliases: ['mini_main', 'メイン'], name: 'メイン', icon: '🏠', accent: 'bg-indigo-600' },
-                { id: 'hayfever', aliases: ['hayfever', '花粉症', '花粉'], name: '花粉症', icon: '🌸', accent: 'bg-pink-500' },
-                { id: 'dental', aliases: ['dental', '歯科医院', '歯科'], name: '歯科医院', icon: '🏥', accent: 'bg-cyan-500' },
-                { id: 'pet', aliases: ['pet', 'ペット'], name: 'ペット', icon: '🐶', accent: 'bg-amber-500' },
-                { id: '3dprinter', aliases: ['3dprinter', '3Dプリンタ', '3D'], name: '3Dプリンタ', icon: '🖨️', accent: 'bg-slate-500' }
-            ];
+            // LP Cards
             const container = document.getElementById('lp-cards-container');
             const template = document.getElementById('lp-card-template');
             container.innerHTML = '';
+            const lps = [
+                { id: 'mini_lp', name: 'MAIN', icon: '🏠', accent: 'bg-indigo-500', aliases: ['mini_main', 'メイン'] },
+                { id: 'hayfever', name: 'FLOWER', icon: '🌸', accent: 'bg-rose-500', aliases: ['花粉症', '花粉'] },
+                { id: 'dental', name: 'DENTAL', icon: '🏥', accent: 'bg-cyan-500', aliases: ['歯科医院', '歯科'] },
+                { id: 'pet', name: 'PET', icon: '🐶', accent: 'bg-orange-500', aliases: ['ペット'] },
+                { id: '3dprinter', name: '3D PRT', icon: '🖨️', accent: 'bg-slate-500', aliases: ['3Dプリンタ'] }
+            ];
             lps.forEach(c => {
                 const clone = template.content.cloneNode(true);
+                const sClicks = k.clicks_by_source || {};
+                const sCV = k.cv_by_source || {};
                 let v = 0; let cvCount = 0; let rev = 0;
-                // キーをユニーク化して二重集計を防止
                 const keys = Array.from(new Set([c.id, ...(c.aliases || [])]));
-                keys.forEach(key => {
-                    v += (sClicks[key] || 0);
-                    cvCount += (sCV[key]?.count || 0);
-                    rev += (sCV[key]?.revenue || 0);
-                });
+                keys.forEach(key => { v += (sClicks[key] || 0); cvCount += (sCV[key]?.count || 0); rev += (sCV[key]?.revenue || 0); });
                 const rate = v > 0 ? ((cvCount / v) * 100).toFixed(1) : '0.0';
                 clone.querySelector('.lp-icon').innerText = c.icon;
                 clone.querySelector('.lp-name').innerText = c.name;
@@ -538,26 +558,7 @@
             });
             container.classList.remove('invisible');
 
-            const journeys = data.topJourneys || [];
-            const pathContainer = document.getElementById('stats-container');
-            const pathEmpty = document.getElementById('stats-empty');
-            if (journeys.length > 0) {
-                // フロー形式でレンダリング (最大4件)
-                pathContainer.innerHTML = journeys.slice(0, 4).map((j, idx) => `
-                    <div class="w-full flex items-center gap-4 group">
-                        <div class="relative flex flex-col items-center">
-                            <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px] font-black shadow-lg z-10">${j.count}</div>
-                            ${idx < Math.min(journeys.length, 4) - 1 ? '<div class="absolute top-8 w-0.5 h-6 bg-slate-100"></div>' : ''}
-                        </div>
-                        <div class="flex-1 bg-white/60 p-2.5 rounded-2xl border border-white shadow-sm hover:shadow-md transition-all flex items-center justify-between">
-                            <p class="text-[10px] font-black text-slate-600 tracking-tight leading-tight">${j.path}</p>
-                            <span class="text-[6px] font-black text-slate-300 uppercase ml-2">PV</span>
-                        </div>
-                    </div>`).join('');
-                pathEmpty.classList.add('hidden');
-            } else { pathContainer.innerHTML = ''; pathEmpty.classList.remove('hidden'); }
-
-            document.getElementById('storage-status').innerHTML = `<span class="opacity-40">SYNCED</span> | <span class="text-indigo-400 font-black">DEV: ${k.internal?.dev_clicks || 0}</span> | <span class="text-slate-300 font-black">BOT: ${k.internal?.bot_clicks || 0}</span>`;
+            document.getElementById('storage-status').innerText = `SYNCED | DEV: ${k.internal?.dev_clicks || 0} | BOT: ${k.internal?.bot_clicks || 0}`;
         }
         if (adminPW) tryFetch();
     </script>
