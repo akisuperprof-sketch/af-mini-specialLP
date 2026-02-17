@@ -13,16 +13,33 @@
         rel="stylesheet">
     <style>
         :root {
-            --glass: rgba(255, 255, 255, 0.75);
-            --border: rgba(255, 255, 255, 0.6);
+            --glass: rgba(15, 23, 42, 0.6);
+            --border: rgba(255, 255, 255, 0.08);
+            --neon-indigo: #6366f1;
+            --neon-emerald: #10b981;
         }
 
         body {
             font-family: 'Outfit', 'Noto Sans JP', sans-serif;
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            color: #1e293b;
+            background: radial-gradient(circle at top right, #1e293b, #0f172a);
+            background-attachment: fixed;
+            color: #f8fafc;
             letter-spacing: -0.01em;
             min-height: 100vh;
+        }
+
+        /* メッシュグラデーション背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 40%);
+            z-index: -1;
         }
 
         @media (min-width: 768px) {
@@ -34,9 +51,14 @@
 
         .glass {
             background: var(--glass);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(20px);
             border: 1px solid var(--border);
-            box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .glass:hover {
+            border-color: rgba(255, 255, 255, 0.15);
         }
 
         .hidden-auth {
@@ -49,18 +71,18 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: transparent;
+            background: rgba(0, 0, 0, 0.1);
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #e2e8f0;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(4px);
+                transform: translateY(8px);
             }
 
             to {
@@ -70,7 +92,7 @@
         }
 
         .fade-in {
-            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .scrolling-content {
@@ -78,28 +100,51 @@
             scrollbar-gutter: stable;
         }
 
-        /* 1画面収めるためのセクション調整 */
         .section-header {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-            padding-left: 0.25rem;
+            gap: 0.6rem;
+            margin-bottom: 0.6rem;
+            padding-left: 0.5rem;
         }
 
         .section-dot {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             border-radius: 9999px;
-            background-color: #6366f1;
+            box-shadow: 0 0 10px currentColor;
         }
 
         .section-title {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-weight: 900;
-            color: #94a3b8;
+            color: #64748b;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.25em;
+        }
+
+        /* ネオンアクセント分け */
+        .theme-indigo .section-dot {
+            background-color: var(--neon-indigo);
+            color: var(--neon-indigo);
+        }
+
+        .theme-emerald .section-dot {
+            background-color: var(--neon-emerald);
+            color: var(--neon-emerald);
+        }
+
+        /* テーブルスタイリング */
+        table thead {
+            background: rgba(15, 23, 42, 0.8) !important;
+        }
+
+        tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.02);
         }
     </style>
 </head>
@@ -107,10 +152,10 @@
 <body class="p-3 md:p-4 flex flex-col gap-3">
     <!-- 認証オーバーレイ -->
     <div id="auth-overlay"
-        class="fixed inset-0 bg-slate-900/40 backdrop-blur-2xl z-[9999] flex items-center justify-center p-4">
-        <div class="bg-white p-8 rounded-[40px] max-w-sm w-full shadow-2xl border border-slate-100 text-center">
+        class="fixed inset-0 bg-slate-950/60 backdrop-blur-3xl z-[9999] flex items-center justify-center p-4">
+        <div class="glass p-10 rounded-[48px] max-w-sm w-full text-center">
             <div
-                class="w-16 h-16 bg-indigo-600 rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-2xl shadow-indigo-200">
+                class="w-16 h-16 bg-indigo-600 rounded-3xl mx-auto mb-6 flex items-center justify-center shadow-[0_0_40px_-10px_rgba(99,102,241,0.5)]">
                 <span class="text-2xl font-black text-white">AF</span>
             </div>
             <h2 class="text-xl font-black mb-1">管理者ポータル</h2>
@@ -129,22 +174,24 @@
         class="hidden-auth opacity-0 flex-1 flex flex-col gap-3 max-w-[1700px] mx-auto w-full md:overflow-hidden">
 
         <!-- ヘッダー -->
-        <header class="flex justify-between items-center shrink-0 glass px-5 py-3 rounded-3xl">
+        <header class="flex justify-between items-center shrink-0 glass px-6 py-4 rounded-[32px] border-indigo-600/10">
             <div class="flex items-center gap-4">
-                <div class="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-                    <span class="text-white font-black text-base">AF</span>
+                <div
+                    class="w-10 h-10 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-[0_0_20px_-5px_rgba(99,102,241,0.6)]">
+                    <span class="text-white font-black text-lg">AF</span>
                 </div>
                 <div>
-                    <h1 class="text-lg font-black tracking-tighter leading-none">AIRFUTURE <span
-                            class="text-indigo-600">管理パネル</span></h1>
-                    <p class="text-[7px] font-black text-slate-400 uppercase tracking-widest mt-0.5"
-                        id="storage-status">同期中...</p>
+                    <h1 class="text-xl font-black tracking-tighter leading-none">AIRFUTURE <span
+                            class="text-indigo-300">管理パネル</span></h1>
+                    <p class="text-[7px] font-black text-slate-600 uppercase tracking-[0.3em] mt-1.5">
+                        <span id="storage-status">同期中...</span>
+                    </p>
                 </div>
             </div>
 
             <nav class="hidden lg:flex items-center gap-6">
                 <a href="https://x.com/airfuture_ai" target="_blank"
-                    class="flex items-center gap-1.5 text-slate-500 hover:text-slate-900 transition font-black text-[10px] uppercase tracking-wider">
+                    class="flex items-center gap-1.5 text-slate-400 hover:text-indigo-400 transition font-black text-[10px] uppercase tracking-wider">
                     <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
                         <path
                             d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -152,7 +199,7 @@
                     X Account ↗
                 </a>
                 <a href="https://cron-job.org" target="_blank"
-                    class="flex items-center gap-1.5 text-slate-500 hover:text-slate-900 transition font-black text-[10px] uppercase tracking-wider">
+                    class="flex items-center gap-1.5 text-slate-400 hover:text-emerald-400 transition font-black text-[10px] uppercase tracking-wider">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                         <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -160,7 +207,7 @@
                 </a>
                 <a href="https://docs.google.com/spreadsheets/d/1XasT4Wf27uFByXN_f6o8F6N_A0zNf-6lY37z7x_oA8c/edit#gid=155635466"
                     target="_blank"
-                    class="flex items-center gap-1.5 text-emerald-600 hover:text-emerald-700 transition font-black text-[10px] uppercase tracking-wider">
+                    class="flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 transition font-black text-[10px] uppercase tracking-wider">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                         <path
                             d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -171,11 +218,11 @@
 
             <div class="flex items-center gap-3">
                 <div id="ops-status-container"
-                    class="px-3 py-1.5 rounded-full text-[8px] font-black uppercase tracking-widest bg-emerald-100 text-emerald-700 border border-emerald-200">
+                    class="px-3 py-1.5 rounded-full text-[8px] font-black uppercase tracking-widest bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                     <span id="ops-status">稼働中</span>
                 </div>
                 <button onclick="logout()"
-                    class="p-2 hover:bg-slate-100 rounded-xl transition text-slate-300 hover:text-rose-500">
+                    class="p-2 hover:bg-white/5 rounded-xl transition text-slate-400 hover:text-rose-400">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                         <path
                             d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
@@ -186,10 +233,10 @@
         </header>
 
         <!-- セクション1: X自動投稿管理 -->
-        <section class="flex flex-col gap-1.5 shrink-0 md:h-[28%] overflow-hidden">
+        <section class="flex flex-col gap-1.5 shrink-0 md:h-[28%] overflow-hidden theme-indigo">
             <div class="section-header">
                 <div class="section-dot"></div>
-                <h2 class="section-title">X自動投稿管理 (Auto-Post Management)</h2>
+                <h2 class="section-title">Strategic Tactics (Auto-Post)</h2>
             </div>
 
             <div class="flex-1 flex flex-col md:flex-row gap-3 min-h-0">
@@ -197,20 +244,20 @@
                 <div class="w-full md:w-[22%] flex flex-col gap-2">
                     <div class="glass rounded-3xl p-3 flex-1 flex flex-col justify-center gap-3">
                         <div class="grid grid-cols-2 gap-2">
-                            <div class="text-center bg-white/40 p-2 rounded-2xl">
+                            <div class="text-center bg-white/5 p-2 rounded-2xl border border-white/5">
                                 <p class="text-[6px] font-black text-slate-400 uppercase mb-0.5">予約中</p>
-                                <p id="ops-queued" class="text-2xl font-black text-slate-800 tracking-tighter">0</p>
+                                <p id="ops-queued" class="text-2xl font-black text-slate-200 tracking-tighter">0</p>
                             </div>
-                            <div class="text-center bg-white/40 p-2 rounded-2xl">
+                            <div class="text-center bg-white/5 p-2 rounded-2xl border border-white/5">
                                 <p class="text-[6px] font-black text-slate-400 uppercase mb-0.5">本日投稿</p>
-                                <p id="ops-today" class="text-2xl font-black text-indigo-600 tracking-tighter">0</p>
+                                <p id="ops-today" class="text-2xl font-black text-indigo-400 tracking-tighter">0</p>
                             </div>
                         </div>
                         <div class="flex flex-col gap-1.5">
                             <button onclick="openGenerateModal()"
-                                class="w-full bg-indigo-600 text-white font-black py-2.5 rounded-2xl text-[9px] tracking-widest shadow-lg shadow-indigo-100 uppercase hover:bg-indigo-700 transition-all">AI一括生成</button>
+                                class="w-full bg-indigo-600 text-white font-black py-2.5 rounded-2xl text-[9px] tracking-widest shadow-lg shadow-indigo-600/30 uppercase hover:bg-indigo-700 transition-all">AI一括生成</button>
                             <button onclick="triggerCron('scheduled_post')"
-                                class="w-full bg-slate-100 text-slate-700 font-black py-2 rounded-2xl text-[9px] tracking-widest uppercase hover:bg-slate-200 transition-all">今すぐ投稿実行</button>
+                                class="w-full bg-white/5 text-slate-400 font-black py-2 rounded-2xl text-[9px] tracking-widest uppercase hover:bg-white/10 transition-all">今すぐ投稿実行</button>
                         </div>
                     </div>
                 </div>
@@ -252,7 +299,7 @@
         </section>
 
         <!-- セクション2: 流入経路計測管理 -->
-        <section class="flex flex-col gap-2 flex-1 md:min-h-0 overflow-hidden">
+        <section class="flex flex-col gap-2 flex-1 md:min-h-0 overflow-hidden theme-emerald">
             <div class="section-header">
                 <div class="section-dot bg-emerald-500"></div>
                 <h2 class="section-title">流入経路計測管理 (Analytics & Conversion)</h2>
@@ -262,7 +309,7 @@
             <div id="lp-cards-container" class="grid grid-cols-2 md:grid-cols-5 gap-2 shrink-0 md:h-[14%] min-h-[70px]">
                 <template id="lp-card-template">
                     <div
-                        class="glass rounded-[24px] p-2 flex items-center gap-3 relative overflow-hidden group hover:bg-white transition-all border border-white/60 bg-white/20 min-w-0">
+                        class="glass rounded-[24px] p-2 flex items-center gap-3 relative overflow-hidden group hover:bg-white/10 transition-all border border-white/5 bg-white/5 min-w-0">
                         <div class="flex flex-col items-center justify-center shrink-0 w-8">
                             <div class="text-xl lp-icon mb-0.5">🏠</div>
                             <div
@@ -271,29 +318,29 @@
                             </div>
                         </div>
                         <div
-                            class="flex-1 border-l border-slate-100 pl-2.5 py-0.5 flex flex-col justify-center min-w-0">
+                            class="flex-1 border-l border-slate-100/10 pl-2.5 py-0.5 flex flex-col justify-center min-w-0">
                             <div class="flex items-baseline gap-1">
-                                <span class="text-lg font-black text-slate-800 lp-pv leading-none">0</span>
+                                <span class="text-lg font-black text-slate-200 lp-pv leading-none">0</span>
                                 <span class="text-[6px] font-black text-slate-400 uppercase">pv</span>
                             </div>
                             <div class="flex flex-wrap gap-x-2 gap-y-0.5 mt-0.5">
                                 <div class="flex items-center">
                                     <span class="text-[5px] text-slate-300 font-black mr-0.5 uppercase">成約</span>
-                                    <span class="text-[9px] font-bold text-slate-600 lp-cv-label leading-none">0</span>
+                                    <span class="text-[9px] font-bold text-slate-300 lp-cv-label leading-none">0</span>
                                 </div>
                                 <div class="flex items-center">
                                     <span class="text-[5px] text-slate-300 font-black mr-0.5 uppercase">率</span>
-                                    <span class="text-[9px] font-bold text-indigo-600 lp-cvr leading-none">0%</span>
+                                    <span class="text-[9px] font-bold text-indigo-400 lp-cvr leading-none">0%</span>
                                 </div>
                                 <div class="flex items-center">
                                     <span class="text-[5px] text-emerald-300 font-black mr-0.5 uppercase">収益</span>
                                     <span
-                                        class="text-[9px] font-bold text-emerald-600 lp-revenue leading-none">¥0</span>
+                                        class="text-[9px] font-bold text-emerald-400 lp-revenue leading-none">¥0</span>
                                 </div>
                             </div>
                         </div>
                         <a href="#" target="_blank" class="absolute inset-0 z-10 lp-link"></a>
-                        <div class="absolute bottom-0 left-0 w-full h-1 lp-accent opacity-60"></div>
+                        <div class="absolute bottom-0 left-0 w-full h-1 lp-accent opacity-80"></div>
                     </div>
                 </template>
             </div>
@@ -303,38 +350,41 @@
                 <!-- 左: メトリクス -->
                 <div class="w-full md:w-[13%] flex flex-col gap-2 justify-center">
                     <div class="flex flex-col gap-1.5 font-black tracking-tighter">
-                        <div class="glass p-2 px-3 rounded-2xl flex flex-col justify-center h-12">
+                        <div
+                            class="bg-white/5 border border-white/5 p-2 px-3 rounded-2xl flex flex-col justify-center h-12">
                             <p class="text-[6px] text-slate-400 uppercase">総クリック</p>
-                            <p id="kpi-clicks" class="text-lg leading-none">0</p>
+                            <p id="kpi-clicks" class="text-lg text-slate-200 leading-none">0</p>
                         </div>
                         <div
                             class="bg-indigo-600/5 p-2 px-3 rounded-2xl border border-indigo-600/10 flex flex-col justify-center h-12">
                             <p class="text-[6px] text-indigo-400 uppercase">成約件数</p>
-                            <p id="kpi-cv" class="text-lg text-indigo-700 leading-none">0</p>
+                            <p id="kpi-cv" class="text-lg text-indigo-400 leading-none">0</p>
                         </div>
-                        <div class="glass p-2 px-3 rounded-2xl flex flex-col justify-center h-12">
+                        <div
+                            class="bg-white/5 border border-white/5 p-2 px-3 rounded-2xl flex flex-col justify-center h-12">
                             <p class="text-[6px] text-slate-400 uppercase">平均CVR</p>
-                            <p id="kpi-cvr" class="text-lg text-indigo-600 leading-none">0%</p>
+                            <p id="kpi-cvr" class="text-lg text-indigo-400 leading-none">0%</p>
                         </div>
                         <div
                             class="bg-emerald-600/5 p-2 px-3 rounded-2xl border border-emerald-600/10 flex flex-col justify-center h-12">
                             <p class="text-[6px] text-emerald-400 uppercase">推定収益</p>
-                            <p id="kpi-revenue" class="text-lg text-emerald-700 leading-none">¥0</p>
+                            <p id="kpi-revenue" class="text-lg text-emerald-400 leading-none">¥0</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- 中央: 訪問者回遊 (スクーロールなし・ステップ形式) -->
-                <div class="flex-1 glass rounded-[36px] flex flex-col overflow-hidden">
+                <div
+                    class="flex-1 glass rounded-[40px] flex flex-col overflow-hidden theme-emerald border-emerald-500/10">
                     <div
-                        class="px-5 py-2 border-b border-slate-100 flex justify-between items-center bg-white/20 shrink-0">
+                        class="px-5 py-3 border-b border-white/5 flex justify-between items-center bg-white/5 shrink-0">
                         <div class="flex flex-col gap-0.5">
                             <h3
-                                class="text-[9px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                                <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                                Visitor Journey Flow
+                                class="text-[9px] font-black text-emerald-400 uppercase tracking-widest flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full shadow-[0_0_8px_#10b981]"></span>
+                                Temporal Density Matrix (Daily PV)
                             </h3>
-                            <p class="text-[6px] text-slate-300 font-bold ml-3.5">※ のべ回数（PV）で集計。1人が複数クリックする可能性があります。</p>
+                            <p class="text-[6px] text-slate-500 font-bold ml-3.5">※ 過去7日間の日次トラフィック。のべ回数（PV）で集計。</p>
                         </div>
                         <div class="flex gap-2">
                             <select id="filter-period" onchange="tryFetch()"
@@ -346,7 +396,7 @@
                     </div>
                     <div class="flex-1 flex flex-col min-h-0">
                         <!-- グラフエリア -->
-                        <div class="h-[45%] p-4 border-b border-slate-50 bg-slate-50/30">
+                        <div class="h-[45%] p-4 border-b border-slate-50/10 bg-slate-50/5">
                             <canvas id="pvTrendChart"></canvas>
                         </div>
                         <!-- 回遊フローエリア -->
@@ -362,9 +412,9 @@
                 <!-- 右: 実行ログ (アコーディオン風) -->
                 <div id="log-section" class="w-full md:w-[15%] transition-all duration-500 group relative">
                     <button onclick="toggleLog()"
-                        class="w-full glass rounded-[28px] p-4 flex md:flex-col items-center justify-between md:justify-center gap-2 hover:bg-white transition-colors h-full">
+                        class="w-full glass rounded-[28px] p-4 flex md:flex-col items-center justify-between md:justify-center gap-2 hover:bg-white/5 transition-colors h-full">
                         <div
-                            class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-indigo-100 group-hover:text-indigo-600 transition">
+                            class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-slate-400 group-hover:bg-indigo-600/10 group-hover:text-indigo-400 transition border border-white/5">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 stroke-width="2.5">
                                 <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -376,13 +426,14 @@
 
                     <div id="log-modal"
                         class="hidden absolute bottom-0 right-0 w-[320px] h-[400px] glass rounded-[36px] flex flex-col overflow-hidden shadow-2xl z-50 animate-fade-in">
-                        <div class="px-5 py-4 border-b border-slate-100 flex justify-between items-center bg-white/60">
-                            <span class="text-[10px] font-black text-slate-500 uppercase">System Logs</span>
+                        <div
+                            class="px-5 py-4 border-b border-slate-100/10 flex justify-between items-center bg-white/10">
+                            <span class="text-[10px] font-black text-slate-400 uppercase">System Logs</span>
                             <button onclick="toggleLog()"
-                                class="text-slate-300 hover:text-rose-500 transition font-black text-lg">×</button>
+                                class="text-slate-400 hover:text-rose-400 transition font-black text-lg">×</button>
                         </div>
                         <div id="cron-logs-container"
-                            class="flex-1 overflow-y-auto p-4 font-mono text-[9px] space-y-1.5 text-slate-500 bg-white/40 scrolling-content">
+                            class="flex-1 overflow-y-auto p-4 font-mono text-[9px] space-y-1.5 text-slate-500 bg-white/5 scrolling-content">
                         </div>
                     </div>
                 </div>
@@ -391,7 +442,7 @@
 
         <!-- フッター -->
         <footer
-            class="hidden md:flex h-5 justify-between items-center shrink-0 border-t border-slate-100 pt-1 text-[7px] font-black text-slate-300 uppercase tracking-[0.6em]">
+            class="hidden md:flex h-5 justify-between items-center shrink-0 border-t border-slate-100/10 pt-1 text-[7px] font-black text-slate-300 uppercase tracking-[0.6em]">
             <span>Secured By AirFuture Ultra-Infratrucure</span>
             <span>Version 7.0 (Production-Ready)</span>
         </footer>
@@ -477,14 +528,14 @@
             document.getElementById('ops-today').innerText = k.posted_today || 0;
             const active = (k.autopost_status || '').match(/ON|ACTIVE/);
             document.getElementById('ops-status').innerText = active ? '稼働中' : '停止中';
-            document.getElementById('ops-status-container').className = active ? 'px-3 py-1.5 rounded-full text-[8px] font-black uppercase tracking-widest bg-emerald-100 text-emerald-700 border border-emerald-200' : 'px-3 py-1.5 rounded-full text-[8px] font-black uppercase tracking-widest bg-rose-100 text-rose-700 border border-rose-200';
+            document.getElementById('ops-status-container').className = active ? 'px-3 py-1.5 rounded-full text-[8px] font-black uppercase tracking-widest bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'px-3 py-1.5 rounded-full text-[8px] font-black uppercase tracking-widest bg-rose-500/10 text-rose-400 border border-rose-500/20';
 
             document.getElementById('kpi-clicks').innerText = (k.total_clicks || 0).toLocaleString();
             document.getElementById('kpi-cv').innerText = (k.total_cv || 0).toLocaleString();
             document.getElementById('kpi-revenue').innerText = '¥' + (k.total_revenue || 0).toLocaleString();
             document.getElementById('kpi-cvr').innerText = (k.cvr || "0.0") + '%';
 
-            // PV Trend Chart Initialization
+            // PV Trend Chart Initialization (Temporal Density Matrix)
             const ctx = document.getElementById('pvTrendChart').getContext('2d');
             const trend = k.pv_trend || [];
             if (trendChart) trendChart.destroy();
@@ -493,12 +544,14 @@
                 data: {
                     labels: trend.map(d => d.t),
                     datasets: [{
-                        label: 'PV Flux',
+                        label: 'DAILY PV',
                         data: trend.map(d => d.v),
                         borderColor: '#10b981',
-                        backgroundColor: 'rgba(16, 185, 129, 0.05)',
-                        borderWidth: 2,
-                        pointRadius: 0,
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#10b981',
+                        pointBorderColor: 'rgba(255,255,255,0.2)',
                         tension: 0.4,
                         fill: true
                     }]
@@ -508,8 +561,8 @@
                     maintainAspectRatio: false,
                     plugins: { legend: { display: false } },
                     scales: {
-                        x: { display: true, grid: { display: false }, border: { display: false }, ticks: { color: '#94a3b8', font: { size: 7, weight: 'bold' } } },
-                        y: { display: true, grid: { color: '#f1f5f9' }, border: { display: false }, ticks: { color: '#94a3b8', font: { size: 7, weight: 'bold' }, stepSize: 1 } }
+                        x: { display: true, grid: { display: false }, border: { display: false }, ticks: { color: '#64748b', font: { size: 8, weight: 'bold' } } },
+                        y: { display: true, grid: { color: 'rgba(255,255,255,0.03)' }, border: { display: false }, ticks: { color: '#64748b', font: { size: 8, weight: 'bold' } } }
                     }
                 }
             });
@@ -580,26 +633,23 @@
             });
             container.classList.remove('invisible');
 
+            // ... Journey Flow Rendering
             const journeys = data.topJourneys || [];
             const pathContainer = document.getElementById('stats-container');
             const pathEmpty = document.getElementById('stats-empty');
             if (journeys.length > 0) {
-                // フロー形式でレンダリング (最大4件)
-                pathContainer.innerHTML = journeys.slice(0, 4).map((j, idx) => `
-                    <div class="w-full flex items-center gap-4 group">
-                        <div class="relative flex flex-col items-center">
-                            <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px] font-black shadow-lg z-10">${j.count}</div>
-                            ${idx < Math.min(journeys.length, 4) - 1 ? '<div class="absolute top-8 w-0.5 h-6 bg-slate-100"></div>' : ''}
-                        </div>
-                        <div class="flex-1 bg-white/60 p-2.5 rounded-2xl border border-white shadow-sm hover:shadow-md transition-all flex items-center justify-between">
-                            <p class="text-[10px] font-black text-slate-600 tracking-tight leading-tight">${j.path}</p>
-                            <span class="text-[6px] font-black text-slate-300 uppercase ml-2">PV</span>
+                pathContainer.innerHTML = journeys.slice(0, 5).map((j, idx) => `
+                    <div class="w-full flex items-center gap-4 animate-fade-in" style="animation-delay: ${idx * 60}ms">
+                        <div class="w-8 h-8 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-[10px] font-black border border-emerald-500/20 shrink-0">${j.count}</div>
+                        <div class="flex-1 bg-white/5 p-3 rounded-2xl border border-white/5 flex items-center justify-between min-w-0">
+                            <p class="text-[10px] font-bold text-slate-400 truncate tracking-tight">${j.path}</p>
+                            <span class="text-[7px] font-black text-slate-600 uppercase ml-2">PV</span>
                         </div>
                     </div>`).join('');
                 pathEmpty.classList.add('hidden');
             } else { pathContainer.innerHTML = ''; pathEmpty.classList.remove('hidden'); }
 
-            document.getElementById('storage-status').innerHTML = `<span class="opacity-40">SYNCED</span> | <span class="text-indigo-400 font-black">DEV: ${k.internal?.dev_clicks || 0}</span> | <span class="text-slate-300 font-black">BOT: ${k.internal?.bot_clicks || 0}</span>`;
+            document.getElementById('storage-status').innerHTML = `SYNCED | <span class="text-indigo-400">DEV: ${k.internal?.dev_clicks || 0}</span> | <span class="text-emerald-400">BOT: ${k.internal?.bot_clicks || 0}</span>`;
         }
         if (adminPW) tryFetch();
     </script>
