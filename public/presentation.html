@@ -366,7 +366,76 @@
             height: auto;
             display: block;
         }
+
+        .prompt-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .prompt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .prompt-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        .copy-btn {
+            background: rgba(99, 102, 241, 0.1);
+            color: #818cf8;
+            border: 1px solid rgba(129, 140, 248, 0.3);
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .prompt-text {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            white-space: pre-wrap;
+            line-height: 1.4;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+        }
     </style>
+    <script>
+        async function copyToClipboard(btn, text) {
+            try {
+                await navigator.clipboard.writeText(text);
+                const originalText = btn.innerText;
+                btn.innerText = 'COPIED!';
+                btn.style.background = '#10b981';
+                btn.style.color = 'white';
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.background = '';
+                    btn.style.color = '';
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -557,6 +626,55 @@
         </div>
 
         <div class="process-title" style="margin-top: 8rem;">
+            <h2>魔法の指示（プロンプト）集 - [コピペ用]</h2>
+            <p>Antigravityにそのまま貼り付けて使える、プロ級の結果を出すための指示セットです。</p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="prompt-header">
+                    <span class="prompt-title">X投稿作成 (検証スタッフ風)</span>
+                    <button class="copy-btn"
+                        onclick="copyToClipboard(this, 'あなたはAirFutureの技術検証スタッフです。ペットを飼っている家庭に向けて、部屋のニオイを『消臭剤で隠す』のではなく『分子レベルで分解する』重要性を、クールかつ信頼できる口調で伝えてください。最後に #AirFuture #ペットのいる暮らし を付けて、短く印象的に。')">COPY</button>
+                </div>
+                <p class="prompt-text">
+                    あなたはAirFutureの技術検証スタッフです。ペットを飼っている家庭に向けて、部屋のニオイを『消臭剤で隠す』のではなく『分子レベルで分解する』重要性を、クールかつ信頼できる口調で伝えてください。最後に
+                    #AirFuture #ペットのいる暮らし を付けて、短く印象的に。</p>
+            </div>
+
+            <div class="card">
+                <div class="prompt-header">
+                    <span class="prompt-title">Note記事構成 (信頼獲得型)</span>
+                    <button class="copy-btn"
+                        onclick="copyToClipboard(this, '花粉症に悩む人向けに『朝のスニーズ（くしゃみ）』の原因と対策を解説する記事案を作ってください。単に製品を売るのではなく、まずは『寝室の湿度調整』や『空気の通り道』などのアナログな対策を5つ紹介し、最後にその効果を最大化するツールとしてAirFutureを控えめに紹介してください。')">COPY</button>
+                </div>
+                <p class="prompt-text">
+                    花粉症に悩む人向けに『朝のスニーズ（くしゃみ）』の原因と対策を解説する記事案を作ってください。単に製品を売るのではなく、まずは『寝室の湿度調整』や『空気の通り道』などのアナログな対策を5つ紹介し、最後にその効果を最大化するツールとしてAirFutureを控えめに紹介してください。
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="prompt-header">
+                    <span class="prompt-title">高画質画像生成 (AI Image)</span>
+                    <button class="copy-btn"
+                        onclick="copyToClipboard(this, 'ミニマルで高級感のある白いポータブル空気清浄機の製品写真。背景は明るいリビングルームで、清潔感のある自然光が差し込んでいる。4K, Unreal Engine 5 render style, cinematic lighting, extreme detail, photorealistic.')">COPY</button>
+                </div>
+                <p class="prompt-text">ミニマルで高級感のある白いポータブル空気清浄機の製品写真。背景は明るいリビングルームで、清潔感のある自然光が差し込んでいる。4K, Unreal Engine 5
+                    render style, cinematic lighting, extreme detail, photorealistic.</p>
+            </div>
+
+            <div class="card">
+                <span class="card-icon">📸</span>
+                <h3>【画像準備のコツ】</h3>
+                <ul>
+                    <li><strong>スマホ写真は「水平垂直」</strong>: 三脚がなくても、壁や床のラインと並行に撮るだけでプロっぽくなります。</li>
+                    <li><strong>自然光が最強</strong>: 蛍光灯は消して、窓際で撮った写真がAI素材として最も映えます。</li>
+                    <li><strong>余白を残す</strong>: AIが編集しやすいよう、被写体の周りには十分なスペースを空けて撮影しましょう。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-title" style="margin-top: 8rem;">
             <h2>Hands-on Workshop（実践練習・ワークショップ）</h2>
             <p>その場でシステムに触れて覚えましょう</p>
         </div>
@@ -567,24 +685,25 @@
                 <span class="step-num" style="background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);">1</span>
                 <span class="step-title">AI記事の自動生成と確認</span>
                 <p class="step-desc">
-                    「AI生成」ボタンを押して、記事が秒速で作られる様子を見ます。<br>
-                    自動で「予約」状態になるため、そのまま放置でOKな流れを確認します。
+                    管理画面で「AI生成」ボタンを押し、記事が秒速で作られ「直接予約」される様子を見ます。
                 </p>
             </div>
 
             <div class="flow-step">
                 <span class="step-num" style="background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);">2</span>
-                <span class="step-title">解析データの読み取り</span>
+                <span class="step-title">二軸グラフで「相関」を読み解く</span>
                 <p class="step-desc">
-                    過去、どの投稿が一番クリックされたか？ どのLPが一番売れているか？ という「お宝データ」を管理画面から見つけ出します。
+                    新しくなったグラフで、過去7日間の「投稿数（青）」と「PV（緑）」を見比べます。<br>
+                    「投稿を増やした日にアクセスが伸びているか？」という因果関係をチェックします。
                 </p>
             </div>
 
             <div class="flow-step">
                 <span class="step-num" style="background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);">3</span>
-                <span class="step-title">AIへの指示出し体験</span>
+                <span class="step-title">Antigravityへのコピペ指示体験</span>
                 <p class="step-desc">
-                    Antigravityに「今日の生成内容はどうだった？」と聞いてみましょう。彼がどう分析し、どう答えを出すかの対話の仕方を練習します。
+                    上記の「プロンプト集」から好きなものをコピーし、AIに投げてみましょう。<br>
+                    人間が1時間かかる記事構成が、数秒で目の前に現れる驚きを体験します。
                 </p>
             </div>
         </div>

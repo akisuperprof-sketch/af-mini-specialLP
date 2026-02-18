@@ -459,14 +459,15 @@
                             </select>
                         </div>
                     </div>
-                    <div class="flex-1 flex flex-col min-h-0">
-                        <!-- グラフエリア -->
-                        <div class="h-[45%] p-4 border-b border-slate-50/10 bg-slate-50/5">
+                    <div class="flex-1 flex flex-col md:flex-row min-h-0">
+                        <!-- グラフエリア (左側 60%) -->
+                        <div
+                            class="w-full md:w-[60%] p-4 border-b md:border-b-0 md:border-r border-slate-50/10 bg-slate-50/5 relative">
                             <canvas id="pvTrendChart"></canvas>
                         </div>
-                        <!-- 回遊フローエリア -->
+                        <!-- 回遊フローエリア (右側 40%) -->
                         <div id="stats-container"
-                            class="flex-1 p-3 flex flex-col justify-center items-center gap-2 overflow-y-auto scrolling-content">
+                            class="w-full md:w-[40%] p-3 flex flex-col justify-start items-center gap-1.5 overflow-y-auto scrolling-content bg-white/2">
                         </div>
                     </div>
                     <div id="stats-empty"
@@ -735,7 +736,9 @@
                     plugins: {
                         legend: {
                             display: true,
-                            labels: { color: '#94a3b8', font: { size: 8, weight: 'bold' }, boxWidth: 10 }
+                            position: 'top',
+                            align: 'end',
+                            labels: { color: '#94a3b8', font: { size: 8, weight: 'bold' }, boxWidth: 10, padding: 4 }
                         }
                     },
                     scales: {
@@ -744,6 +747,8 @@
                             type: 'linear',
                             display: true,
                             position: 'left',
+                            suggestedMax: 10,
+                            min: 0,
                             grid: { color: 'rgba(255,255,255,0.03)' },
                             ticks: { color: '#10b981', font: { size: 8, weight: 'bold' } }
                         },
@@ -751,9 +756,10 @@
                             type: 'linear',
                             display: true,
                             position: 'right',
+                            suggestedMax: 5,
+                            min: 0,
                             grid: { display: false },
-                            ticks: { color: '#6366f1', font: { size: 8, weight: 'bold' }, precision: 0 },
-                            min: 0
+                            ticks: { color: '#6366f1', font: { size: 8, weight: 'bold' }, precision: 0 }
                         }
                     }
                 }
