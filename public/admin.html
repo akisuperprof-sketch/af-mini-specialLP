@@ -243,36 +243,38 @@
                 </div>
             </div>
 
-            <nav class="hidden lg:flex items-center gap-6">
-                <a href="https://x.com/airfuture_ai" target="_blank"
-                    class="flex items-center gap-1.5 text-slate-400 hover:text-indigo-400 transition font-black text-[10px] uppercase tracking-wider">
-                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                    </svg>
-                    X Account ↗
-                </a>
-                <a href="https://cron-job.org" target="_blank"
-                    class="flex items-center gap-1.5 text-slate-400 hover:text-emerald-400 transition font-black text-[10px] uppercase tracking-wider">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                        <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    Cron Status ↗
-                </a>
-                <a href="https://docs.google.com/spreadsheets/d/1XasT4Wf27uFByXN_f6o8F6N_A0zNf-6lY37z7x_oA8c/edit#gid=155635466"
-                    target="_blank"
-                    class="flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 transition font-black text-[10px] uppercase tracking-wider">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                        <path
-                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                    Spreadsheet ↗
-                </a>
-            </nav>
+            <!-- Old nav removed to centralize actions -->
 
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-1 md:gap-3">
+                <!-- 外部リンクボタン群 -->
+                <div class="flex items-center gap-1 mr-1 md:mr-2">
+                    <a href="https://x.com/airfuture_ai" target="_blank" title="X Account"
+                        class="w-8 h-8 flex items-center justify-center bg-white/5 border border-white/5 rounded-xl text-slate-400 hover:bg-slate-900 hover:text-indigo-400 transition-all active:scale-90">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg>
+                    </a>
+                    <a href="https://cron-job.org" target="_blank" title="Cron Status"
+                        class="w-8 h-8 flex items-center justify-center bg-white/5 border border-white/5 rounded-xl text-slate-400 hover:bg-slate-900 hover:text-emerald-400 transition-all active:scale-90">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            stroke-width="2.5">
+                            <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </a>
+                    <a href="https://docs.google.com/spreadsheets/d/1XasT4Wf27uFByXN_f6o8F6N_A0zNf-6lY37z7x_oA8c/edit#gid=155635466"
+                        target="_blank" title="Master Sheet"
+                        class="w-8 h-8 flex items-center justify-center bg-white/5 border border-white/5 rounded-xl text-emerald-500 hover:bg-emerald-500/10 transition-all active:scale-90">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            stroke-width="2.5">
+                            <path
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </a>
+                </div>
+
                 <div id="ops-status-container"
-                    class="px-3 py-1.5 rounded-full text-[8px] font-black uppercase tracking-widest bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    class="px-3 py-1.5 rounded-full text-[8px] font-black uppercase tracking-widest bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-[0_0_15px_-5px_#10b981]">
                     <span id="ops-status">稼働中</span>
                 </div>
                 <button onclick="logout()"
