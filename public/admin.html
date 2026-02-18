@@ -547,9 +547,9 @@
             </div>
 
             <div class="grid grid-cols-2 gap-4">
-                <button onclick="triggerGenerate(true)"
+                <button onclick="triggerGenerate(true, event)"
                     class="bg-indigo-600 text-white font-black py-5 rounded-3xl hover:bg-indigo-700 transition-all text-sm shadow-[0_0_30px_-5px_rgba(99,102,241,0.5)]">物語形式</button>
-                <button onclick="triggerGenerate(false)"
+                <button onclick="triggerGenerate(false, event)"
                     class="bg-white/10 text-slate-200 font-black py-5 rounded-3xl hover:bg-white/20 transition-all text-sm border border-white/10">リスト形式</button>
             </div>
             <button onclick="closeGenerateModal()"
@@ -599,8 +599,10 @@
 
         async function tryFetch() {
             try {
+                if (!adminPW) return;
                 const b = document.getElementById('show-bots')?.checked || false;
                 const p = document.getElementById('filter-period')?.value || 'all';
+                console.log(`[Fetch] Starting dashboard fetch... PW: ${adminPW ? '***' : 'NONE'}`);
                 const res = await fetch(`/api/dashboard?human_only=${!b}&period=${p}`, { headers: { 'x-admin-password': adminPW } });
                 if (res.status === 401) { logout(); return; }
                 const data = await res.json();
@@ -612,11 +614,13 @@
             } catch (err) { console.error(err); }
         }
 
-        async function triggerGenerate(storyMode) {
-            const btn = event.target;
+        async function triggerGenerate(storyMode, e) {
+            const btn = (e && e.currentTarget) ? e.currentTarget : (e && e.target ? e.target : event.target);
             const originalText = btn.innerText;
             const days = document.getElementById('gen-days').value;
             const memo = document.getElementById('gen-memo').value;
+
+            console.log(`[AI Generation] Start. Mode: ${storyMode ? 'Story' : 'List'}, Days: ${days}`);
 
             // UI Feedback: Disable and show loading
             btn.disabled = true;
@@ -629,16 +633,27 @@
                     headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPW },
                     body: JSON.stringify({ storyMode, days, memo })
                 });
+
+                if (res.status === 401) {
+                    alert('認証エラー: セッションが切れました。ログインし直してください。');
+                    logout();
+                    return;
+                }
+
                 if (res.ok) {
+                    const data = await res.json();
+                    console.log('[AI Generation] Success:', data);
                     location.reload();
                 } else {
-                    alert('生成に失敗しました。');
+                    const err = await res.json().catch(() => ({}));
+                    alert('生成に失敗しました: ' + (err.error || 'Server Error'));
                     btn.disabled = false;
                     btn.innerText = originalText;
                     btn.classList.remove('opacity-50', 'cursor-not-allowed');
                 }
-            } catch (e) {
-                alert(e.message);
+            } catch (err) {
+                console.error('[AI Generation] Crash:', err);
+                alert('通信エラーが発生しました: ' + err.message);
                 btn.disabled = false;
                 btn.innerText = originalText;
                 btn.classList.remove('opacity-50', 'cursor-not-allowed');
