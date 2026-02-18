@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirFuture 次世代システム完全解説資料</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700&family=Noto+Sans+JP:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0b10;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --accent: #4f46e5;
+            --accent-glow: rgba(79, 70, 229, 0.4);
+            --text-main: #e2e8f0;
+            --text-dim: #94a3b8;
+            --gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Outfit', 'Noto Sans JP', sans-serif;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 6rem;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        header p {
+            color: var(--text-dim);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--accent-glow);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+            opacity: 0.7;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #fff;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin: 1.5rem 0 0.5rem 0;
+            border-left: 4px solid var(--accent);
+            padding-left: 10px;
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+        .card li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dim);
+        }
+
+        .card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.1);
+            color: #818cf8;
+            padding: 0.25rem 0.75rem;
+            border-radius: 99px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(129, 140, 248, 0.2);
+        }
+
+        .process-title {
+            grid-column: 1 / -1;
+            margin-top: 6rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .process-title h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .process-title p {
+            color: var(--text-dim);
+            margin-bottom: 3rem;
+        }
+
+        .flow-container {
+            grid-column: 1 / -1;
+            background: linear-gradient(to right, rgba(99, 102, 241, 0.05), rgba(168, 85, 247, 0.05));
+            border-radius: 32px;
+            padding: 4rem;
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            margin-bottom: 4rem;
+        }
+
+        .flow-step {
+            margin-bottom: 3.5rem;
+            position: relative;
+        }
+
+        .flow-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-num {
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            background: var(--gradient);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 45px;
+            font-weight: bold;
+            margin-right: 1.5rem;
+            font-size: 1.2rem;
+            color: white;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .step-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #fff;
+            vertical-align: middle;
+        }
+
+        .step-desc {
+            margin-top: 1.2rem;
+            margin-left: 4.5rem;
+            color: var(--text-dim);
+            font-size: 1.1rem;
+        }
+
+        .dictionary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .dict-item {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .dict-term {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .dict-def {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 8rem;
+            padding: 4rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+        }
+
+        .floating-blob {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            z-index: -1;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: move 20s infinite alternate;
+        }
+
+        @keyframes move {
+            from {
+                transform: translate(-30%, -30%);
+            }
+
+            to {
+                transform: translate(30%, 30%);
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                color: #000;
+            }
+
+            .container {
+                padding: 0;
+                max-width: 100%;
+            }
+
+            .card {
+                break-inside: avoid;
+                border: 1px solid #ddd;
+                box-shadow: none;
+                background: white;
+                margin-bottom: 2rem;
+                page-break-inside: avoid;
+            }
+
+            .card h2,
+            .card h3,
+            .card li {
+                color: #000;
+            }
+
+            .floating-blob,
+            .badge {
+                display: none;
+            }
+
+            header h1 {
+                -webkit-text-fill-color: #4f46e5;
+                font-size: 3rem;
+                margin-top: 0;
+            }
+
+            .flow-container {
+                background: white;
+                border: 1px solid #ddd;
+                color: #000;
+                break-inside: avoid;
+            }
+
+            .step-title,
+            .step-desc {
+                color: #000;
+            }
+
+            .dict-item {
+                border: 1px solid #ddd;
+                background: white;
+                color: #000;
+            }
+
+            .dict-term,
+            .dict-def {
+                color: #000;
+            }
+        }
+
+        .img-container {
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .img-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="floating-blob"></div>
+    <div class="container">
+        <header>
+            <div class="badge">次世代AI管理システム (Next Gen AI System)</div>
+            <h1>AirFuture Evolution<br><small
+                    style="font-size: 0.5em; vertical-align: middle; opacity: 0.8;">～AIと人間の共創基盤～</small></h1>
+            <p>AI×自動化×マーケティングが融合した、少数精鋭チームのための進化するビジネス基盤</p>
+        </header>
+
+        <div class="grid">
+            <!-- Part 1 -->
+            <div class="card">
+                <span class="card-icon">🤖</span>
+                <div class="badge">AIアシスタント (AI Assistance)</div>
+                <h2>① Google Antigravity (アンチグラビティ)</h2>
+                <div class="img-container">
+                    <img src="./assets/presentation/ai_chat.png" alt="AI Chat Interface">
+                </div>
+                <h3>【概要と役割】</h3>
+                <ul>
+                    <li><strong>自律型エージェント</strong>: 指示を出すだけで、裏側のコード修正からサーバー設定までを代行する「動くAI」です。</li>
+                    <li><strong>マルチプロジェクト制御</strong>: LP（紹介ページ）と自動投稿システム、両方の最新状態を常に把握しています。</li>
+                    <li><strong>ナレッジ蓄積 (KI系)</strong>: 過去の修正履歴や重要なルールを記憶し、同じミスを二度と起こさない「知能」を持ちます。</li>
+                </ul>
+            </div>
+
+            <!-- Part 2 -->
+            <div class="card">
+                <span class="card-icon">🚀</span>
+                <div class="badge">SNS自動化 (SMM Automation)</div>
+                <h2>② X(旧Twitter)自動投稿システム</h2>
+                <div class="img-container">
+                    <img src="./assets/presentation/admin_dashboard.png" alt="X Auto Post Dashboard">
+                </div>
+                <h3>【概要と役割】</h3>
+                <ul>
+                    <li><strong>思考する自動生成</strong>: Gemini API（AIの脳）を使い、季節・トレンド・お悩みに合わせた最適な文章を自動生成します。</li>
+                    <li><strong>完全自律運用</strong>: 人間が「生成」ボタンを押すだけで、8時・12時・20時のゴールデンタイムに自動で予約配置されます。</li>
+                    <li><strong>安全性重視</strong>: 万が一AIが動かない場合も、事前に用意された高品質な代替記事が下書きに入り、投稿を止めません。</li>
+                </ul>
+            </div>
+
+            <!-- Part 3 -->
+            <div class="card">
+                <span class="card-icon">💎</span>
+                <div class="badge">データ解析 (Data Analytics)</div>
+                <h2>③ LP管理・効果測定システム</h2>
+                <div class="img-container">
+                    <img src="./assets/presentation/x_post.png" alt="Social Media Analytics">
+                </div>
+                <h3>【概要と役割】</h3>
+                <ul>
+                    <li><strong>集約管理</strong>: ペット、花粉症、3Dプリンター等、複数の特化LP（紹介ページ）を一つの画面で監視できます。</li>
+                    <li><strong>高度な追跡 (CVトレース)</strong>: 「どの投稿」から「誰（訪問者番号）」が「どのページ」を見て「成約」したかを1件ずつ可視化。</li>
+                    <li><strong>リアルタイムKPI</strong>: クリック数や成約率（CVR）がグラフで即座に反映され、次に打つべき手が明確になります。</li>
+                </ul>
+            </div>
+
+            <!-- Part 4 -->
+            <div class="card">
+                <span class="card-icon">🧠</span>
+                <div class="badge">Success Patterns</div>
+                <h2>④ 過去の教訓と修正の傾向</h2>
+                <h3>【私たちが学んだこと】</h3>
+                <ul>
+                    <li><strong>「AIらしさ」の徹底排除</strong>: 以前は【AI生成】等のラベルがありましたが、不自然さを消すためにすべて「人間の生の声」に見えるよう刷新しました。</li>
+                    <li><strong>セキュリティの鉄則</strong>: APIキー（鍵）を安全に守るため、GitHub上から機密情報を完全に隔離し、防御を固めました。</li>
+                    <li><strong>AIを部下として扱う</strong>: AIが「完了しました」と言っても、実際の画面で「自分の目」で確認するダブルチェックの習慣が成功の鍵です。</li>
+                </ul>
+            </div>
+
+            <!-- Part 5 -->
+            <div class="card">
+                <span class="card-icon">⚡</span>
+                <div class="badge">Tool Mastery</div>
+                <h2>⑤ Antigravityの具体的な活用方法</h2>
+                <h3>【あなたができること】</h3>
+                <ul>
+                    <li><strong>「～を表示して」と頼む</strong>: 「管理画面に今月の収益グラフを追加して」と言えば、数分で機能が出来上がります。</li>
+                    <li><strong>異常がないか聞く</strong>: 「サーバーのログを見て、エラーが出ていないか確認して」と言えば、一瞬で健康診断が完了します。</li>
+                    <li><strong>履歴から学ぶ</strong>: 「前回の修正理由を教えて」と聞けば、AIが過去の経緯を要約して教えてくれます。</li>
+                </ul>
+            </div>
+
+            <!-- Part 6 -->
+            <div class="card">
+                <span class="card-icon">🔥</span>
+                <div class="badge">Core Values</div>
+                <h2>⑥ 少数精鋭×AI人材としての成長</h2>
+                <h3>【目指すべき姿】</h3>
+                <ul>
+                    <li><strong>1人×AI = 複数人の成果</strong>: 専門スタッフを何人も雇う代わりに、AIをエンジニアとして使いこなすことで固定費を最大効率化。</li>
+                    <li><strong>AIアーキテクト（設計者）</strong>: ツールを使うだけでなく、「AIにどう指示すれば売上が上がるか」を設計する存在へ。</li>
+                    <li><strong>市場の勝者へ</strong>: 改善スピードをAIで高速化することで、競合が追いつけない速さでPDCAを回します。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-title">
+            <h2>開発・更新の全体フロー (System Workflow)</h2>
+            <p>あなたがAntigravityを使って、どのようにシステムを成長させるかの手順です。</p>
+            <div class="img-container" style="max-width: 800px; margin: 0 auto 3rem;">
+                <img src="./assets/presentation/dev_flow.png" alt="Development Workflow Diagram">
+            </div>
+        </div>
+
+        <div class="flow-container">
+            <div class="flow-step">
+                <span class="step-num">1</span>
+                <span class="step-title">仕様を伝える (Planning / Specifications)</span>
+                <p class="step-desc">
+                    Antigravityのチャット欄に「やりたいこと」を日本語で書き込みます。<br>
+                    例：「自動投稿の文章を、もっと検証スタッフらしいクールな口調に変えて」
+                </p>
+            </div>
+
+            <div class="flow-step">
+                <span class="step-num">2</span>
+                <span class="step-title">AIが開発する (Development)</span>
+                <p class="step-desc">
+                    AIが仕様に合わせてプログラムを書き換え、テストを実行します。<br>
+                    開発中は「ローカル環境（Local）：自分のPC上だけの仮の場所」で安全にテストされます。
+                </p>
+            </div>
+
+            <div class="flow-step">
+                <span class="step-num">3</span>
+                <span class="step-title">GitHubへ保存する (Storage / Version Control)</span>
+                <p class="step-desc">
+                    AIに「GitHubに保存（Push）して」と伝えます。<br>
+                    これで、コードが世界で最も安全なコード保管場所「GitHub」にバックアップされます。
+                </p>
+            </div>
+
+            <div class="flow-step">
+                <span class="step-num">4</span>
+                <span class="step-title">Vercelでデプロイ[公開]する (Deployment)</span>
+                <p class="step-desc">
+                    GitHubに保存されると、連動して「Vercel（サーバー）」に最新のプログラムが送られます（デプロイ）。<br>
+                    これで「本番環境（Production）：世界中の人が見れる場所」が更新され、新しい機能が使えるようになります。
+                </p>
+            </div>
+        </div>
+
+        <div class="process-title">
+            <h2>これだけは覚えたい「用語辞典」 (Terminology Dictionary)</h2>
+            <p>打ち合わせや運用でよく出てくる用語を、簡単に解説します。</p>
+        </div>
+
+        <div class="dictionary-grid-container">
+            <div class="dictionary-grid">
+                <div class="dict-item">
+                    <span class="dict-term">AIエージェント (AI Agent)</span>
+                    <p class="dict-def">ただのチャットではなく、自ら考えて「ファイルを作る」「サーバーを動かす」といった実務を遂行する賢いAI（Antigravityのこと）です。</p>
+                </div>
+                <div class="dict-item">
+                    <span class="dict-term">デプロイ (Deploy)</span>
+                    <p class="dict-def">作ったプログラムを、インターネット上の本番用サーバーに反映し、一般公開することです。いわば「開店準備の完了」です。</p>
+                </div>
+                <div class="dict-item">
+                    <span class="dict-term">本番 vs ローカル (Production vs Local)</span>
+                    <p class="dict-def">「本番」は世界中の人が見る実際のサイト。「ローカル」は自分のPC内だけの練習場です。ローカルで試して良ければ本番へ出します。</p>
+                </div>
+                <div class="dict-item">
+                    <span class="dict-term">API (エーピーアイ)</span>
+                    <p class="dict-def">「専門業者への窓口」です。例えば、AIの脳を使いたい時に「GoogleのAI窓口（API）」に依頼を出すという仕組みです。</p>
+                </div>
+                <div class="dict-item">
+                    <span class="dict-term">GitHub (ギットハブ)</span>
+                    <p class="dict-def">世界中のプログラムが保管されている「魔法の金庫」です。過去のすべての変更が記録されており、いつでも過去に戻せます。</p>
+                </div>
+                <div class="dict-item">
+                    <span class="dict-term">Vercel (バーセル)</span>
+                    <p class="dict-def">私たちのサイトを24時間眠らずに表示してくれている「土地（サーバー）」のような場所です。</p>
+                </div>
+                <div class="dict-item">
+                    <span class="dict-term">ハルシネーション (Hallucination)</span>
+                    <p class="dict-def">AIが自信満々に「もっともらしい嘘」をつく現象です。だからこそ、人間の確認（ダブルチェック）が必要です。</p>
+                </div>
+                <div class="dict-item">
+                    <span class="dict-term">CV / CVR (シーブイ / シーブイアール)</span>
+                    <p class="dict-def">CVは「成約（購入など）」。CVRは「見てくれた人のうち、何％が成約したか」という重要指標です。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="process-title" style="margin-top: 8rem;">
+            <h2>Hands-on Workshop（実践練習・ワークショップ）</h2>
+            <p>その場でシステムに触れて覚えましょう</p>
+        </div>
+
+        <div class="flow-container"
+            style="background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.2);">
+            <div class="flow-step">
+                <span class="step-num" style="background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);">1</span>
+                <span class="step-title">AI記事の自動生成と確認</span>
+                <p class="step-desc">
+                    「AI生成」ボタンを押して、記事が秒速で作られる様子を見ます。<br>
+                    自動で「予約」状態になるため、そのまま放置でOKな流れを確認します。
+                </p>
+            </div>
+
+            <div class="flow-step">
+                <span class="step-num" style="background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);">2</span>
+                <span class="step-title">解析データの読み取り</span>
+                <p class="step-desc">
+                    過去、どの投稿が一番クリックされたか？ どのLPが一番売れているか？ という「お宝データ」を管理画面から見つけ出します。
+                </p>
+            </div>
+
+            <div class="flow-step">
+                <span class="step-num" style="background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);">3</span>
+                <span class="step-title">AIへの指示出し体験</span>
+                <p class="step-desc">
+                    Antigravityに「今日の生成内容はどうだった？」と聞いてみましょう。彼がどう分析し、どう答えを出すかの対話の仕方を練習します。
+                </p>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 AirFuture Evolution - Built by Antigravity
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【配布用】AirFuture 操作マニュアル (かんたんガイド)</title>
+    <style>
+        body {
+            font-family: "Meiryo", "MS PGothic", sans-serif;
+            line-height: 1.8;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f1f5f9;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+        }
+
+        h1 {
+            color: #4f46e5;
+            border-bottom: 4px solid #4f46e5;
+            padding-bottom: 10px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #1e293b;
+            margin-top: 40px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            border-left: 6px solid #4f46e5;
+            padding-left: 15px;
+        }
+
+        .step-num {
+            color: #4f46e5;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .highlight {
+            background: #fef08a;
+            padding: 2px 5px;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        .admin-box {
+            background: #4f46e5;
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .admin-box a {
+            color: #fff;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .ai-chat {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 20px;
+            border-radius: 12px;
+            font-style: italic;
+        }
+
+        .important {
+            color: #e11d48;
+            font-weight: bold;
+            padding: 10px;
+            border: 2px solid #e11d48;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        ol,
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .mockup {
+            margin: 20px 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .mockup img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                padding: 30px;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .admin-box {
+                background: #f8fafc !important;
+                color: #008 !important;
+                border: 1px solid #ddd;
+                -webkit-print-color-adjust: exact;
+            }
+
+            .admin-box a {
+                color: #4f46e5;
+            }
+
+            .ai-chat {
+                background: #fff !important;
+                border: 1px solid #ddd;
+                color: #333;
+                -webkit-print-color-adjust: exact;
+            }
+
+            .important {
+                border: 2px solid #000;
+                color: #000;
+            }
+
+            h1,
+            h2 {
+                break-after: avoid;
+            }
+
+            .mockup {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>AirFuture かんたん操作ガイド</h1>
+        <p>今日から、あなたはこの「AirFuture（エアフューチャー）」という空気清浄機の販売を支える、強力なツールのリーダーです。難しい知識は一切不要です。</p>
+
+        <div class="mockup">
+            <img src="./public/assets/manual/admin_dashboard.png" alt="管理画面のイメージ">
+        </div>
+
+        <h2><span class="step-num">Step 1</span> 日々の仕事：管理画面を開く</h2>
+        <p>まずは専用の「管理画面」をお気に入りに入れてください。ここがあなたのメイン作業場です。</p>
+        <div class="admin-box">
+            👉 <strong>管理画面（URL）:</strong> <br>
+            <a href="https://airfuture.vercel.app/admin.html"
+                target="_blank">https://airfuture.vercel.app/admin.html</a>
+        </div>
+        <ul>
+            <li><strong>投稿の作成</strong>：ボタンひとつでAIが記事を作ってくれます。</li>
+            <li><strong>予約</strong>：作った記事を「投稿予定（予約）」にするだけです。</li>
+            <li><strong>データ確認</strong>：どの広告が人気か、エクセルのように数字を見ることができます。</li>
+        </ul>
+
+        <h2><span class="step-num">Step 2</span> 頼りになる助っ人：AI（アシスタント）</h2>
+        <p>困ったことがあれば、右下のチャット欄にいるAIに、普通の日本語で話しかけてください。</p>
+
+        <div class="mockup">
+            <img src="./public/assets/manual/ai_chat.png" alt="AIチャットのイメージ">
+        </div>
+
+        <div class="ai-chat">
+            「記事の文字をもっと優しく変えて」<br>
+            「新しくペット用のページを作りたい」<br>
+            「最近の売れ行きはどう？」
+        </div>
+        <p>あなたが言葉でお願いするだけで、AIが裏側の設定をすべて自動で行います。あなたは<span class="highlight">「確認してOKを出す」</span>だけです。</p>
+
+        <h2><span class="step-num">Step 3</span> 毎日のルーチンワーク</h2>
+        <p>時間は任意ですが、以下のタイミングで「健康診断」をお願いします。</p>
+        <ul>
+            <li><strong>8時・12時・20時</strong>：X（旧Twitter）を開き、予約した投稿が正しく反映されているか確認。</li>
+            <li><strong>手動サポート</strong>：万が一投稿が止まっていたら、管理画面から手動で投稿ボタンを押します。</li>
+            <li><strong>アクティブ交流</strong>：Xの検索窓で「悩み（例：花粉 辛い）」を検索し、共感できる人に「いいね・フォロー」を毎日100件以上行います。</li>
+        </ul>
+
+        <h2><span class="step-num">Step 4</span> あなたの成長と挑戦</h2>
+        <p>このシステムを使いこなした先には、以下のステップが待っています。</p>
+        <ul>
+            <li><strong>自分の環境を作る</strong>：GitHubやVercelのアカウントを自分で作り、自分だけのシステムを動かせるようにします。</li>
+            <li><strong>APIとアプリ開発</strong>：Antigravityを使って、ゲームや仕事に役立つアプリを自作する練習をします。</li>
+            <li><strong>自動化システムの構築</strong>：例として「毎日のニュースを調べて報告してくれるシステム」などをAIと一緒に作ってみましょう。</li>
+        </ul>
+
+        <h2><span class="step-num">Step 5</span> 実践練習：ひとつ記事を予約してみよう</h2>
+        <p>明日、一緒に以下の練習をしましょう。5分で覚えられます。</p>
+
+        <div class="mockup">
+            <img src="./public/assets/manual/x_post.png" alt="投稿予約のイメージ">
+        </div>
+
+        <ol>
+            <li>管理画面で【AI生成】ボタンを押す。</li>
+            <li>「承認待ち」というリストに記事が出てくるのを待つ。</li>
+            <li>内容が良ければ、時間を決めて【予約】に変更する。</li>
+        </ol>
+
+        <div class="important">
+            🚨 <strong>「何か変だな？」と思ったら</strong><br>
+            無理に解決しようとせず、すぐに担当者まで連絡してください。あなたが壊してしまうことはありませんので、自由に使ってみてください。
+        </div>
+
+        <div style="margin-top:40px; font-size: 0.8em; color: #666; text-align: center;">
+            &copy; 2026 AirFuture Project - 運用リーダー向け
+        </div>
+    </div>
+</body>
+
+</html>
