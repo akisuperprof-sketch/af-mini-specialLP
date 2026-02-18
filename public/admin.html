@@ -539,14 +539,36 @@
         }
 
         async function triggerGenerate(storyMode) {
+            const btn = event.target;
+            const originalText = btn.innerText;
             const days = document.getElementById('gen-days').value;
             const memo = document.getElementById('gen-memo').value;
-            if (!confirm('AI生成を開始しますか？')) return;
+
+            // UI Feedback: Disable and show loading
+            btn.disabled = true;
+            btn.innerText = '生成中...';
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
             try {
-                const res = await fetch('/api/generate', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPW }, body: JSON.stringify({ storyMode, days, memo }) });
-                if (res.ok) { location.reload(); }
-                else { alert('生成に失敗しました。'); }
-            } catch (e) { alert(e.message); }
+                const res = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'x-admin-password': adminPW },
+                    body: JSON.stringify({ storyMode, days, memo })
+                });
+                if (res.ok) {
+                    location.reload();
+                } else {
+                    alert('生成に失敗しました。');
+                    btn.disabled = false;
+                    btn.innerText = originalText;
+                    btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                }
+            } catch (e) {
+                alert(e.message);
+                btn.disabled = false;
+                btn.innerText = originalText;
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
         }
 
         async function postOp(id, action) {
