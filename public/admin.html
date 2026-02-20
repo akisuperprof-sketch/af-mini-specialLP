@@ -618,6 +618,7 @@
             if (!container) return;
             const toast = document.createElement('div');
             toast.className = `px-6 py-3 rounded-full text-white font-bold shadow-2xl transition-all duration-500 transform -translate-y-4 opacity-0 flex items-center gap-2 mb-2 text-sm whitespace-nowrap`;
+            toast.style.zIndex = "11000";
             toast.style.background = type === 'success' ? 'rgba(79, 70, 229, 0.95)' : 'rgba(239, 68, 68, 0.95)';
             toast.style.backdropFilter = 'blur(12px)';
             toast.style.border = '1px solid rgba(255,255,255,0.1)';
@@ -685,9 +686,10 @@
 
                     if (data.count > 0) {
                         showToast(`${data.count}件の記事を生成しました！`);
+                        closeGenerateModal();
                     } else {
                         // Display the reason for 0 count (usually similarity skip)
-                        showToast(`生成スキップ: ${data.message || '重複またはエラー'}`, 'error');
+                        showToast(`生成スキップ: ${data.message || '重複またはエリア不足'}`, 'error');
                     }
 
                     // UI Reset
